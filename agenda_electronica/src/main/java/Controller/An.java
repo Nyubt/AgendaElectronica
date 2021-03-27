@@ -6,13 +6,19 @@
 package Controller;
 
 /**
- *
- * @author Ale-PC
+ * Clasa an
+ * @author 
  */
 public class An {
 
+    /**
+     * Atribut pentru stocare date luna
+     */
     private Luna luni;
 
+    /**
+     * Clasa an constructor
+     */
     public An(Luna l) {
         luni = l;
     }
