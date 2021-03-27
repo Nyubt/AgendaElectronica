@@ -25,7 +25,7 @@ public class Agenda {
         alarme = alarm;
         timer = time;
     }
-
+    
     public String getModAfisare() {
         return modAfisare;
     }
@@ -57,7 +57,7 @@ public class Agenda {
     public void setTimer(Timer t) {
         timer = t;
     }
-
+    
     void Afisare() {
     }
 

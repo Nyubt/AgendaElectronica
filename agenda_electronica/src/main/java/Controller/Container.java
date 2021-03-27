@@ -16,10 +16,12 @@ public class Container {
     Eveniment evt;
 
     public Zi FurnizareZi(Date data) {
+        //citire din DB pt anumita zi
         return null;
     }
 
     public Luna FurnizareLuna(Date data) {
+        //
         return null;
     }
 
