@@ -16,6 +16,7 @@ import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -31,6 +32,7 @@ public class CalendarMain extends javax.swing.JFrame {
     String monthLabel = "";
     String yearLabel = "";
     int panelSelected = 0;
+    Calendar cal = Calendar.getInstance();
     
     /** Creates new form CalendarMain */
     public CalendarMain() {
@@ -100,10 +102,12 @@ public class CalendarMain extends javax.swing.JFrame {
         jScrollPane14 = new javax.swing.JScrollPane();
         jTableDec = new javax.swing.JTable();
         label12 = new java.awt.Label();
-        jDayPanel = new javax.swing.JPanel();
         jMonthPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jMonthTable = new javax.swing.JTable();
+        jWeekPanel = new javax.swing.JPanel();
+        jScrollPane15 = new javax.swing.JScrollPane();
+        jWeekTable = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         DateJumpButton = new javax.swing.JButton();
@@ -518,22 +522,6 @@ public class CalendarMain extends javax.swing.JFrame {
         jLayeredPanel.add(jYearPanel, "card2");
         jYearPanel.getAccessibleContext().setAccessibleName("jYearPanel");
 
-        jDayPanel.setBackground(new java.awt.Color(255, 204, 204));
-
-        javax.swing.GroupLayout jDayPanelLayout = new javax.swing.GroupLayout(jDayPanel);
-        jDayPanel.setLayout(jDayPanelLayout);
-        jDayPanelLayout.setHorizontalGroup(
-            jDayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 662, Short.MAX_VALUE)
-        );
-        jDayPanelLayout.setVerticalGroup(
-            jDayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 369, Short.MAX_VALUE)
-        );
-
-        jLayeredPanel.add(jDayPanel, "card3");
-        jDayPanel.getAccessibleContext().setAccessibleName("jDayPanel");
-
         jScrollPane2.setBorder(null);
 
         jMonthTable.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
@@ -572,6 +560,38 @@ public class CalendarMain extends javax.swing.JFrame {
         jLayeredPanel.add(jMonthPanel, "card4");
         jMonthPanel.getAccessibleContext().setAccessibleName("jMonthPanel");
         jMonthPanel.getAccessibleContext().setAccessibleParent(jLayeredPanel);
+
+        jWeekTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7"
+            }
+        ));
+        jScrollPane15.setViewportView(jWeekTable);
+        jWeekTable.getAccessibleContext().setAccessibleName("jWeekTable");
+
+        javax.swing.GroupLayout jWeekPanelLayout = new javax.swing.GroupLayout(jWeekPanel);
+        jWeekPanel.setLayout(jWeekPanelLayout);
+        jWeekPanelLayout.setHorizontalGroup(
+            jWeekPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
+        );
+        jWeekPanelLayout.setVerticalGroup(
+            jWeekPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jWeekPanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jLayeredPanel.add(jWeekPanel, "card3");
+        jWeekPanel.getAccessibleContext().setAccessibleName("jWeekPanel");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createTitledBorder(null, "Select Date", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Courier New", 0, 13)))); // NOI18N
         jPanel2.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
@@ -777,8 +797,8 @@ public class CalendarMain extends javax.swing.JFrame {
 
     private void jMenuItemDayViewItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jMenuItemDayViewItemStateChanged
         if(evt.getStateChange() == ItemEvent.SELECTED){
-            switchPanels(jDayPanel);
-            panelSelected = 3;
+            switchPanels(jWeekPanel);
+            panelSelected = 2;
         }
     }//GEN-LAST:event_jMenuItemDayViewItemStateChanged
 
@@ -799,11 +819,26 @@ public class CalendarMain extends javax.swing.JFrame {
                 CalendarFiller.month = 1;
                 CalendarFiller.year++;
             }
+        } else if(panelSelected == 2) {
+            if(CalendarFiller.month == 12 && (CalendarFiller.date + 7 > 31)){
+                CalendarFiller.month = 1;
+                CalendarFiller.year++;
+                CalendarFiller.date = CalendarFiller.date + 7 - 31;
+            } else {
+                cal.set(CalendarFiller.year, CalendarFiller.month - 1, CalendarFiller.date);
+                int dayOfYear = cal.get(Calendar.DAY_OF_YEAR);
+                dayOfYear += 7;
+                Year y = Year.of(CalendarFiller.year) ;
+                LocalDate ld = y.atDay(dayOfYear);
+                CalendarFiller.month = ld.getMonthValue();
+                CalendarFiller.date = ld.getDayOfMonth();
+            }
         } else {
             CalendarFiller.year++;
         }
         jMonthTextField.setText(String.valueOf(CalendarFiller.month));
         jYearTextField.setText(String.valueOf(CalendarFiller.year));
+        jDateText.setText(String.valueOf(CalendarFiller.date));
         switchPanelName();
         CalendarFiller.fillInTable(jMonthTable);
         CalendarFiller.fillInTable(jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
@@ -812,6 +847,7 @@ public class CalendarMain extends javax.swing.JFrame {
     //DefaultTableModel mod;
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
        CalendarFiller.addModel(jMonthTable);
+       CalendarFiller.addModel(jWeekTable);
        CalendarFiller.addModel(jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
     }//GEN-LAST:event_formWindowOpened
 
@@ -823,11 +859,26 @@ public class CalendarMain extends javax.swing.JFrame {
                 CalendarFiller.month = 12;
                 CalendarFiller.year--;
             }
+        } else if(panelSelected == 2) {
+            if(CalendarFiller.month == 1 && (CalendarFiller.date - 7 < 0)){
+                CalendarFiller.month = 12;
+                CalendarFiller.year--;
+                CalendarFiller.date = 31 + CalendarFiller.date - 7;
+            } else {
+                cal.set(CalendarFiller.year, CalendarFiller.month - 1, CalendarFiller.date);
+                int dayOfYear = cal.get(Calendar.DAY_OF_YEAR);
+                dayOfYear -= 7;
+                Year y = Year.of(CalendarFiller.year) ;
+                LocalDate ld = y.atDay(dayOfYear);
+                CalendarFiller.month = ld.getMonthValue();
+                CalendarFiller.date = ld.getDayOfMonth();
+            }
         } else {
             CalendarFiller.year--;
         }
         jMonthTextField.setText(String.valueOf(CalendarFiller.month));
         jYearTextField.setText(String.valueOf(CalendarFiller.year));
+        jDateText.setText(String.valueOf(CalendarFiller.date));
         switchPanelName();
         CalendarFiller.fillInTable(jMonthTable);
         CalendarFiller.fillInTable(jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
@@ -877,7 +928,6 @@ public class CalendarMain extends javax.swing.JFrame {
     }
     
     private void switchPanelName(){
-        Calendar cal = Calendar.getInstance();
         cal.set(MONTH, Integer.parseInt(jMonthTextField.getText()) - 1);
         monthLabel = cal.getDisplayName(MONTH, Calendar.LONG, Locale.ENGLISH);
         yearLabel = jYearTextField.getText();
@@ -893,7 +943,6 @@ public class CalendarMain extends javax.swing.JFrame {
     private javax.swing.JButton jButtonBack;
     private javax.swing.JButton jButtonNext;
     private javax.swing.JTextField jDateText;
-    private javax.swing.JPanel jDayPanel;
     private javax.swing.JList<String> jEventList;
     private javax.swing.JLayeredPane jLayeredPanel;
     private javax.swing.JMenu jMenu1;
@@ -913,6 +962,7 @@ public class CalendarMain extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
+    private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -933,6 +983,8 @@ public class CalendarMain extends javax.swing.JFrame {
     private javax.swing.JTable jTableNov;
     private javax.swing.JTable jTableOct;
     private javax.swing.JTable jTableSep;
+    private javax.swing.JPanel jWeekPanel;
+    private javax.swing.JTable jWeekTable;
     private javax.swing.JPanel jYearPanel;
     private javax.swing.JTextField jYearTextField;
     private java.awt.Label label1;
