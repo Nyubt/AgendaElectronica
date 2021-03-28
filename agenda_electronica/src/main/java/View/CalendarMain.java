@@ -123,7 +123,7 @@ public class CalendarMain extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItemYearView = new javax.swing.JRadioButtonMenuItem();
         jMenuItemMonthView = new javax.swing.JRadioButtonMenuItem();
-        jMenuItemDayView = new javax.swing.JRadioButtonMenuItem();
+        jMenuItemWeekView = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -725,15 +725,15 @@ public class CalendarMain extends javax.swing.JFrame {
         jMenu1.add(jMenuItemMonthView);
         jMenuItemMonthView.getAccessibleContext().setAccessibleName("jMenuItemMonthView");
 
-        viewMenueGroup.add(jMenuItemDayView);
-        jMenuItemDayView.setText("Day");
-        jMenuItemDayView.addItemListener(new java.awt.event.ItemListener() {
+        viewMenueGroup.add(jMenuItemWeekView);
+        jMenuItemWeekView.setText("Week");
+        jMenuItemWeekView.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jMenuItemDayViewItemStateChanged(evt);
+                jMenuItemWeekViewItemStateChanged(evt);
             }
         });
-        jMenu1.add(jMenuItemDayView);
-        jMenuItemDayView.getAccessibleContext().setAccessibleName("jMenuItemDayView");
+        jMenu1.add(jMenuItemWeekView);
+        jMenuItemWeekView.getAccessibleContext().setAccessibleName("jMenuItemWeekView");
 
         jMenuBar1.add(jMenu1);
         jMenu1.getAccessibleContext().setAccessibleName("jMenu");
@@ -795,12 +795,12 @@ public class CalendarMain extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItemYearViewItemStateChanged
 
-    private void jMenuItemDayViewItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jMenuItemDayViewItemStateChanged
+    private void jMenuItemWeekViewItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jMenuItemWeekViewItemStateChanged
         if(evt.getStateChange() == ItemEvent.SELECTED){
             switchPanels(jWeekPanel);
             panelSelected = 2;
         }
-    }//GEN-LAST:event_jMenuItemDayViewItemStateChanged
+    }//GEN-LAST:event_jMenuItemWeekViewItemStateChanged
 
     private void DateJumpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DateJumpButtonActionPerformed
         switchPanelName();
@@ -947,8 +947,8 @@ public class CalendarMain extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLayeredPanel;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JRadioButtonMenuItem jMenuItemDayView;
     private javax.swing.JRadioButtonMenuItem jMenuItemMonthView;
+    private javax.swing.JRadioButtonMenuItem jMenuItemWeekView;
     private javax.swing.JRadioButtonMenuItem jMenuItemYearView;
     private javax.swing.JPanel jMonthPanel;
     private javax.swing.JTable jMonthTable;

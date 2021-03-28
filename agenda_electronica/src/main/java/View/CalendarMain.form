@@ -43,18 +43,18 @@
                 <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jMenuItemMonthViewItemStateChanged"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="jMenuItemDayView">
+            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="jMenuItemWeekView">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="viewMenueGroup"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Day"/>
+                <Property name="text" type="java.lang.String" value="Week"/>
               </Properties>
               <AccessibilityProperties>
-                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="jMenuItemDayView"/>
+                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="jMenuItemWeekView"/>
               </AccessibilityProperties>
               <Events>
-                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jMenuItemDayViewItemStateChanged"/>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jMenuItemWeekViewItemStateChanged"/>
               </Events>
             </MenuItem>
           </SubComponents>
