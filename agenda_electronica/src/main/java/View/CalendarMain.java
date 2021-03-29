@@ -568,12 +568,31 @@ public class CalendarMain extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null}
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7"
             }
         ));
+        jWeekTable.setCellSelectionEnabled(true);
         jScrollPane15.setViewportView(jWeekTable);
         jWeekTable.getAccessibleContext().setAccessibleName("jWeekTable");
 
@@ -849,6 +868,9 @@ public class CalendarMain extends javax.swing.JFrame {
        CalendarFiller.addModel(jMonthTable);
        CalendarFiller.addModel(jWeekTable);
        CalendarFiller.addModel(jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
+       
+       CalendarFiller.fillInTable(jMonthTable);
+       CalendarFiller.fillInTable(jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
     }//GEN-LAST:event_formWindowOpened
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed

@@ -5,23 +5,21 @@
  */
 package Controller;
 
+import java.util.List;
+
 /**
  *
- * @author Ale-PC
+ * @author Dream-Team
  */
 public class Zi {
 
-    private Eveniment evt;
+    private List <Eveniment> evt;
 
-    public Zi(Eveniment e) {
+    public Zi(List <Eveniment> e) {
         evt = e;
     }
 
-    public Eveniment getEvent() {
+    public List <Eveniment> getEvents() {
         return evt;
-    }
-
-    public void setEvent(Eveniment e) {
-        evt = e;
     }
 }
