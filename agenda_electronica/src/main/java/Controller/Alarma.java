@@ -11,10 +11,12 @@ package Controller;
  */
 public class Alarma {
 
+    //alarma sonora care se va declanșa la un interval de timp setat de utilizator înaintea evenimentului
     protected int intervalTimp;
-    protected String factorRecurenta;
+    // factor de recurenta dat în minute, care o va face sa se declanseze din timp în timp până când este oprită de utilizator
+    protected int factorRecurenta;
 
-    public Alarma(int intervalT, String recurenta) {
+    public Alarma(int intervalT, int recurenta) {
         intervalTimp = intervalT;
         factorRecurenta = recurenta;
     }
@@ -23,7 +25,7 @@ public class Alarma {
         return intervalTimp;
     }
 
-    public String getFactorRecurenta() {
+    public int getFactorRecurenta() {
         return factorRecurenta;
     }
 
@@ -31,7 +33,7 @@ public class Alarma {
         intervalTimp = t;
     }
 
-    public void setFactorRecurenta(String f) {
+    public void setFactorRecurenta(int f) {
         factorRecurenta = f;
     }
 }

@@ -128,7 +128,6 @@ public class CalendarMain extends javax.swing.JFrame {
         jYearTextField = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         label13 = new java.awt.Label();
-        jSnoozeButton = new javax.swing.JButton();
         jStopAlarmButton = new javax.swing.JButton();
         jAlarmTextField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -690,8 +689,6 @@ public class CalendarMain extends javax.swing.JFrame {
 
         label13.setText("Alarm rings in");
 
-        jSnoozeButton.setText("Snooze");
-
         jStopAlarmButton.setText("Stop");
 
         jAlarmTextField.setEnabled(false);
@@ -701,9 +698,7 @@ public class CalendarMain extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSnoozeButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(99, 99, 99)
                 .addComponent(jStopAlarmButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -718,13 +713,10 @@ public class CalendarMain extends javax.swing.JFrame {
                     .addComponent(label13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jAlarmTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSnoozeButton)
-                    .addComponent(jStopAlarmButton)))
+                .addComponent(jStopAlarmButton))
         );
 
         label13.getAccessibleContext().setAccessibleName("label13");
-        jSnoozeButton.getAccessibleContext().setAccessibleName("jSnoozeButton");
         jStopAlarmButton.getAccessibleContext().setAccessibleName("jStopAlarmButton");
         jAlarmTextField.getAccessibleContext().setAccessibleName("jAlarmTextField");
 
@@ -1056,7 +1048,6 @@ public class CalendarMain extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JButton jSnoozeButton;
     private javax.swing.JButton jStopAlarmButton;
     private javax.swing.JTable jTableApr;
     private javax.swing.JTable jTableAug;

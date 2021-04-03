@@ -1081,9 +1081,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jSnoozeButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
                       <Component id="jStopAlarmButton" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -1102,10 +1100,7 @@
                           <Component id="jAlarmTextField" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jSnoozeButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jStopAlarmButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jStopAlarmButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1117,14 +1112,6 @@
               </Properties>
               <AccessibilityProperties>
                 <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="label13"/>
-              </AccessibilityProperties>
-            </Component>
-            <Component class="javax.swing.JButton" name="jSnoozeButton">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Snooze"/>
-              </Properties>
-              <AccessibilityProperties>
-                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="jSnoozeButton"/>
               </AccessibilityProperties>
             </Component>
             <Component class="javax.swing.JButton" name="jStopAlarmButton">

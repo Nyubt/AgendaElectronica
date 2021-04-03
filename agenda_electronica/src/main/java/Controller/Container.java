@@ -6,6 +6,7 @@
 package Controller;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -13,7 +14,7 @@ import java.util.Date;
  */
 public class Container {
     
-    Eveniment evt;
+    List<Eveniment> evt;
     
     public Zi FurnizareZi(Date data) {
         //citire din DB pt anumita zi

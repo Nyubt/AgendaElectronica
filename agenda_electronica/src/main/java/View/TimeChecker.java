@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.Alarma;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -33,8 +34,12 @@ public class TimeChecker {
     public static void checkAlarm(){
         Thread t = new Thread(){
             public void run(){
-                int w=0;
                 while(true){
+                    //citire lista evenimente pt ziua curenta
+                    //obtine lista evenimente
+                    //obtine lista alarme
+                    //comparam alarme din lista si vedem daca e setata la 1
+                    //adauga in lista daca exista alarme noi
                     Calendar c = new GregorianCalendar();
                     int currentHour = c.get(Calendar.HOUR);
                     int currentMinute = c.get(Calendar.MINUTE);
@@ -42,7 +47,7 @@ public class TimeChecker {
                     int currentDay = c.get(Calendar.DAY_OF_MONTH);
                     int currentMonth = c.get(Calendar.MONTH) + 1;
                     int currentYear = c.get(Calendar.YEAR);
-                    if (currentHour == hour && currentMinute == minute && currentDay == date && currentMonth == month && currentYear == year && flag == 1) {
+                    if (currentHour == hour && currentMinute == minute && currentDay == date && currentMonth == month && currentYear == year) {
                         try {
                             in = new FileInputStream(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav"));
                             a = new AudioStream(in);
@@ -50,10 +55,7 @@ public class TimeChecker {
                         } catch (Exception e) {
                             JOptionPane.showMessageDialog(null, e);
                         }
-                    }
-                    if(flag == 0 && AudioPlayer.player.isAlive()){
-                        AudioPlayer.player.stop(a);
-                        return;
+                        //cream copie a alarmei si adaugam in lista + factor de recurenta
                     }
                     try {
                         sleep(1000);
@@ -66,7 +68,8 @@ public class TimeChecker {
         t.start();
     }
     
-    public static void ResetAlarm(){
-        
+    public static void StopAlarm(Alarma id){
+        //sterge din lista de evenimente
+        AudioPlayer.player.stop(a);
     }
 }
