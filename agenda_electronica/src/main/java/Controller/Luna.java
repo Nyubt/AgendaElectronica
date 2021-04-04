@@ -6,22 +6,27 @@
 package Controller;
 
 /**
- *
- * @author Ale-PC
+ *Clasa luna
  */
-public class Luna {
 
+
+public class Luna {
+     /**
+     *Atribut pentru stocare date zile
+     */
     private Zi zile;
 
     public Luna(Zi z) {
-        zile = z;
+        this.zile = z;
     }
-
+  /**
+     * getter pentru a intoarce ziua
+*/
     public Zi getLuna() {
         return zile;
     }
 
     public void setLuna(Zi z) {
-        zile = z;
+        this.zile = z;
     }
 }

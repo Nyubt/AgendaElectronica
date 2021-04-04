@@ -7,12 +7,12 @@ package Controller;
 
 /**
  * Clasa an
- * @author 
+  
  */
 public class An {
 
     /**
-     * Atribut pentru stocare date luna
+     *Atribut pentru stocare date luna
      */
     private Luna luni;
 
@@ -20,14 +20,16 @@ public class An {
      * Clasa an constructor
      */
     public An(Luna l) {
-        luni = l;
+        this.luni = l;
     }
-
+  /**
+     *getter pentru a intoarce luna
+*/
     public Luna getLuni() {
         return luni;
     }
 
     public void setLuni(Luna l) {
-        luni = l;
+        this.luni = l;
     }
 }
