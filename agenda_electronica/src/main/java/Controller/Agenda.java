@@ -10,7 +10,7 @@ import java.util.Timer;
 
 /**
  *
- * @author Ale-PC
+ * 
  */
 public class Agenda {
 
@@ -20,10 +20,10 @@ public class Agenda {
     Timer timer;
 
     public Agenda(String modafis, Date d, Alarma alarm, Timer time) {
-        modAfisare = modafis;
-        data = d;
-        alarme = alarm;
-        timer = time;
+        this.modAfisare = modafis;
+        this.data = d;
+        this.alarme = alarm;
+        this.timer = time;
     }
     
     public String getModAfisare() {
@@ -43,19 +43,19 @@ public class Agenda {
     }
 
     public void setModAfisare(String m) {
-        modAfisare = m;
+        this.modAfisare = m;
     }
 
     public void setData(Date d) {
-        data = d;
+        this.data = d;
     }
 
     public void setAlarma(Alarma a) {
-        alarme = a;
+        this.alarme = a;
     }
 
     public void setTimer(Timer t) {
-        timer = t;
+        this.timer = t;
     }
     
     void Afisare() {

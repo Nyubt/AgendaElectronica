@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  *
- * @author Ale-PC
+ *  
  */
 public class Eveniment {
 
@@ -21,12 +21,12 @@ public class Eveniment {
     private String culoare;
 
     public Eveniment(String t, String d, Date i, Date s, Alarma a, String c) {
-        titlu = t;
-        descriere = d;
-        inceput = i;
-        sfarsit = s;
-        alarma = a;
-        culoare = c;
+        this.titlu = t;
+        this.descriere = d;
+        this.inceput = i;
+        this.sfarsit = s;
+        this.alarma = a;
+        this.culoare = c;
     }
 
     public String getTitlu() {
@@ -54,26 +54,26 @@ public class Eveniment {
     }
 
     public void setTitlu(String t) {
-        titlu = t;
+        this.titlu = t;
     }
 
     public void setDescriere(String d) {
-        descriere = d;
+        this.descriere = d;
     }
 
     public void setInceput(Date i) {
-        inceput = i;
+        this.inceput = i;
     }
 
     public void setSfarsit(Date s) {
-        sfarsit = s;
+        this.sfarsit = s;
     }
 
     public void setAlarma(Alarma a) {
-        alarma = a;
+        this.alarma = a;
     }
 
     public void setCuloare(String c) {
-        culoare = c;
+        this.culoare = c;
     }
 }

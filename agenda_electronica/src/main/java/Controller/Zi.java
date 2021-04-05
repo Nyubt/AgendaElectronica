@@ -16,7 +16,7 @@ public class Zi {
     private List <Eveniment> evt;
 
     public Zi(List <Eveniment> e) {
-        evt = e;
+        this.evt = e;
     }
 
     public List <Eveniment> getEvents() {

@@ -5,28 +5,22 @@
  */
 package Controller;
 
+import java.util.List;
+
 /**
  *Clasa luna
  */
 
 
 public class Luna {
-     /**
-     *Atribut pentru stocare date zile
-     */
-    private Zi zile;
 
-    public Luna(Zi z) {
-        this.zile = z;
-    }
-  /**
-     * getter pentru a intoarce ziua
-*/
-    public Zi getLuna() {
-        return zile;
+      private List <Eveniment> evt;
+
+    public Luna(List <Eveniment> e) {
+        this.evt = e;
     }
 
-    public void setLuna(Zi z) {
-        this.zile = z;
-    }
+    public List <Eveniment> getEvents() {
+        return evt;
+    }   
 }

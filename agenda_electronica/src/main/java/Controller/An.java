@@ -24,7 +24,7 @@ public class An {
     }
   /**
      *getter pentru a intoarce luna
-*/
+  */
     public Luna getLuni() {
         return luni;
     }

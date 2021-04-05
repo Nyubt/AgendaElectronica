@@ -7,7 +7,7 @@ package Controller;
 
 /**
  *
- * @author Ale-PC
+ *  
  */
 public class Alarma {
 
@@ -17,8 +17,8 @@ public class Alarma {
     protected int factorRecurenta;
 
     public Alarma(int intervalT, int recurenta) {
-        intervalTimp = intervalT;
-        factorRecurenta = recurenta;
+        this.intervalTimp = intervalT;
+        this.factorRecurenta = recurenta;
     }
 
     public int getIntervalTimp() {
@@ -30,10 +30,10 @@ public class Alarma {
     }
 
     public void setIntervalTimp(int t) {
-        intervalTimp = t;
+        this.intervalTimp = t;
     }
 
     public void setFactorRecurenta(int f) {
-        factorRecurenta = f;
+        this.factorRecurenta = f;
     }
 }

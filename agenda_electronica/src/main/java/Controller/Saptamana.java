@@ -7,14 +7,14 @@ package Controller;
 
 /**
  *
- * @author Ale-PC
+ *  
  */
 public class Saptamana {
 
     private Zi zile;
 
     public Saptamana(Zi z) {
-        zile = z;
+        this.zile = z;
     }
 
     public Zi getSaptamana() {
@@ -22,6 +22,6 @@ public class Saptamana {
     }
 
     public void setSaptamana(Zi z) {
-        zile = z;
+        this.zile = z;
     }
 }
