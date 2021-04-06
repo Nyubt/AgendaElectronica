@@ -8,23 +8,28 @@ package Controller;
 import java.util.List;
 
 /**
- *Clasa luna
+ * Clasa Luna creeaza un obiect cu informatii despre evenimentele dintr-o luna
+ * 
  */
-
-
 public class Luna {
-
-      private List <Eveniment> evt;
+    /**
+     * Lista de obiecte Zi dintr-o luna
+     */
+    private List <Zi> luna;
 
     /**
-     *
-     * @param e
+     * Constructorul clasei Luna
+     * @param zile 
      */
-    public Luna(List <Eveniment> e) {
-        this.evt = e;
+    public Luna(List <Zi> zile) {
+        this.luna = zile;
     }
 
-    public List <Eveniment> getEvents() {
-        return evt;
+    /**
+     * Returneaza lista cu obiectele Zi dintr-o luna
+     * @return 
+     */
+    public List <Zi> getEvents() {
+        return this.luna;
     }   
 }

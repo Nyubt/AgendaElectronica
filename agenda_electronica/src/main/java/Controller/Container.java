@@ -9,16 +9,17 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
+ * Clasa Container manipuleaza cu evenimentele din baza de date
  *  
- * @author Nadia
  */
 public class Container {
-    
-    List<Eveniment> evt;
+    /**
+     * Lista de evenimente
+     */
+    List<Eveniment> evenimente;
     
     /**
-     *
+     * Returneaza evenimentele dintr-o zi
      * @param data
      * @return
      */
@@ -28,7 +29,7 @@ public class Container {
     }
 
     /**
-     *
+     * Returneaza evenimentele dintr-o luna
      * @param data
      * @return
      */
@@ -38,7 +39,7 @@ public class Container {
     }
 
     /**
-     *
+     * Returneaza evenimentele dintr-o saptamana
      * @param data
      * @return
      */
@@ -47,7 +48,7 @@ public class Container {
     }
 
     /**
-     *
+     * Returneaza evenimentele dintr-un an
      * @param data
      * @return
      */
@@ -56,35 +57,35 @@ public class Container {
     }
 
     /**
-     *
+     * Returneaza toate evenimentele din baza de date
      * @return
      */
-    public Eveniment FurnizareToateEvent() {
+    public List <Eveniment> FurnizareToateEvent() {
         return null;
     }
 
     /**
-     *
-     * @param e
+     * Modifica un eveniment
+     * @param eveniment 
      */
-    public void ModificareEvent(Eveniment e) {
+    public void ModificareEvent(Eveniment eveniment) {
 
     }
 
     /**
-     *
-     * @param e
+     * Anuleaza un eveniment
+     * @param eveniment 
      */
-    public void AnulareEvent(Eveniment e) {
+    public void AnulareEvent(Eveniment eveniment) {
 
     }
 
     /**
-     *
-     * @param a
-     * @return
+     * Returneaza lista de alarme
+     * @param alarma
+     * @return 
      */
-    public Alarma FurnizareAlarme(Alarma a) {
+    public Alarma FurnizareAlarme(Alarma alarma) {
         return null;
     }
 }

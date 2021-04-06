@@ -5,31 +5,29 @@
  */
 package Controller;
 
+import java.util.List;
+
 /**
- * Clasa an
-  
+ * Clasa An creeaza un obiect cu informatii despre toate evenimentele dintr-un an
+ * 
  */
 public class An {
+    /**
+     * Lista de obiecte Luna dintr-un an
+     */
+    private List <Luna> luni;
 
     /**
-     *Atribut pentru stocare date luna
+     * Constructorul clasei An
      */
-    private Luna luni;
-
-    /**
-     * Clasa an constructor
-     */
-    public An(Luna l) {
-        this.luni = l;
+    public An(List <Luna> luni) {
+        this.luni = luni;
     }
   /**
-     *getter pentru a intoarce luna
-  */
-    public Luna getLuni() {
-        return luni;
-    }
-
-    public void setLuni(Luna l) {
-        this.luni = l;
+   * Returneaza lista cu obiectele Luna dintr-un an
+   * @return 
+   */
+    public List <Luna> getLuni() {
+        return this.luni;
     }
 }

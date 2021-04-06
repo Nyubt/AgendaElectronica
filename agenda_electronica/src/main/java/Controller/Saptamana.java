@@ -5,23 +5,31 @@
  */
 package Controller;
 
+import java.util.List;
+
 /**
- *
- *  
+ *  Clasa Saptamana creeaza un obiect cu informatii despre toate evenimentele dintr-o saptamana
+ * 
  */
 public class Saptamana {
+    /**
+     * Lista de obiecte Zi dintr-o saptamana
+     */
+    private List <Zi> saptamana;
 
-    private Zi zile;
-
-    public Saptamana(Zi z) {
-        this.zile = z;
+    /**
+     * Constructorul clasei Saptamana
+     * @param zile 
+     */
+    public Saptamana(List <Zi> zile) {
+        this.saptamana = zile;
     }
 
-    public Zi getSaptamana() {
-        return zile;
-    }
-
-    public void setSaptamana(Zi z) {
-        this.zile = z;
+    /**
+     * Returneaza lista cu obiectele Zi dintr-o saptamana
+     * @return 
+     */
+    public List <Zi> getSaptamana() {
+        return this.saptamana;
     }
 }

@@ -8,72 +8,146 @@ package Controller;
 import java.util.Date;
 
 /**
- *
- *  
+ *  Clasa eveniment creaza un obiect cu informatii despre un singur eveniment
+ * 
  */
 public class Eveniment {
-
+    /**
+     * Titlul evenimentului
+     */
     private String titlu;
+    /**
+     * Descrierea evenimentului
+     */
     private String descriere;
+    /**
+     * Data de inceut a evenimentului
+     */
     private Date inceput;
+    /**
+     * Data de sfarsit a evenimentului
+     */
     private Date sfarsit;
+    /**
+     * Alarma evenimentului
+     */
     Alarma alarma;
+    /**
+     * Culoarea evenimentului
+     */
     private String culoare;
 
-    public Eveniment(String t, String d, Date i, Date s, Alarma a, String c) {
-        this.titlu = t;
-        this.descriere = d;
-        this.inceput = i;
-        this.sfarsit = s;
-        this.alarma = a;
-        this.culoare = c;
+    /**
+     * Constructorul clasei eveniment
+     * @param titlu
+     * @param descriere
+     * @param inceput
+     * @param sfarsit
+     * @param alarma
+     * @param culoare 
+     */
+    public Eveniment(String titlu, String descriere, Date inceput, Date sfarsit, Alarma alarma, String culoare) {
+        this.titlu = titlu;
+        this.descriere = descriere;
+        this.inceput = inceput;
+        this.sfarsit = sfarsit;
+        this.alarma = alarma;
+        this.culoare = culoare;
     }
 
+    /**
+     * Returneaza titlul evenimentului
+     * @return 
+     */
     public String getTitlu() {
-        return titlu;
+        return this.titlu;
     }
 
+    /**
+     * Returneaza descrierea evenimentului
+     * @return 
+     */
     public String getDescriere() {
-        return descriere;
+        return this.descriere;
     }
 
+    /**
+     * Returneaza data de inceput a evenimentului
+     * @return 
+     */
     public Date getInceput() {
-        return inceput;
+        return this.inceput;
     }
 
+    /**
+     * Returneaza data de sfarsit a evenimentului
+     * @return 
+     */
     public Date getSfarsit() {
-        return sfarsit;
+        return this.sfarsit;
     }
 
+    /**
+     * Returneaza alarma evenimentului
+     * @return 
+     */
     public Alarma getAlarma() {
-        return alarma;
+        return this.alarma;
     }
 
+    /**
+     * Returneaza culoarea evenimentului
+     * @return 
+     */
     public String getCuloare() {
-        return culoare;
+        return this.culoare;
     }
 
-    public void setTitlu(String t) {
-        this.titlu = t;
+    /**
+     * Seteaza titlul evenimentului
+     * @param titlu 
+     */
+    public void setTitlu(String titlu) {
+        this.titlu = titlu;
     }
 
-    public void setDescriere(String d) {
-        this.descriere = d;
+    /**
+     * Seteaza descrierea evenimentului
+     * @param descriere 
+     */
+    public void setDescriere(String descriere) {
+        this.descriere = descriere;
     }
 
-    public void setInceput(Date i) {
-        this.inceput = i;
+    /**
+     * Seteaza data de inceput a evenimentului
+     * @param inceput 
+     */
+    public void setInceput(Date inceput) {
+        this.inceput = inceput;
     }
 
-    public void setSfarsit(Date s) {
-        this.sfarsit = s;
+    /**
+     * Seteaza data de sfarsit a evenimentului
+     * @param sfarsit 
+     */
+    public void setSfarsit(Date sfarsit) {
+        this.sfarsit = sfarsit;
     }
 
-    public void setAlarma(Alarma a) {
-        this.alarma = a;
+    /**
+     * Seteaza alarma evenimentului
+     * @param alarma 
+     */
+    public void setAlarma(Alarma alarma) {
+        this.alarma = alarma;
     }
 
-    public void setCuloare(String c) {
-        this.culoare = c;
+    /**
+     * Seteaza culoarea evenimentului
+     * @param culoare 
+     */
+    public void setCuloare(String culoare) {
+        this.culoare = culoare;
     }
 }

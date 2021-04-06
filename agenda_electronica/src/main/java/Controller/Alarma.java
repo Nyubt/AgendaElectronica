@@ -6,34 +6,58 @@
 package Controller;
 
 /**
- *
+ * Clasa Alarma creeaza un obiect cu informatii despre alarma unui eveniment
  *  
  */
 public class Alarma {
-
-    //alarma sonora care se va declanșa la un interval de timp setat de utilizator înaintea evenimentului
+    /**
+     * Intervalul de timp setat de utilizator inaintea evenimentului dupa care se va declansa alarma sonora 
+     */
     protected int intervalTimp;
-    // factor de recurenta dat în minute, care o va face sa se declanseze din timp în timp până când este oprită de utilizator
+    /**
+     * Factorul de recurenta dat in minute care declanseaa alarma din timp in timp pâana cand este oprita de utilizator
+     */
     protected int factorRecurenta;
 
-    public Alarma(int intervalT, int recurenta) {
-        this.intervalTimp = intervalT;
+    /**
+     * Constructorul clasei Alarma
+     * @param intervalTimp
+     * @param recurenta 
+     */
+    public Alarma(int intervalTimp, int recurenta) {
+        this.intervalTimp = intervalTimp;
         this.factorRecurenta = recurenta;
     }
 
+    /**
+     * Returneaza intervalul de timp dinaintea alarmei
+     * @return 
+     */
     public int getIntervalTimp() {
-        return intervalTimp;
+        return this.intervalTimp;
     }
 
+    /**
+     * Returneaza factorul de recurenta al alarmei
+     * @return 
+     */
     public int getFactorRecurenta() {
-        return factorRecurenta;
+        return this.factorRecurenta;
     }
 
-    public void setIntervalTimp(int t) {
-        this.intervalTimp = t;
+    /**
+     * Seteaza intervalul de timp dinaintea alarmei
+     * @param intervalTimp 
+     */
+    public void setIntervalTimp(int intervalTimp) {
+        this.intervalTimp = intervalTimp;
     }
 
-    public void setFactorRecurenta(int f) {
-        this.factorRecurenta = f;
+    /**
+     * Returneaza factorul de recurenta a alarmei
+     * @param factorRecurenta 
+     */
+    public void setFactorRecurenta(int factorRecurenta) {
+        this.factorRecurenta = factorRecurenta;
     }
 }

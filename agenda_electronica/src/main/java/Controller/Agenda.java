@@ -6,78 +6,142 @@
 package Controller;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 
 /**
- *
+ * Clasa Agenda face legatura dintre interfata agendei si metodele de manipulare a evenimentelor
  * 
  */
 public class Agenda {
-
+    /**
+     * Modul de afisare a agendei
+     */
     private String modAfisare;
+    /**
+     * Data selectata
+     */
     private Date data;
-    Alarma alarme;
-    Timer timer;
+    /**
+     * Lista de alarme
+     */
+    List<Alarma> alarme;
+    /**
+     * Lista obiectelor Timer
+     */
+    List <Timer> timer;
 
-    public Agenda(String modafis, Date d, Alarma alarm, Timer time) {
-        this.modAfisare = modafis;
-        this.data = d;
-        this.alarme = alarm;
-        this.timer = time;
+    /**
+     * Constructorul clasei Agenda
+     * @param modAfisare
+     * @param data
+     * @param alarma
+     * @param timer 
+     */
+    public Agenda(String modAfisare, Date data, List <Alarma> alarma, List <Timer> timer) {
+        this.modAfisare = modAfisare;
+        this.data = data;
+        this.alarme = alarma;
+        this.timer = timer;
     }
     
+    /**
+     * Returneaza modul de afisare
+     * @return 
+     */
     public String getModAfisare() {
         return modAfisare;
     }
 
+    /**
+     * Returneaza data
+     * @return 
+     */
     public Date getData() {
         return data;
     }
 
-    public Alarma getAlarma() {
+    /**
+     * Returneaza lista de alarme
+     * @return 
+     */
+    public List <Alarma> getAlarma() {
         return alarme;
     }
 
-    public Timer getTimer() {
+    /**
+     * Returneaza lista de timere
+     * @return 
+     */
+    public List <Timer> getTimer() {
         return timer;
     }
 
-    public void setModAfisare(String m) {
-        this.modAfisare = m;
+    /**
+     * Seteaza modul de afisare
+     * @param modAfisare 
+     */
+    public void setModAfisare(String modAfisare) {
+        this.modAfisare = modAfisare;
     }
 
-    public void setData(Date d) {
-        this.data = d;
+    /**
+     * Seteaza data
+     * @param data 
+     */
+    public void setData(Date data) {
+        this.data = data;
     }
 
-    public void setAlarma(Alarma a) {
-        this.alarme = a;
+    /**
+     * Seteaza lista de alarme
+     * @param alarma 
+     */
+    public void setAlarma(List <Alarma> alarma) {
+        this.alarme = alarma;
     }
 
-    public void setTimer(Timer t) {
-        this.timer = t;
+    /**
+     * Seteaza lista de timere
+     * @param timer 
+     */
+    public void setTimer(List <Timer> timer) {
+        this.timer = timer;
     }
     
+    /**
+     * Afisarea unui eveniment
+     */
     void Afisare() {
     }
 
-    ;
+    /**
+     * Selectarea unui eveniment
+     */
     void SelectareEvent() {
     }
 
-    ;
+    /**
+     * Modificarea unui eveniment
+     */
     void ModificareEvent() {
     }
 
-    ;
+    /**
+     * Anularea unui eveniment
+     */
     void AnulareEvent() {
     }
 
-    ;
+    /**
+     * Amanarea alarmei
+     */
     void AmanareAlarma() {
     }
 
-    ;
+    /**
+     * Oprireaz alarmei
+     */
     void OprireAlarma() {
     }
 ;

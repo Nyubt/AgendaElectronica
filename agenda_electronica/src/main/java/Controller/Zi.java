@@ -8,18 +8,28 @@ package Controller;
 import java.util.List;
 
 /**
- *
- * @author Dream-Team
+ * Clasa Zi creeaza un obiect cu informatii despre evenimentele dintr-o zi
+ * 
  */
 public class Zi {
+    /**
+     * Lista de obiecte Eveniment dintr-o zi
+     */
+    private List <Eveniment> eveniment;
 
-    private List <Eveniment> evt;
-
-    public Zi(List <Eveniment> e) {
-        this.evt = e;
+    /**
+     * Constructorul clasei Zi
+     * @param eveniment 
+     */
+    public Zi(List <Eveniment> eveniment) {
+        this.eveniment = eveniment;
     }
 
+    /**
+     * Returneaza lista de obiecte Eveniment
+     * @return 
+     */
     public List <Eveniment> getEvents() {
-        return evt;
+        return this.eveniment;
     }
 }
