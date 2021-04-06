@@ -6,13 +6,15 @@
 package View;
 
 import Controller.Alarma;
+import java.applet.Applet;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
+//import sun.audio.AudioPlayer;AudioClip
+//import sun.audio.AudioStream;
+import java.applet.AudioClip;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -28,8 +30,10 @@ public class TimeChecker {
     public static int month;
     public static int year;  
     public static int flag = 0;
-    private static AudioStream a;
-    private static InputStream in;
+    //private static AudioStream a;
+    //private static InputStream in;
+    private static AudioClip clip;
+    private static File file;
     
     public static void checkAlarm(){
         Thread t = new Thread(){
@@ -38,7 +42,7 @@ public class TimeChecker {
                     //citire lista evenimente pt ziua curenta
                     //obtine lista evenimente
                     //obtine lista alarme
-                    //comparam alarme din lista si vedem daca e setata la 1
+                    //comparam alarme din lista si vedem daca e active
                     //adauga in lista daca exista alarme noi
                     Calendar c = new GregorianCalendar();
                     int currentHour = c.get(Calendar.HOUR);
@@ -49,9 +53,12 @@ public class TimeChecker {
                     int currentYear = c.get(Calendar.YEAR);
                     if (currentHour == hour && currentMinute == minute && currentDay == date && currentMonth == month && currentYear == year) {
                         try {
-                            in = new FileInputStream(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav"));
-                            a = new AudioStream(in);
-                            AudioPlayer.player.start(a);
+                            //in = new FileInputStream(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav"));
+                            //a = new AudioStream(in);
+                            //AudioPlayer.player.start(a);         
+                            file = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav");
+                            clip = (AudioClip) file.toURI().toURL().getContent();
+                            clip.play();
                         } catch (Exception e) {
                             JOptionPane.showMessageDialog(null, e);
                         }
@@ -70,6 +77,7 @@ public class TimeChecker {
     
     public static void StopAlarm(Alarma id){
         //sterge din lista de evenimente
-        AudioPlayer.player.stop(a);
+        //AudioPlayer.player.stop(a);
+        clip.stop();
     }
 }
