@@ -16,6 +16,10 @@ public class Luna {
 
       private List <Eveniment> evt;
 
+    /**
+     *
+     * @param e
+     */
     public Luna(List <Eveniment> e) {
         this.evt = e;
     }
