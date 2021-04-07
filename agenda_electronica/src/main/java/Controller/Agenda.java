@@ -112,37 +112,35 @@ public class Agenda {
     /**
      * Afisarea unui eveniment
      */
-    void Afisare() {
     }
 
     /**
      * Selectarea unui eveniment
      */
-    void SelectareEvent() {
     }
 
     /**
      * Modificarea unui eveniment
      */
-    void ModificareEvent() {
+    public void ModificareEvent() {
     }
 
     /**
      * Anularea unui eveniment
      */
-    void AnulareEvent() {
+    public void AnulareEvent() {
     }
 
     /**
      * Amanarea alarmei
      */
-    void AmanareAlarma() {
+    public void AmanareAlarma() {
     }
 
     /**
      * Oprireaz alarmei
      */
-    void OprireAlarma() {
+    public void OprireAlarma() {
     }
 ;
 

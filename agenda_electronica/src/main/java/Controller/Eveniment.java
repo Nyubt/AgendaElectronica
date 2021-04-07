@@ -8,7 +8,7 @@ package Controller;
 import java.util.Date;
 
 /**
- *  Clasa eveniment creaza un obiect cu informatii despre un singur eveniment
+ *  Clasa Eveniment creaza un obiect cu informatii despre un singur eveniment
  * 
  */
 public class Eveniment {

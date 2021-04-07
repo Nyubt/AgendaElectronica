@@ -6,6 +6,7 @@
 
 package View;
 
+import java.applet.Applet;
 import java.awt.event.ItemEvent;
 import javax.swing.JPanel;
 import java.awt.Font;
@@ -24,8 +25,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.util.Calendar;
 import static java.util.Calendar.MONTH;  
-import sun.audio.AudioPlayer;  
-import sun.audio.AudioStream;
+//import sun.audio.AudioPlayer;
+//import sun.audio.AudioStream;
+import java.applet.AudioClip;
+
 
 /**
  *
@@ -61,6 +64,16 @@ public class CalendarMain extends javax.swing.JFrame {
             InputStream in = new FileInputStream(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav"));
             AudioStream a = new AudioStream(in);
             AudioPlayer.player.start(a);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }*/
+        /*try {
+            //URL url = getClass().getClassLoader().getResource(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav");
+            //System.out.println(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav");
+            //System.out.println(url.getFile().toString());
+            File f = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav");
+            AudioClip clip = (AudioClip) f.toURI().toURL().getContent();
+            clip.play();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }*/
@@ -120,6 +133,7 @@ public class CalendarMain extends javax.swing.JFrame {
         jWeekPanel = new javax.swing.JPanel();
         jScrollPane15 = new javax.swing.JScrollPane();
         jWeekTable = new javax.swing.JTable();
+        jDayPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         DateJumpButton = new javax.swing.JButton();
@@ -140,6 +154,7 @@ public class CalendarMain extends javax.swing.JFrame {
         jMenuItemYearView = new javax.swing.JRadioButtonMenuItem();
         jMenuItemMonthView = new javax.swing.JRadioButtonMenuItem();
         jMenuItemWeekView = new javax.swing.JRadioButtonMenuItem();
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -616,7 +631,7 @@ public class CalendarMain extends javax.swing.JFrame {
         jWeekPanel.setLayout(jWeekPanelLayout);
         jWeekPanelLayout.setHorizontalGroup(
             jWeekPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
+            .addComponent(jScrollPane15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
         );
         jWeekPanelLayout.setVerticalGroup(
             jWeekPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -627,6 +642,20 @@ public class CalendarMain extends javax.swing.JFrame {
 
         jLayeredPanel.add(jWeekPanel, "card3");
         jWeekPanel.getAccessibleContext().setAccessibleName("jWeekPanel");
+
+        javax.swing.GroupLayout jDayPanelLayout = new javax.swing.GroupLayout(jDayPanel);
+        jDayPanel.setLayout(jDayPanelLayout);
+        jDayPanelLayout.setHorizontalGroup(
+            jDayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 662, Short.MAX_VALUE)
+        );
+        jDayPanelLayout.setVerticalGroup(
+            jDayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 369, Short.MAX_VALUE)
+        );
+
+        jLayeredPanel.add(jDayPanel, "card5");
+        jDayPanel.getAccessibleContext().setAccessibleName("jDayPanel");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createCompoundBorder(null, javax.swing.BorderFactory.createTitledBorder(null, "Select Date", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Courier New", 0, 13)))); // NOI18N
         jPanel2.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
@@ -806,6 +835,10 @@ public class CalendarMain extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItemWeekView);
         jMenuItemWeekView.getAccessibleContext().setAccessibleName("jMenuItemWeekView");
+
+        viewMenueGroup.add(jCheckBoxMenuItem1);
+        jCheckBoxMenuItem1.setText("Day");
+        jMenu1.add(jCheckBoxMenuItem1);
 
         jMenuBar1.add(jMenu1);
         jMenu1.getAccessibleContext().setAccessibleName("jMenu");
@@ -1018,7 +1051,9 @@ public class CalendarMain extends javax.swing.JFrame {
     private javax.swing.JTextField jAlarmTextField;
     private javax.swing.JButton jButtonBack;
     private javax.swing.JButton jButtonNext;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JTextField jDateText;
+    private javax.swing.JPanel jDayPanel;
     private javax.swing.JList<String> jEventList;
     private javax.swing.JLayeredPane jLayeredPanel;
     private javax.swing.JMenu jMenu1;
