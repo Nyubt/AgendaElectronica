@@ -53,6 +53,7 @@ public class CalendarMain extends javax.swing.JFrame {
         int year = LocalDate.now().getYear();
         int month = LocalDate.now().getMonthValue();
         int date = LocalDate.now().getDayOfMonth();
+        
         CalendarFiller.year = year;
         CalendarFiller.month = month;
         CalendarFiller.date = date;
@@ -67,16 +68,17 @@ public class CalendarMain extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }*/
-        /*try {
+        try {
             //URL url = getClass().getClassLoader().getResource(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav");
             //System.out.println(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav");
             //System.out.println(url.getFile().toString());
             File f = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav");
+          
             AudioClip clip = (AudioClip) f.toURI().toURL().getContent();
             clip.play();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
-        }*/
+        }
     }
 
     /** This method is called from within the constructor to
@@ -134,6 +136,9 @@ public class CalendarMain extends javax.swing.JFrame {
         jScrollPane15 = new javax.swing.JScrollPane();
         jWeekTable = new javax.swing.JTable();
         jDayPanel = new javax.swing.JPanel();
+        jScrollPane16 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         DateJumpButton = new javax.swing.JButton();
@@ -154,7 +159,7 @@ public class CalendarMain extends javax.swing.JFrame {
         jMenuItemYearView = new javax.swing.JRadioButtonMenuItem();
         jMenuItemMonthView = new javax.swing.JRadioButtonMenuItem();
         jMenuItemWeekView = new javax.swing.JRadioButtonMenuItem();
-        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
+        jMenuItemDayView = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -643,16 +648,37 @@ public class CalendarMain extends javax.swing.JFrame {
         jLayeredPanel.add(jWeekPanel, "card3");
         jWeekPanel.getAccessibleContext().setAccessibleName("jWeekPanel");
 
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane16.setViewportView(jList1);
+
+        jLabel1.setText("Lista evenimente:");
+
         javax.swing.GroupLayout jDayPanelLayout = new javax.swing.GroupLayout(jDayPanel);
         jDayPanel.setLayout(jDayPanelLayout);
         jDayPanelLayout.setHorizontalGroup(
             jDayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 662, Short.MAX_VALUE)
+            .addGroup(jDayPanelLayout.createSequentialGroup()
+                .addGap(116, 116, 116)
+                .addGroup(jDayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         jDayPanelLayout.setVerticalGroup(
             jDayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 369, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDayPanelLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
+
+        jLabel1.getAccessibleContext().setAccessibleName("jLabelNumeEveniment");
 
         jLayeredPanel.add(jDayPanel, "card5");
         jDayPanel.getAccessibleContext().setAccessibleName("jDayPanel");
@@ -778,11 +804,12 @@ public class CalendarMain extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
+        jButtonNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/next_small.png"))); // NOI18N
         jButtonNext.setBorderPainted(false);
         jButtonNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -790,6 +817,7 @@ public class CalendarMain extends javax.swing.JFrame {
             }
         });
 
+        jButtonBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/back_small.png"))); // NOI18N
         jButtonBack.setBorderPainted(false);
         jButtonBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -834,9 +862,21 @@ public class CalendarMain extends javax.swing.JFrame {
         jMenu1.add(jMenuItemWeekView);
         jMenuItemWeekView.getAccessibleContext().setAccessibleName("jMenuItemWeekView");
 
-        viewMenueGroup.add(jCheckBoxMenuItem1);
-        jCheckBoxMenuItem1.setText("Day");
-        jMenu1.add(jCheckBoxMenuItem1);
+        jMenuItemDayView.setSelected(true);
+        jMenuItemDayView.setText("Day");
+        jMenuItemDayView.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jMenuItemDayViewItemStateChanged(evt);
+            }
+        });
+        jMenuItemDayView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDayViewActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemDayView);
+        jMenuItemDayView.getAccessibleContext().setAccessibleName("jMenuItemDayView");
+        jMenuItemDayView.getAccessibleContext().setAccessibleDescription("");
 
         jMenuBar1.add(jMenu1);
         jMenu1.getAccessibleContext().setAccessibleName("jMenu");
@@ -849,22 +889,22 @@ public class CalendarMain extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLayeredPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jMonthYearLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jMonthYearLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
                         .addComponent(jButtonNext, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(8, 8, 8)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonNext)
                     .addComponent(jButtonBack)
@@ -990,6 +1030,17 @@ public class CalendarMain extends javax.swing.JFrame {
         CalendarFiller.fillInTable(jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
     }//GEN-LAST:event_jButtonBackActionPerformed
 
+    private void jMenuItemDayViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDayViewActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemDayViewActionPerformed
+
+    private void jMenuItemDayViewItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jMenuItemDayViewItemStateChanged
+          if(evt.getStateChange() == ItemEvent.SELECTED){
+            switchPanels(jDayPanel);
+            panelSelected = 3;
+        }
+    }//GEN-LAST:event_jMenuItemDayViewItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -1049,13 +1100,15 @@ public class CalendarMain extends javax.swing.JFrame {
     private javax.swing.JTextField jAlarmTextField;
     private javax.swing.JButton jButtonBack;
     private javax.swing.JButton jButtonNext;
-    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JTextField jDateText;
     private javax.swing.JPanel jDayPanel;
     private javax.swing.JList<String> jEventList;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLayeredPane jLayeredPanel;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JRadioButtonMenuItem jMenuItemDayView;
     private javax.swing.JRadioButtonMenuItem jMenuItemMonthView;
     private javax.swing.JRadioButtonMenuItem jMenuItemWeekView;
     private javax.swing.JRadioButtonMenuItem jMenuItemYearView;
@@ -1073,6 +1126,7 @@ public class CalendarMain extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane15;
+    private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
