@@ -23,7 +23,7 @@ public class Container {
      * @param data
      * @return
      */
-    public Zi FurnizareZi(Date data) {
+    public static Zi FurnizareZi(Date data) {
         //citire din DB pt anumita zi
         return null;
     }
@@ -33,7 +33,7 @@ public class Container {
      * @param data
      * @return
      */
-    public Luna FurnizareLuna(Date data) {
+    public static Luna FurnizareLuna(Date data) {
         //
         return null;
     }
@@ -43,7 +43,7 @@ public class Container {
      * @param data
      * @return
      */
-    public Saptamana FurnizareSaptamana(Date data) {
+    public static Saptamana FurnizareSaptamana(Date data) {
         return null;
     }
 
@@ -52,7 +52,7 @@ public class Container {
      * @param data
      * @return
      */
-    public An FurnizareAn(Date data) {
+    public static An FurnizareAn(Date data) {
         return null;
     }
 
@@ -87,5 +87,21 @@ public class Container {
      */
     public Alarma FurnizareAlarme(Alarma alarma) {
         return null;
+    }
+    
+    /**
+     * Actualizarea statutului alarmei in baza de date
+     * @param eveniment 
+     */
+    public void OprireAlarma(Eveniment eveniment){
+        //update db, set inactive to true
+    }
+    
+    /**
+     * Actualizarea intervalului alarmei in baza de date
+     * @param eveniment 
+     */
+    public void AmanareAlarma(Eveniment eveniment){
+        //update interval in db
     }
 }

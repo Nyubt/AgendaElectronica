@@ -783,7 +783,6 @@ public class CalendarMain extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButtonNext.setIcon(new javax.swing.ImageIcon("C:\\Users\\Elena\\Documents\\GitHub\\ProiectFIS\\agenda_electronica\\src\\main\\resources\\next_small.png")); // NOI18N
         jButtonNext.setBorderPainted(false);
         jButtonNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -791,7 +790,6 @@ public class CalendarMain extends javax.swing.JFrame {
             }
         });
 
-        jButtonBack.setIcon(new javax.swing.ImageIcon("C:\\Users\\Elena\\Documents\\GitHub\\ProiectFIS\\agenda_electronica\\src\\main\\resources\\back_small.png")); // NOI18N
         jButtonBack.setBorderPainted(false);
         jButtonBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
