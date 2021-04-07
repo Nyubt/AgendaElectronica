@@ -664,9 +664,9 @@ public class CalendarMain extends javax.swing.JFrame {
             .addGroup(jDayPanelLayout.createSequentialGroup()
                 .addGap(116, 116, 116)
                 .addGroup(jDayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(140, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         jDayPanelLayout.setVerticalGroup(
             jDayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -863,7 +863,7 @@ public class CalendarMain extends javax.swing.JFrame {
         jMenuItemWeekView.getAccessibleContext().setAccessibleName("jMenuItemWeekView");
 
         jMenuItemDayView.setSelected(true);
-        jMenuItemDayView.setText("jMenuItemDayView");
+        jMenuItemDayView.setText("Day");
         jMenuItemDayView.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jMenuItemDayViewItemStateChanged(evt);
@@ -875,6 +875,8 @@ public class CalendarMain extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItemDayView);
+        jMenuItemDayView.getAccessibleContext().setAccessibleName("jMenuItemDayView");
+        jMenuItemDayView.getAccessibleContext().setAccessibleDescription("");
 
         jMenuBar1.add(jMenu1);
         jMenu1.getAccessibleContext().setAccessibleName("jMenu");
@@ -892,9 +894,9 @@ public class CalendarMain extends javax.swing.JFrame {
                     .addComponent(jLayeredPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(153, 153, 153)
-                        .addComponent(jMonthYearLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jMonthYearLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
                         .addComponent(jButtonNext, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );

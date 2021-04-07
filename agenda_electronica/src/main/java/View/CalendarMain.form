@@ -60,8 +60,12 @@
             <MenuItem class="javax.swing.JRadioButtonMenuItem" name="jMenuItemDayView">
               <Properties>
                 <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="jMenuItemDayView"/>
+                <Property name="text" type="java.lang.String" value="Day"/>
               </Properties>
+              <AccessibilityProperties>
+                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="jMenuItemDayView"/>
+                <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
+              </AccessibilityProperties>
               <Events>
                 <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jMenuItemDayViewItemStateChanged"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDayViewActionPerformed"/>
@@ -106,9 +110,9 @@
                   <Component id="jLayeredPanel" min="-2" pref="662" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="jButtonBack" min="-2" pref="30" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
-                      <Component id="jMonthYearLabel" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jMonthYearLabel" min="-2" pref="429" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                       <Component id="jButtonNext" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -124,7 +128,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButtonNext" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonBack" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jMonthYearLabel" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="jMonthYearLabel" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLayeredPanel" min="-2" pref="369" max="-2" attributes="0"/>
@@ -951,10 +955,10 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane16" min="-2" pref="406" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" pref="114" max="-2" attributes="0"/>
+                          <Component id="jScrollPane16" min="-2" pref="478" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="140" max="32767" attributes="0"/>
+                      <EmptySpace pref="68" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
