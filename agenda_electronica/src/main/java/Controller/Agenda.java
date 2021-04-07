@@ -112,11 +112,13 @@ public class Agenda {
     /**
      * Afisarea unui eveniment
      */
+    public void Afisare() {
     }
 
     /**
      * Selectarea unui eveniment
      */
+    public void SelectareEvent() {
     }
 
     /**
