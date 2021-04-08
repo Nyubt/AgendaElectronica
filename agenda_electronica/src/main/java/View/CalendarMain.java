@@ -25,8 +25,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.util.Calendar;
 import static java.util.Calendar.MONTH;  
-//import sun.audio.AudioPlayer;
-//import sun.audio.AudioStream;
 import java.applet.AudioClip;
 
 
@@ -60,7 +58,7 @@ public class CalendarMain extends javax.swing.JFrame {
         jYearTextField.setText(String.valueOf(year));
         jMonthTextField.setText(String.valueOf(month));
         jDateText.setText(String.valueOf(date));
-        jMonthYearLabel.setText("");
+        jMonthYearLabel.setText(String.valueOf(year));
         /*try {
             InputStream in = new FileInputStream(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav"));
             AudioStream a = new AudioStream(in);
@@ -68,7 +66,7 @@ public class CalendarMain extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }*/
-        try {
+        /*try {
             //URL url = getClass().getClassLoader().getResource(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav");
             //System.out.println(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav");
             //System.out.println(url.getFile().toString());
@@ -78,7 +76,7 @@ public class CalendarMain extends javax.swing.JFrame {
             clip.play();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
-        }
+        }*/
     }
 
     /** This method is called from within the constructor to
@@ -775,7 +773,7 @@ public class CalendarMain extends javax.swing.JFrame {
         jStopAlarmButton.getAccessibleContext().setAccessibleName("jStopAlarmButton");
         jAlarmTextField.getAccessibleContext().setAccessibleName("jAlarmTextField");
 
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Events", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Courier New", 0, 13)), null)); // NOI18N
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Active Alarms", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Courier New", 0, 13)), null)); // NOI18N
 
         jEventList.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
         jEventList.setModel(new javax.swing.AbstractListModel<String>() {
@@ -862,7 +860,7 @@ public class CalendarMain extends javax.swing.JFrame {
         jMenu1.add(jMenuItemWeekView);
         jMenuItemWeekView.getAccessibleContext().setAccessibleName("jMenuItemWeekView");
 
-        jMenuItemDayView.setSelected(true);
+        viewMenueGroup.add(jMenuItemDayView);
         jMenuItemDayView.setText("Day");
         jMenuItemDayView.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -894,9 +892,9 @@ public class CalendarMain extends javax.swing.JFrame {
                     .addComponent(jLayeredPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(79, 79, 79)
                         .addComponent(jMonthYearLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonNext, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
@@ -904,12 +902,13 @@ public class CalendarMain extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonNext)
-                    .addComponent(jButtonBack)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonNext)
+                        .addComponent(jButtonBack))
                     .addComponent(jMonthYearLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLayeredPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -1082,6 +1081,7 @@ public class CalendarMain extends javax.swing.JFrame {
         jLayeredPanel.add(panel);
         jLayeredPanel.repaint();
         jLayeredPanel.revalidate();
+        switchPanelName();
     }
     
     private void switchPanelName(){

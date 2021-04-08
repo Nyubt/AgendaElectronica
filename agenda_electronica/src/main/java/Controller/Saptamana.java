@@ -11,7 +11,7 @@ import java.util.List;
  *  Clasa Saptamana creeaza un obiect cu informatii despre toate evenimentele dintr-o saptamana
  * 
  */
-public class Saptamana {
+public class Saptamana implements ListEventsInterface {
     /**
      * Lista de obiecte Zi dintr-o saptamana
      */
@@ -29,7 +29,7 @@ public class Saptamana {
      * Returneaza lista cu obiectele Zi dintr-o saptamana
      * @return 
      */
-    public List <Zi> getSaptamana() {
+    public List <Zi> getEventList () {
         return this.saptamana;
     }
 }

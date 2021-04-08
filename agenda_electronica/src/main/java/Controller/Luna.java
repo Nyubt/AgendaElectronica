@@ -11,7 +11,7 @@ import java.util.List;
  * Clasa Luna creeaza un obiect cu informatii despre evenimentele dintr-o luna
  * 
  */
-public class Luna {
+public class Luna implements ListEventsInterface {
     /**
      * Lista de obiecte Zi dintr-o luna
      */
@@ -29,7 +29,7 @@ public class Luna {
      * Returneaza lista cu obiectele Zi dintr-o luna
      * @return 
      */
-    public List <Zi> getEvents() {
+    public List <Zi> getEventList () {
         return this.luna;
     }   
 }

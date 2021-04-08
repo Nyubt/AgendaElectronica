@@ -11,7 +11,7 @@ import java.util.List;
  * Clasa Zi creeaza un obiect cu informatii despre evenimentele dintr-o zi
  * 
  */
-public class Zi {
+public class Zi implements ListEventsInterface {
     /**
      * Lista de obiecte Eveniment dintr-o zi
      */
@@ -29,7 +29,7 @@ public class Zi {
      * Returneaza lista de obiecte Eveniment
      * @return 
      */
-    public List <Eveniment> getEvents() {
+    public List <Eveniment> getEventList() {
         return this.eveniment;
     }
 }

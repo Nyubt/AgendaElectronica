@@ -7,6 +7,7 @@ package Controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Timer;
 
 /**
@@ -15,9 +16,15 @@ import java.util.Timer;
  */
 public class Agenda {
     /**
-     * Modul de afisare a agendei
+     * Enumerare moduri afisare
      */
-    private String modAfisare;
+    private enum EnumerareModAfisare {
+        DAY, WEEK, MONTH, YEAR;
+    }
+    /**
+     * Modul de afisare a agendei
+     */    
+    static EnumerareModAfisare modAfisare;
     /**
      * Data selectata
      */
@@ -30,6 +37,10 @@ public class Agenda {
      * Lista obiectelor Timer
      */
     List <Timer> timer;
+    /**
+     * Obiect Container
+     */
+    private static Container container;
 
     /**
      * Constructorul clasei Agenda
@@ -39,10 +50,11 @@ public class Agenda {
      * @param timer 
      */
     public Agenda(String modAfisare, Date data, List <Alarma> alarma, List <Timer> timer) {
-        this.modAfisare = modAfisare;
+        this.modAfisare = EnumerareModAfisare.valueOf(modAfisare);
         this.data = data;
         this.alarme = alarma;
         this.timer = timer;
+        this.container = new Container();
     }
     
     /**
@@ -50,7 +62,7 @@ public class Agenda {
      * @return 
      */
     public String getModAfisare() {
-        return modAfisare;
+        return modAfisare.toString();
     }
 
     /**
@@ -82,7 +94,7 @@ public class Agenda {
      * @param modAfisare 
      */
     public void setModAfisare(String modAfisare) {
-        this.modAfisare = modAfisare;
+        this.modAfisare = EnumerareModAfisare.valueOf(modAfisare);
     }
 
     /**
@@ -118,32 +130,45 @@ public class Agenda {
     /**
      * Selectarea unui eveniment
      */
-    public void SelectareEvent() {
+    public static ListEventsInterface SelectareEvente(Date data, String modAfisare) {
+        EnumerareModAfisare mod = modAfisare != null ? EnumerareModAfisare.valueOf(modAfisare) : null;
+        if(mod == EnumerareModAfisare.DAY || Agenda.modAfisare == EnumerareModAfisare.DAY){
+            return Container.FurnizareZi(data);
+        } else if(Agenda.modAfisare == EnumerareModAfisare.WEEK){
+            return Container.FurnizareSaptamana(data);
+        } else if(Agenda.modAfisare == EnumerareModAfisare.MONTH){
+            return Container.FurnizareLuna(data);
+        } else if(Agenda.modAfisare == EnumerareModAfisare.YEAR){
+            return Container.FurnizareAn(data);
+        }
+        return null;
     }
 
     /**
      * Modificarea unui eveniment
      */
     public void ModificareEvent() {
+        
     }
 
     /**
      * Anularea unui eveniment
      */
     public void AnulareEvent() {
+        
     }
 
     /**
      * Amanarea alarmei
      */
-    public void AmanareAlarma() {
+    public static void AmanareAlarma(Eveniment eveniment) {
+        container.AmanareAlarma(eveniment);
     }
 
     /**
      * Oprireaz alarmei
      */
-    public void OprireAlarma() {
+    public static void OprireAlarma(Eveniment eveniment) {
+        container.OprireAlarma(eveniment);
     }
-;
-
 }

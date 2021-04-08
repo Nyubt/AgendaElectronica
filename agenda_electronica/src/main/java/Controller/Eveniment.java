@@ -8,7 +8,7 @@ package Controller;
 import java.util.Date;
 
 /**
- *  Clasa Eveniment creaza un obiect cu informatii despre un singur eveniment
+ *  Clasa eveniment creaza un obiect cu informatii despre un singur eveniment
  * 
  */
 public class Eveniment {
@@ -31,11 +31,23 @@ public class Eveniment {
     /**
      * Alarma evenimentului
      */
-    Alarma alarma;
+    private Alarma alarma;
     /**
      * Culoarea evenimentului
      */
-    private String culoare;
+    private String culoare;    
+    /**
+     * Starea alarmei
+     */
+    private boolean alarmaPornita;
+    /**
+     * ID-ul evenimentului folosit pentru a verifica daca doua evenimente sunt egale
+     */
+    private int id;
+    /**
+     * Starea evenimentului
+     */
+    private boolean inactive;
 
     /**
      * Constructorul clasei eveniment
@@ -46,13 +58,16 @@ public class Eveniment {
      * @param alarma
      * @param culoare 
      */
-    public Eveniment(String titlu, String descriere, Date inceput, Date sfarsit, Alarma alarma, String culoare) {
+    public Eveniment(int id, String titlu, String descriere, Date inceput, Date sfarsit, Alarma alarma, String culoare, boolean alarmaPornita, boolean inactive) {
+        this.id = id;
         this.titlu = titlu;
         this.descriere = descriere;
         this.inceput = inceput;
         this.sfarsit = sfarsit;
         this.alarma = alarma;
         this.culoare = culoare;
+        this.alarmaPornita = alarmaPornita;
+        this.inactive = inactive;
     }
 
     /**
@@ -102,6 +117,22 @@ public class Eveniment {
     public String getCuloare() {
         return this.culoare;
     }
+    
+    /**
+     * Returneaza starea evenimentului
+     * @return true or false
+     */
+    public boolean getInactiveState(){
+        return this.inactive;
+    }
+    
+    /**
+     * Returneaza daca alarma e pornita sau nu
+     * @return 
+     */
+    public boolean isAlarmaPornita(){
+        return this.alarmaPornita;
+    }
 
     /**
      * Seteaza titlul evenimentului
@@ -150,4 +181,35 @@ public class Eveniment {
     public void setCuloare(String culoare) {
         this.culoare = culoare;
     }
+    
+    /**
+     * Seteaza alarma pornita la true sau false
+     * @param alarmaPornita 
+     */
+    public void setStareAlarma(boolean alarmaPornita){
+        this.alarmaPornita = alarmaPornita;
+    }
+    
+    /**
+     * Seteaza starea evenimentului
+     * @param inactive 
+     */
+    public void setInactiveState(boolean inactive){
+        this.inactive = inactive;
+    }
+    
+    /**
+     * Supraincarcarea metodei equals pentru obiectul Eveniment
+     * @param obj
+     * @return 
+     */
+    @Override  
+    public boolean equals(Object obj)   
+    {  
+        if (obj == null)
+            return false;  
+        if (obj == this)  
+            return true;  
+        return (this.id == ((Eveniment) obj).id);  
+    } 
 }

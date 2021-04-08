@@ -11,7 +11,7 @@ import java.util.List;
  * Clasa An creeaza un obiect cu informatii despre toate evenimentele dintr-un an
  * 
  */
-public class An {
+public class An implements ListEventsInterface {
     /**
      * Lista de obiecte Luna dintr-un an
      */
@@ -23,11 +23,12 @@ public class An {
     public An(List <Luna> luni) {
         this.luni = luni;
     }
-  /**
+   
+    /**
    * Returneaza lista cu obiectele Luna dintr-un an
    * @return 
    */
-    public List <Luna> getLuni() {
+    public List <Luna> getEventList() {
         return this.luni;
     }
 }
