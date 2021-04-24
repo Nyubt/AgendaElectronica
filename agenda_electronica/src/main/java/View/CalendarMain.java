@@ -44,11 +44,6 @@ public class CalendarMain extends javax.swing.JFrame {
     
     /** Creates new form CalendarMain */
     public CalendarMain() {
-        /*try {
-            calendaryHands = Font.createFont(Font.TRUETYPE_FONT, new File("C:\\FIS Project\\CalendarApp\\src\\main\\resources\\Love.ttf")).deriveFont(18f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(calendaryHands);
-        } catch (IOException | FontFormatException e){}*/
         initComponents();
         TimeChecker.checkAlarm();
         int year = LocalDate.now().getYear();
@@ -63,7 +58,7 @@ public class CalendarMain extends javax.swing.JFrame {
         jDateText.setText(String.valueOf(date));
         jMonthYearLabel.setText(String.valueOf(year));
         
-        Eveniment i = new Eveniment(1,"aaa", "di dijsd  disjd", Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now()),null, "red", true, true);
+        Eveniment i = new Eveniment(1, "aaa", "di dijsd  disjd", Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now()),null, "red", true, true);
         
         /*try {
             InputStream in = new FileInputStream(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav"));
@@ -141,7 +136,7 @@ public class CalendarMain extends javax.swing.JFrame {
         jWeekTable = new javax.swing.JTable();
         jDayPanel = new javax.swing.JPanel();
         jScrollPane16 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jEventList = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -154,7 +149,7 @@ public class CalendarMain extends javax.swing.JFrame {
         jStopAlarmButton = new javax.swing.JButton();
         jAlarmTextField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jEventList = new javax.swing.JList<>();
+        jAlarmList = new javax.swing.JList<>();
         jButtonNext = new javax.swing.JButton();
         jButtonBack = new javax.swing.JButton();
         jMonthYearLabel = new java.awt.Label();
@@ -652,12 +647,13 @@ public class CalendarMain extends javax.swing.JFrame {
         jLayeredPanel.add(jWeekPanel, "card3");
         jWeekPanel.getAccessibleContext().setAccessibleName("jWeekPanel");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        jEventList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane16.setViewportView(jList1);
+        jScrollPane16.setViewportView(jEventList);
+        jEventList.getAccessibleContext().setAccessibleName("jEventList");
 
         jLabel1.setText("Lista evenimente:");
 
@@ -781,14 +777,15 @@ public class CalendarMain extends javax.swing.JFrame {
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Active Alarms", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Courier New", 0, 13)), null)); // NOI18N
 
-        jEventList.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
-        jEventList.setModel(new javax.swing.AbstractListModel<String>() {
+        jAlarmList.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
+        jAlarmList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jEventList);
-        jEventList.getAccessibleContext().setAccessibleName("jEventList");
+        jScrollPane1.setViewportView(jAlarmList);
+        jAlarmList.getAccessibleContext().setAccessibleName("jAlarmList");
+        jAlarmList.getAccessibleContext().setAccessibleDescription("");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1041,9 +1038,9 @@ public class CalendarMain extends javax.swing.JFrame {
 
     private void jMenuItemDayViewItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jMenuItemDayViewItemStateChanged
           if(evt.getStateChange() == ItemEvent.SELECTED){
-              DefaultListModel demoList = new DefaultListModel();
+            DefaultListModel demoList = new DefaultListModel();
             demoList.addElement("addElements");
-              jList1 = new JList(demoList);
+            jEventList = new JList(demoList);
             switchPanels(jDayPanel);
             panelSelected = 3;
               
@@ -1107,6 +1104,7 @@ public class CalendarMain extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DateJumpButton;
+    private javax.swing.JList<String> jAlarmList;
     private javax.swing.JTextField jAlarmTextField;
     private javax.swing.JButton jButtonBack;
     private javax.swing.JButton jButtonNext;
@@ -1115,7 +1113,6 @@ public class CalendarMain extends javax.swing.JFrame {
     private javax.swing.JList<String> jEventList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLayeredPane jLayeredPanel;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JRadioButtonMenuItem jMenuItemDayView;
