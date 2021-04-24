@@ -6,6 +6,7 @@
 
 package View;
 
+import Controller.Eveniment;
 import java.applet.Applet;
 import java.awt.event.ItemEvent;
 import javax.swing.JPanel;
@@ -26,6 +27,9 @@ import javax.swing.JOptionPane;
 import java.util.Calendar;
 import static java.util.Calendar.MONTH;  
 import java.applet.AudioClip;
+import java.sql.Date;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 
 
 /**
@@ -59,6 +63,9 @@ public class CalendarMain extends javax.swing.JFrame {
         jMonthTextField.setText(String.valueOf(month));
         jDateText.setText(String.valueOf(date));
         jMonthYearLabel.setText(String.valueOf(year));
+        
+        Eveniment i = new Eveniment(1,"aaa", "di dijsd  disjd", Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now()),null, "red", true, true);
+        
         /*try {
             InputStream in = new FileInputStream(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav"));
             AudioStream a = new AudioStream(in);
@@ -1030,13 +1037,17 @@ public class CalendarMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonBackActionPerformed
 
     private void jMenuItemDayViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDayViewActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jMenuItemDayViewActionPerformed
 
     private void jMenuItemDayViewItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jMenuItemDayViewItemStateChanged
           if(evt.getStateChange() == ItemEvent.SELECTED){
+              DefaultListModel demoList = new DefaultListModel();
+            demoList.addElement("addElements");
+              jList1 = new JList(demoList);
             switchPanels(jDayPanel);
             panelSelected = 3;
+              
         }
     }//GEN-LAST:event_jMenuItemDayViewItemStateChanged
 
