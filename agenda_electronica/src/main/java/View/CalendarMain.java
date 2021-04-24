@@ -27,12 +27,14 @@ import javax.swing.JOptionPane;
 import java.util.Calendar;
 import static java.util.Calendar.MONTH;  
 import java.applet.AudioClip;
+import java.awt.event.FocusListener;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
 import javax.swing.JList;
 
 /**
@@ -45,6 +47,7 @@ public class CalendarMain extends javax.swing.JFrame {
     String yearLabel = "";
     int panelSelected = 0;
     Calendar cal = Calendar.getInstance();
+    EventDetails eventFrame;
     
     /** Creates new form CalendarMain */
     public CalendarMain() {
@@ -1051,6 +1054,9 @@ public class CalendarMain extends javax.swing.JFrame {
         if (evt.getClickCount() == 2) {
             int index = list.locationToIndex(evt.getPoint());
             System.out.println("index: "+index);
+            eventFrame = new EventDetails(this);
+            eventFrame.setVisible(true);
+            eventFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
     }//GEN-LAST:event_jEventListMouseClicked
 

@@ -5,12 +5,17 @@
  */
 package View;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+
 /**
  *
  * @author Nadia
  */
-public class EventDetails extends javax.swing.JFrame {
-
+public class EventDetails extends javax.swing.JFrame  {
+    CalendarMain parentFrame;
+    
     /**
      * Creates new form EventDetails
      */
@@ -18,6 +23,12 @@ public class EventDetails extends javax.swing.JFrame {
         initComponents();
     }
 
+    public EventDetails(CalendarMain parent){
+        initComponents();
+        parentFrame = parent;
+        parentFrame.setVisible(false);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,6 +55,11 @@ public class EventDetails extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setBackground(new java.awt.Color(255, 204, 255));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -164,6 +180,10 @@ public class EventDetails extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        parentFrame.setVisible(true);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
