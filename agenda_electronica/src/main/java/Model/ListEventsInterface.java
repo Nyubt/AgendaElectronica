@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package Model;
+
 import java.util.List;
 
 /**
- * Inerfata pentru modelele folosite in agenda
+ * Interfata pentru modelele folosite in agenda
  * 
  */
-interface ListEventsInterface <T> {
+public interface ListEventsInterface <T> {
     List<? extends T> getEventList();
 }

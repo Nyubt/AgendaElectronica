@@ -5,6 +5,7 @@
  */
 package View;
 
+import Model.Eveniment;
 import Controller.*;
 import java.applet.Applet;
 import java.io.File;

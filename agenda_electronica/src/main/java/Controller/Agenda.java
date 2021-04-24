@@ -5,6 +5,9 @@
  */
 package Controller;
 
+import Model.ListEventsInterface;
+import Model.Eveniment;
+import Model.Alarma;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;

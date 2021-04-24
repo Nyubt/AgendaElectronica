@@ -5,6 +5,12 @@
  */
 package Controller;
 
+import Model.Eveniment;
+import Model.Alarma;
+import Model.An;
+import Model.Luna;
+import Model.Saptamana;
+import Model.Zi;
 import java.util.Date;
 import java.util.List;
 

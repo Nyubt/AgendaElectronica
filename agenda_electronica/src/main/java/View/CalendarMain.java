@@ -6,7 +6,7 @@
 
 package View;
 
-import Controller.Eveniment;
+import Model.Eveniment;
 import java.applet.Applet;
 import java.awt.event.ItemEvent;
 import javax.swing.JPanel;

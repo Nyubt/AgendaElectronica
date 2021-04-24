@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package Model;
 
 /**
  * Clasa Alarma creeaza un obiect cu informatii despre alarma unui eveniment
