@@ -13,6 +13,10 @@ import Model.Saptamana;
 import Model.Zi;
 import java.util.Date;
 import java.util.List;
+import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 /**
  * Clasa Container manipuleaza cu evenimentele din baza de date
@@ -22,16 +26,66 @@ public class Container {
     /**
      * Lista de evenimente
      */
-    List<Eveniment> evenimente;
+    private static List<Eveniment> evenimente;
+    private static Container instance;
+    private static Connection connection;
+    
+    public static Container getInstance(){
+        if (connection == null){
+            try{
+                Class.forName("org.sqlite.JDBC");
+            } catch(Exception e){
+                System.err.println("Unable to connect to " + e.getMessage());
+            }
+            connection = null;
+            try
+            {
+              // create a database connection
+              connection = DriverManager.getConnection("jdbc:sqlite:" + System.getProperty("user.dir") + "\\src\\main\\resources\\CalendarDB.s3db");
+            }
+            catch(SQLException e)
+            {
+              // if the error message is "out of memory",
+              // it probably means no database file is found
+              System.err.println("Connection error: " + e.getMessage());
+            }
+        }
+        return instance;
+    }
     
     /**
      * Returneaza evenimentele dintr-o zi
      * @param data
      * @return
      */
-    public static Zi FurnizareZi(Date data) {
+    public static Zi FurnizareZi(Date data) throws ParseException {
         //citire din DB pt anumita zi
-        return null;
+        evenimente = new ArrayList<Eveniment>();
+        try
+        {
+          Statement statement = connection.createStatement();
+          Statement statement2 = connection.createStatement();
+          // set timeout to 30 sec.
+          statement.setQueryTimeout(30);  
+          ResultSet rs = statement.executeQuery("select * from Events");
+          while(rs.next())
+          {
+            // read the result set
+            SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+            Date startDate=formatter1.parse(rs.getString("StartDate") + " " + rs.getString("StartTime"));  
+            Date endDate=formatter1.parse(rs.getString("EndDate") + " " + rs.getString("EndTime"));  
+            ResultSet al = statement2.executeQuery("select * from Alarms where AlarmId=" + rs.getString("AlarmId"));
+            Alarma alarma = new Alarma(al.getInt("ReminderMinutes"), al.getInt("Snooze"));
+            Eveniment evt = new Eveniment(rs.getInt("EventId"), rs.getString("Title"), rs.getString("Description"), endDate, startDate, 
+                    alarma, rs.getString("Color"), (rs.getObject("AlarmActive") == null ? false : true), (rs.getObject("Inactive") == null ? false : true));
+            evenimente.add(evt);
+          }
+        }
+        catch(SQLException e)
+        {
+          System.err.println("onnection error: " + e.getMessage());
+        }
+        return new Zi(evenimente);
     }
 
     /**

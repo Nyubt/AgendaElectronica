@@ -8,6 +8,7 @@ package Controller;
 import Model.ListEventsInterface;
 import Model.Eveniment;
 import Model.Alarma;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -57,7 +58,7 @@ public class Agenda {
         this.data = data;
         this.alarme = alarma;
         this.timer = timer;
-        this.container = new Container();
+        this.container = Container.getInstance();
     }
     
     /**
@@ -131,9 +132,12 @@ public class Agenda {
     }
 
     /**
-     * Selectarea unui eveniment
+     * Selectarea unui eveniment 
+     * @param data
+     * @param modAfisare
+     * @return 
      */
-    public static ListEventsInterface SelectareEvente(Date data, String modAfisare) {
+    public static ListEventsInterface SelectareEvente(Date data, String modAfisare) throws ParseException {
         EnumerareModAfisare mod = modAfisare != null ? EnumerareModAfisare.valueOf(modAfisare) : null;
         if(mod == EnumerareModAfisare.DAY || Agenda.modAfisare == EnumerareModAfisare.DAY){
             return Container.FurnizareZi(data);
