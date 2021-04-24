@@ -27,7 +27,11 @@ import javax.swing.JOptionPane;
 import java.util.Calendar;
 import static java.util.Calendar.MONTH;  
 import java.applet.AudioClip;
-import java.sql.Date;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 
@@ -57,8 +61,6 @@ public class CalendarMain extends javax.swing.JFrame {
         jMonthTextField.setText(String.valueOf(month));
         jDateText.setText(String.valueOf(date));
         jMonthYearLabel.setText(String.valueOf(year));
-        
-        Eveniment i = new Eveniment(1, "aaa", "di dijsd  disjd", Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now()),null, "red", true, true);
         
         /*try {
             InputStream in = new FileInputStream(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav"));
@@ -647,10 +649,10 @@ public class CalendarMain extends javax.swing.JFrame {
         jLayeredPanel.add(jWeekPanel, "card3");
         jWeekPanel.getAccessibleContext().setAccessibleName("jWeekPanel");
 
-        jEventList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        jEventList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jEventListMouseClicked(evt);
+            }
         });
         jScrollPane16.setViewportView(jEventList);
         jEventList.getAccessibleContext().setAccessibleName("jEventList");
@@ -870,11 +872,6 @@ public class CalendarMain extends javax.swing.JFrame {
                 jMenuItemDayViewItemStateChanged(evt);
             }
         });
-        jMenuItemDayView.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemDayViewActionPerformed(evt);
-            }
-        });
         jMenu1.add(jMenuItemDayView);
         jMenuItemDayView.getAccessibleContext().setAccessibleName("jMenuItemDayView");
         jMenuItemDayView.getAccessibleContext().setAccessibleDescription("");
@@ -1032,20 +1029,30 @@ public class CalendarMain extends javax.swing.JFrame {
         CalendarFiller.fillInTable(jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
     }//GEN-LAST:event_jButtonBackActionPerformed
 
-    private void jMenuItemDayViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDayViewActionPerformed
-        
-    }//GEN-LAST:event_jMenuItemDayViewActionPerformed
-
     private void jMenuItemDayViewItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jMenuItemDayViewItemStateChanged
           if(evt.getStateChange() == ItemEvent.SELECTED){
-            DefaultListModel demoList = new DefaultListModel();
-            demoList.addElement("addElements");
-            jEventList = new JList(demoList);
             switchPanels(jDayPanel);
             panelSelected = 3;
-              
+            // for testing; don't forget to remove
+            Date date = new Date();
+            Eveniment i = new Eveniment(1, "aaa", "di dijsd  disjd", date, date, null, "red", true, true);
+            //System.out.println(date);
+            DefaultListModel demoList = new DefaultListModel();
+            cal.setTime(date);
+            String time = cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE);
+            //System.out.println(time);
+            demoList.addElement(time + " " + i.getTitlu());
+            jEventList.setModel(demoList);              
         }
     }//GEN-LAST:event_jMenuItemDayViewItemStateChanged
+
+    private void jEventListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jEventListMouseClicked
+        JList list = (JList)evt.getSource();
+        if (evt.getClickCount() == 2) {
+            int index = list.locationToIndex(evt.getPoint());
+            System.out.println("index: "+index);
+        }
+    }//GEN-LAST:event_jEventListMouseClicked
 
     /**
      * @param args the command line arguments

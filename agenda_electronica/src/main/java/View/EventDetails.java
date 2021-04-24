@@ -83,7 +83,6 @@ public class EventDetails extends javax.swing.JFrame {
         jLabel6.setText("jLabel6");
 
         jLabel7.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Nadia\\Documents\\GitHub\\ProiectFIS\\agenda_electronica\\src\\main\\resources\\alarm_icon_small.png")); // NOI18N
         jLabel7.setText(" ");
 
         jTextField4.setText(" ");
@@ -108,7 +107,7 @@ public class EventDetails extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addComponent(jLabel6))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(275, 275, 275)
+                        .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -125,9 +124,9 @@ public class EventDetails extends javax.swing.JFrame {
                             .addComponent(jTextField4)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(257, 257, 257)
+                        .addGap(29, 29, 29)
                         .addComponent(jLabel8)))
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,9 +157,9 @@ public class EventDetails extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(784, 784, 784)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel6)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
