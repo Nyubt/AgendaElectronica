@@ -31,16 +31,16 @@ public class DBConnection {
         {
           // create a database connection
           connection = DriverManager.getConnection("jdbc:sqlite:" + System.getProperty("user.dir") + "\\src\\main\\resources\\CalendarDB.s3db");
-          //Statement statement = connection.createStatement();
-          //statement.setQueryTimeout(30);  // set timeout to 30 sec.
+          Statement statement = connection.createStatement();
+          statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
-          //ResultSet rs = statement.executeQuery("select * from Events");
-          //while(rs.next())
-          //{
+          ResultSet rs = statement.executeQuery("select * from Events");
+          while(rs.next())
+          {
             // read the result set
-          //  System.out.println("title = " + rs.getString("Title"));
-          //  System.out.println("id = " + rs.getInt("EventId"));
-          //}
+            System.out.println("title = " + rs.getString("Title"));
+            System.out.println("id = " + rs.getInt("EventId"));
+          }
         }
         catch(SQLException e)
         {
