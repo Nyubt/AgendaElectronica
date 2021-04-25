@@ -16,10 +16,13 @@ import java.util.GregorianCalendar;
 //import sun.audio.AudioPlayer;AudioClip
 //import sun.audio.AudioStream;
 import java.applet.AudioClip;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -48,7 +51,11 @@ public class TimeChecker {
         Thread t = new Thread(){
             public void run(){
                 while(true){
-                    ExtractAlarmEvents();
+                    try {
+                        ExtractAlarmEvents();
+                    } catch (ParseException ex) {
+                        Logger.getLogger(TimeChecker.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     for (Map.Entry<Date, Eveniment> entry : map.entrySet()) {
                         Eveniment event = entry.getValue();
                         Date now = new Date();     
@@ -94,7 +101,7 @@ public class TimeChecker {
     /**
      * Extragem lista de evenimente cu alarme pentru ziua curenta si o adaugam in map
      */
-    private static void ExtractAlarmEvents(){
+    private static void ExtractAlarmEvents() throws ParseException{
         List <Eveniment> evenimente = (List<Eveniment>) Agenda.SelectareEvente(new Date(), "DAY");        
         int i = 0;
         final long ONE_MINUTE_IN_MILLIS = 60000;
