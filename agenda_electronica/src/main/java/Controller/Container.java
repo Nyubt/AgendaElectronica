@@ -67,7 +67,8 @@ public class Container {
           Statement statement2 = connection.createStatement();
           // set timeout to 30 sec.
           statement.setQueryTimeout(30);  
-          ResultSet rs = statement.executeQuery("select * from Events");
+          SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+          ResultSet rs = statement.executeQuery("select * from Events where date(\"StartDate\")=date(\"" + dateFormat.format(data) + "\")");
           while(rs.next())
           {
             // read the result set
