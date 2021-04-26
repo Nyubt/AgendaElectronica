@@ -42,6 +42,7 @@ public class Container {
             {
               // create a database connection
               connection = DriverManager.getConnection("jdbc:sqlite:" + System.getProperty("user.dir") + "\\src\\main\\resources\\CalendarDB.s3db");
+              connection.setAutoCommit(true);
             }
             catch(SQLException e)
             {
@@ -69,7 +70,8 @@ public class Container {
           statement.setQueryTimeout(30);  
           SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
           ResultSet rs = statement.executeQuery("select * from Events where date(\"StartDate\")=date(\"" + dateFormat.format(data) + "\")");
-          while(rs.next())
+          //System.out.println("data "+data);
+          while(rs != null && rs.next())
           {
             // read the result set
             SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
@@ -80,16 +82,22 @@ public class Container {
             Alarma alarma = null;
             try (Statement stmt = connection.createStatement()){
                 ResultSet al = stmt.executeQuery("select * from Alarms where AlarmId=" + rs.getString("AlarmId"));
-                while (al.next()) {
+                //System.out.println("Alarma " + al.getInt("ReminderMinutes"));
+                //System.out.println("Alarma " + al.getInt("Snooze"));
+                while (al != null && al.next()) {
                     alarma = new Alarma(al.getInt("ReminderMinutes"), al.getInt("Snooze"));
                 }
             } catch(SQLException ex){
                 System.err.println("Connection 2 error: " + ex.getMessage());
             }
-            //System.out.println("Factor recurenta "+alarma.getFactorRecurenta());
-            Eveniment evt = new Eveniment(rs.getInt("EventId"), rs.getString("Title"), rs.getString("Description"), startDate, endDate, 
-                    alarma, rs.getString("Color"), (rs.getObject("AlarmActive") == null ? false : true), (rs.getObject("Inactive") == null ? false : true));
-            System.out.println(evt.getInceput());
+            Boolean alarmActive = (rs.getObject("AlarmActive") != null && rs.getString("AlarmActive").contentEquals("1"));
+            //System.out.println("Alarma " + alarmActive);
+            //System.out.println("Inactive " + !(rs.getObject("Inactive") == null || rs.getString("Inactive").contentEquals("0")));
+            Boolean inactive = !(rs.getObject("Inactive") == null || rs.getString("Inactive").contentEquals("0"));
+            //System.out.println("Inactive " + inactive);
+            Eveniment evt = new Eveniment(rs.getInt("EventId"), rs.getString("Title"), rs.getString("Description"), startDate, endDate, alarma, 
+                    rs.getString("Color"), alarmActive, inactive);
+            //System.out.println(evt.getInceput());
             evenimente.add(evt);
           }
         }
@@ -165,8 +173,20 @@ public class Container {
      * Actualizarea statutului alarmei in baza de date
      * @param eveniment 
      */
-    public void OprireAlarma(Eveniment eveniment){
+    public static void OprireAlarma(Eveniment eveniment){
         //update db, set inactive to true
+        //System.out.println(eveniment.getEvenimentId());
+        try
+        {
+          Statement statement = connection.createStatement();
+          // set timeout to 30 sec.
+          statement.setQueryTimeout(30);  
+          statement.executeUpdate("update Events set AlarmActive=false where EventId=" + eveniment.getEvenimentId());          
+        }
+        catch(SQLException e)
+        {
+          System.err.println("Connection error: " + e.getMessage());
+        }
     }
     
     /**
@@ -175,7 +195,7 @@ public class Container {
      */
     public static void AmanareAlarma(Eveniment eveniment){
         //update interval in db
-        System.out.println(eveniment.getEvenimentId());
+        //System.out.println(eveniment.getEvenimentId());
         try
         {
           Statement statement = connection.createStatement();
@@ -183,14 +203,14 @@ public class Container {
           statement.setQueryTimeout(30);  
           SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
           ResultSet rs = statement.executeQuery("select * from Events where EventId=" + eveniment.getEvenimentId());
-          while(rs.next())
+          while(rs != null && rs.next())
           {
             try (Statement stmt1 = connection.createStatement()){
                 ResultSet al = stmt1.executeQuery("select * from Alarms where AlarmId=" + rs.getString("AlarmId"));
-                while (al.next()) {
+                while (al != null && al.next()) {
                     int shift = al.getInt("ReminderMinutes") - al.getInt("Snooze");
                     try (Statement stmt2 = connection.createStatement()){
-                        stmt2.executeQuery("update Alarms set ReminderMinutes=" + shift + " where AlarmId=" + rs.getString("AlarmId"));
+                        stmt2.executeUpdate("update Alarms set ReminderMinutes=" + shift + " where AlarmId=" + rs.getString("AlarmId"));
                     } catch(SQLException ex2){
                         System.err.println("Connection error: " + ex2.getMessage());
                     }

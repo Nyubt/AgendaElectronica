@@ -52,7 +52,7 @@ public class CalendarMain extends javax.swing.JFrame {
     /** Creates new form CalendarMain */
     public CalendarMain() {
         initComponents();
-        TimeChecker.checkAlarm();
+        TimeChecker.checkAlarm(jAlarmList, jAlarmTextField);
         int year = LocalDate.now().getYear();
         int month = LocalDate.now().getMonthValue();
         int date = LocalDate.now().getDayOfMonth();
@@ -750,6 +750,11 @@ public class CalendarMain extends javax.swing.JFrame {
         label13.setText("Alarm rings in");
 
         jStopAlarmButton.setText("Stop");
+        jStopAlarmButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jStopAlarmButtonMouseClicked(evt);
+            }
+        });
 
         jAlarmTextField.setEnabled(false);
 
@@ -783,11 +788,6 @@ public class CalendarMain extends javax.swing.JFrame {
         jScrollPane1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Active Alarms", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Courier New", 0, 13)), null)); // NOI18N
 
         jAlarmList.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
-        jAlarmList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(jAlarmList);
         jAlarmList.getAccessibleContext().setAccessibleName("jAlarmList");
         jAlarmList.getAccessibleContext().setAccessibleDescription("");
@@ -1059,6 +1059,10 @@ public class CalendarMain extends javax.swing.JFrame {
             eventFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
     }//GEN-LAST:event_jEventListMouseClicked
+
+    private void jStopAlarmButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jStopAlarmButtonMouseClicked
+        TimeChecker.StopAlarm();
+    }//GEN-LAST:event_jStopAlarmButtonMouseClicked
 
     /**
      * @param args the command line arguments

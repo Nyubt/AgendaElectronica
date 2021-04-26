@@ -18,15 +18,20 @@ import java.util.GregorianCalendar;
 //import sun.audio.AudioStream;
 import java.applet.AudioClip;
 import java.io.IOException;
+import static java.lang.Thread.sleep;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  * Clasa TimeChecker manipuleaza cu alarmele existente
@@ -50,8 +55,10 @@ public class TimeChecker {
     
     /**
      * Verifica daca exista alarme active si le ruleaza
+     * @param jAlarmList
+     * @param jAlarmTextField
      */
-    public static void checkAlarm(){
+    public static void checkAlarm(JList jAlarmList, JTextField jAlarmTextField){
         map = new TreeMap<>();
         //for testing, remove
         /*Calendar date = Calendar.getInstance();
@@ -66,18 +73,28 @@ public class TimeChecker {
         Thread t = new Thread(){
             public void run(){
                 while(true){
+                    //System.out.println("aa");
                     try {
                         ExtractAlarmEvents();
                     } catch (ParseException ex) {
                         Logger.getLogger(TimeChecker.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    DefaultListModel model = new DefaultListModel();
+                    String firstAlarm = "";
                     for (Map.Entry<Date, Eveniment> entry : map.entrySet()) {    
-                        //System.out.println("xx");
+                        //System.out.println("xx");                        
                         Eveniment event = entry.getValue();
                         Date now = new Date();     
                         //System.out.print(now + " ");
                         Date eventDate = entry.getKey();
                         //System.out.println(eventDate);
+                        
+                        long duration  = eventDate.getTime() - now.getTime();
+                        if(firstAlarm.isEmpty() || Integer.parseInt(firstAlarm) > duration){
+                            firstAlarm = String.valueOf(TimeUnit.MILLISECONDS.toMinutes(duration));
+                        }
+                        model.addElement(event.getInceput());     
+                        
                         if (eventDate.compareTo(now) <= 0) { 
                             //System.out.println("yes!");
                             try {
@@ -95,6 +112,9 @@ public class TimeChecker {
                             JOptionPane.showMessageDialog(null, e);
                         }
                     }
+                    jAlarmList.setModel(model);
+                    jAlarmTextField.setText(String.valueOf(firstAlarm)); 
+                    //System.out.println("cc");
                 }
             }
         };   
@@ -122,33 +142,49 @@ public class TimeChecker {
      */
     private static void ExtractAlarmEvents() throws ParseException{       
         List <Eveniment> evenimente = Agenda.SelectareEvente(new Date(), "DAY").getEventList();   
+        //System.out.println("Extracting....");
         int i = 0;
         while (i < evenimente.size()) { 
             Eveniment event = evenimente.get(i);
             Date eventDate = new Date(event.getInceput().getTime() - (event.getAlarma().getIntervalTimp() * ONE_MINUTE_IN_MILLIS));
+            //System.out.println("Is key " + eventDate);
+            //System.out.println("Inactive " + event.getInactiveState());
+            //System.out.println("Alarma pornita " + event.isAlarmaPornita());
             if(!map.containsValue(event) && event.isAlarmaPornita() == true && event.getInactiveState() == false && eventDate.compareTo(new Date()) >= 0) {
                 map.put(eventDate, evenimente.get(i));
+                //System.out.println("Added key " + eventDate);
             }
-            if(map.containsValue(event) && event.getInactiveState() == true){
+            if((map.containsKey(eventDate) || map.containsValue(event)) && (event.getInactiveState() == true || event.isAlarmaPornita() == false)){
                 map.remove(eventDate);
+                //System.out.println("Removed key " + eventDate);
             }
             i++;
         }
+        try {
+            sleep(1000);
+        } catch (InterruptedException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }       
     }
     
     /**
      * Oprim alarma si o stergem din baza de date
      * @param eveniment 
      */
-    public static void StopAlarm(Eveniment eveniment){
-        map.entrySet().forEach(entry -> {
+    public static void StopAlarm(){
+        Map.Entry<Date, Eveniment> entry = map.entrySet().iterator().next();        
+        //Date key = entry.getKey();
+        Eveniment eveniment = entry.getValue();
+        //System.out.println(key);
+        //map.remove(key);
+        /*map.entrySet().forEach(entry -> {
             Date key = entry.getKey();
             Eveniment value = entry.getValue();
             if (value.equals(eveniment)) {
                 map.remove(key);
             }
-        });
+        });*/
         Agenda.OprireAlarma(eveniment);
-        clip.stop();
+        //clip.stop();
     }
 }

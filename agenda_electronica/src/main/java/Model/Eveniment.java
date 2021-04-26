@@ -51,12 +51,15 @@ public class Eveniment {
 
     /**
      * Constructorul clasei eveniment
+     * @param id
      * @param titlu
      * @param descriere
      * @param inceput
      * @param sfarsit
      * @param alarma
      * @param culoare 
+     * @param alarmaPornita 
+     * @param inactive 
      */
     public Eveniment(int id, String titlu, String descriere, Date inceput, Date sfarsit, Alarma alarma, String culoare, boolean alarmaPornita, boolean inactive) {
         this.id = id;
