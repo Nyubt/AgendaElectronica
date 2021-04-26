@@ -9,11 +9,6 @@ import java.sql.*;
 import java.text.ParseException;
 import java.util.Date; 
 import java.text.SimpleDateFormat;
-//import java.sql.Connection;
-//import java.sql.DriverManager;
-//import java.sql.ResultSet;
-//import java.sql.SQLException;
-//import java.sql.Statement;
 
 /**
  *
@@ -40,7 +35,7 @@ public class DBConnection {
           statement.setQueryTimeout(30);  // set timeout to 30 sec.
           Date data = new Date();
           SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-          System.out.println("select * from Events where date(\"StartDate\")=date(\"" + dateFormat.format(data) + "\")");
+          System.out.println("select * from Events where date(\"StartDate\",\"utc\")=date(\"" + dateFormat.format(data) + "\")");
           ResultSet rs = statement.executeQuery("select * from Events where date(\"StartDate\")=date(\"" + dateFormat.format(data) + "\")");
           while(rs.next())
           {
@@ -52,6 +47,7 @@ public class DBConnection {
             System.out.println("id = " + rs.getInt("EventId"));
             System.out.println("Date = " + rs.getString("StartDate"));
             System.out.println("Time = " + rs.getString("StartTime"));
+            System.out.println("Time2 = " + rs.getTimestamp("StartTime"));
             System.out.println("DateTime = " + date.toString());
             System.out.println("Activa = " + rs.getString("AlarmActive"));
             System.out.println("Activa = " + (rs.getObject("AlarmActive") == null ? "false" : "true"));

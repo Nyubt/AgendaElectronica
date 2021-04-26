@@ -71,6 +71,14 @@ public class Eveniment {
     }
 
     /**
+     * Returneaza id-ul evenimentului
+     * @return 
+     */
+    public int getEvenimentId() {
+        return this.id;
+    }
+
+    /**
      * Returneaza titlul evenimentului
      * @return 
      */

@@ -41,10 +41,6 @@ public class Agenda {
      * Lista obiectelor Timer
      */
     List <Timer> timer;
-    /**
-     * Obiect Container
-     */
-    private static Container container;
 
     /**
      * Constructorul clasei Agenda
@@ -58,7 +54,6 @@ public class Agenda {
         this.data = data;
         this.alarme = alarma;
         this.timer = timer;
-        this.container = Container.getInstance();
     }
     
     /**
@@ -139,14 +134,14 @@ public class Agenda {
      */
     public static ListEventsInterface SelectareEvente(Date data, String modAfisare) throws ParseException {
         EnumerareModAfisare mod = modAfisare != null ? EnumerareModAfisare.valueOf(modAfisare) : null;
-        if(mod == EnumerareModAfisare.DAY || Agenda.modAfisare == EnumerareModAfisare.DAY){
-            return Container.FurnizareZi(data);
+        if(mod == EnumerareModAfisare.DAY || Agenda.modAfisare == EnumerareModAfisare.DAY){  
+            return Container.getInstance().FurnizareZi(data);
         } else if(Agenda.modAfisare == EnumerareModAfisare.WEEK){
-            return Container.FurnizareSaptamana(data);
+            return Container.getInstance().FurnizareSaptamana(data);
         } else if(Agenda.modAfisare == EnumerareModAfisare.MONTH){
-            return Container.FurnizareLuna(data);
+            return Container.getInstance().FurnizareLuna(data);
         } else if(Agenda.modAfisare == EnumerareModAfisare.YEAR){
-            return Container.FurnizareAn(data);
+            return Container.getInstance().FurnizareAn(data);
         }
         return null;
     }
@@ -167,15 +162,16 @@ public class Agenda {
 
     /**
      * Amanarea alarmei
+     * @param eveniment
      */
     public static void AmanareAlarma(Eveniment eveniment) {
-        container.AmanareAlarma(eveniment);
+        Container.getInstance().AmanareAlarma(eveniment);
     }
 
     /**
      * Oprireaz alarmei
      */
     public static void OprireAlarma(Eveniment eveniment) {
-        container.OprireAlarma(eveniment);
+        Container.getInstance().OprireAlarma(eveniment);
     }
 }
