@@ -28,14 +28,19 @@ import java.util.Calendar;
 import static java.util.Calendar.MONTH;  
 import java.applet.AudioClip;
 import java.awt.event.FocusListener;
+import java.text.ParseException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 import javax.swing.JList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -944,6 +949,7 @@ public class CalendarMain extends javax.swing.JFrame {
         if(evt.getStateChange() == ItemEvent.SELECTED){
             switchPanels(jWeekPanel);
             panelSelected = 2;
+            CalendarFiller.fillInTable(panelSelected, jWeekTable);
         }
     }//GEN-LAST:event_jMenuItemWeekViewItemStateChanged
 
@@ -952,8 +958,9 @@ public class CalendarMain extends javax.swing.JFrame {
         CalendarFiller.year = Integer.valueOf(jYearTextField.getText());
         CalendarFiller.month = Integer.valueOf(jMonthTextField.getText());
         CalendarFiller.date = Integer.valueOf(jDateText.getText());
-        CalendarFiller.fillInTable(jMonthTable);
-        CalendarFiller.fillInTable(jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
+        CalendarFiller.fillInTable(panelSelected, jMonthTable);
+        CalendarFiller.fillInTable(panelSelected, jWeekTable);
+        CalendarFiller.fillInTable(panelSelected, jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
     }//GEN-LAST:event_DateJumpButtonActionPerformed
 
     private void jButtonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextActionPerformed
@@ -985,8 +992,9 @@ public class CalendarMain extends javax.swing.JFrame {
         jYearTextField.setText(String.valueOf(CalendarFiller.year));
         jDateText.setText(String.valueOf(CalendarFiller.date));
         switchPanelName();
-        CalendarFiller.fillInTable(jMonthTable);
-        CalendarFiller.fillInTable(jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
+        CalendarFiller.fillInTable(panelSelected, jMonthTable);
+        CalendarFiller.fillInTable(panelSelected, jWeekTable);
+        CalendarFiller.fillInTable(panelSelected, jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
     }//GEN-LAST:event_jButtonNextActionPerformed
     
     //DefaultTableModel mod;
@@ -995,8 +1003,9 @@ public class CalendarMain extends javax.swing.JFrame {
        CalendarFiller.addModel(jWeekTable);
        CalendarFiller.addModel(jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
        
-       CalendarFiller.fillInTable(jMonthTable);
-       CalendarFiller.fillInTable(jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
+       CalendarFiller.fillInTable(panelSelected, jMonthTable);
+       CalendarFiller.fillInTable(panelSelected, jWeekTable);
+       CalendarFiller.fillInTable(panelSelected, jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
     }//GEN-LAST:event_formWindowOpened
 
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
@@ -1028,8 +1037,9 @@ public class CalendarMain extends javax.swing.JFrame {
         jYearTextField.setText(String.valueOf(CalendarFiller.year));
         jDateText.setText(String.valueOf(CalendarFiller.date));
         switchPanelName();
-        CalendarFiller.fillInTable(jMonthTable);
-        CalendarFiller.fillInTable(jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
+        CalendarFiller.fillInTable(panelSelected, jMonthTable);
+        CalendarFiller.fillInTable(panelSelected, jWeekTable);
+        CalendarFiller.fillInTable(panelSelected, jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
     }//GEN-LAST:event_jButtonBackActionPerformed
 
     private void jMenuItemDayViewItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jMenuItemDayViewItemStateChanged
