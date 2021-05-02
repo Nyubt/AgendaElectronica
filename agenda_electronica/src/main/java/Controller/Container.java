@@ -8,15 +8,20 @@ package Controller;
 import Model.Eveniment;
 import Model.Alarma;
 import Model.An;
+import Model.CellRenderer;
 import Model.Luna;
 import Model.Saptamana;
 import Model.Zi;
+import static View.CalendarFiller.date;
+import static View.CalendarFiller.month;
+import static View.CalendarFiller.year;
 import java.util.Date;
 import java.util.List;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Clasa Container manipuleaza cu evenimentele din baza de date
@@ -123,8 +128,26 @@ public class Container {
      * @param data
      * @return
      */
-    public static Saptamana FurnizareSaptamana(Date data) {
-        return null;
+    public static Saptamana FurnizareSaptamana(Date data) throws ParseException {
+        List <Zi> saptamana = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(calendar.getTime());
+        //System.out.println(data);
+        /*int currentMonth = month - 1;
+        calendar.set(year, currentMonth, date);
+        Date date = calendar.getTime();*/
+        int i;//, counter, size = 0;
+        int current = calendar.get(calendar.DAY_OF_WEEK);
+        System.out.println(current);
+        for(i = 0; i < 7; i++){
+            //counter = 0;
+            int n = (i - current + 1);
+            Date datesOfWeek = new Date(data.getTime() + n * 24 * 3600 * 1000l);
+            List <Eveniment> evte = Agenda.SelectareEvente(datesOfWeek, "DAY").getEventList();
+            //System.out.println(evte);
+            saptamana.add(new Zi(evte));
+        }
+        return new Saptamana(saptamana);
     }
 
     /**

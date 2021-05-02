@@ -22,9 +22,9 @@ public class CellRenderer extends DefaultTableCellRenderer
 {    
     private List<String> colors;
     
-    public CellRenderer(List<Eveniment> evenimente){
+    public CellRenderer(Zi evenimente){
         this.colors = new ArrayList<String>();
-        for(Eveniment evt: evenimente){
+        for(Eveniment evt: evenimente.getEventList()){
             colors.add(evt.getCuloare());
         }
     }

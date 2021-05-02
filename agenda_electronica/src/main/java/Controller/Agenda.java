@@ -136,11 +136,11 @@ public class Agenda {
         EnumerareModAfisare mod = modAfisare != null ? EnumerareModAfisare.valueOf(modAfisare) : null;
         if(mod == EnumerareModAfisare.DAY || Agenda.modAfisare == EnumerareModAfisare.DAY){  
             return Container.getInstance().FurnizareZi(data);
-        } else if(Agenda.modAfisare == EnumerareModAfisare.WEEK){
+        } else if(mod == EnumerareModAfisare.WEEK || Agenda.modAfisare == EnumerareModAfisare.WEEK){
             return Container.getInstance().FurnizareSaptamana(data);
-        } else if(Agenda.modAfisare == EnumerareModAfisare.MONTH){
+        } else if(mod == EnumerareModAfisare.MONTH || Agenda.modAfisare == EnumerareModAfisare.MONTH){
             return Container.getInstance().FurnizareLuna(data);
-        } else if(Agenda.modAfisare == EnumerareModAfisare.YEAR){
+        } else if(mod == EnumerareModAfisare.YEAR || Agenda.modAfisare == EnumerareModAfisare.YEAR){
             return Container.getInstance().FurnizareAn(data);
         }
         return null;

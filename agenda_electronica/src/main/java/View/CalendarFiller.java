@@ -8,6 +8,8 @@ package View;
 import Controller.Agenda;
 import Model.CellRenderer;
 import Model.Eveniment;
+import Model.Saptamana;
+import Model.Zi;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -57,7 +59,7 @@ public class CalendarFiller {
                 mod.addColumn("Friday");
                 mod.addColumn("Saturday");
             }
-            mod.setRowCount(6);
+            //mod.setRowCount(6);
         }
     }
     
@@ -74,8 +76,11 @@ public class CalendarFiller {
             int a;
             DefaultTableModel mod = (DefaultTableModel)table[i].getModel();
             table[i].setBackground(Color.WHITE);
-            for(a = 1; a <= 6; a++){
-                mod.removeRow(6 - a);
+            int rowCount = mod.getRowCount();
+            if(rowCount > 0){
+                for(a = 1; a <= rowCount; a++){
+                    mod.removeRow(rowCount - a);
+                }
             }
             for(a = 0; a < 7; a++){
                 table[i].getColumnModel().getColumn(a).setCellRenderer(renderer);
@@ -108,32 +113,41 @@ public class CalendarFiller {
     }
     
     private static void addWeekToTable(JTable table, DefaultTableModel model) throws ParseException{ 
-        List <Eveniment> evenimente;
+        //System.out.println("1");
         Calendar calendar = Calendar.getInstance();
         int currentMonth = month - 1;
         calendar.set(year, currentMonth, date);
+        //System.out.println("2");
         Date data = calendar.getTime();
-        int current = calendar.get(calendar.DAY_OF_WEEK);
-        int i, counter, size = 0;
-        for(i = 0; i < 7; i++){
+        //System.out.println("3");
+        List <Zi> evenimente = Agenda.SelectareEvente(data, "WEEK").getEventList();
+        //System.out.println(evenimente);
+        //System.out.println("4");
+        //int current = calendar.get(calendar.DAY_OF_WEEK);
+        int i = 0, counter, size = 0;
+        for(Zi evtZi : evenimente){
             counter = 0;
-            int n = (i - current + 1);
+            /*int n = (i - current + 1);
             Date dateBefore = new Date(data.getTime() + n * 24 * 3600 * 1000l);
-            evenimente = Agenda.SelectareEvente(dateBefore, "DAY").getEventList(); 
-            table.getColumnModel().getColumn(i).setCellRenderer(new CellRenderer(evenimente));
-            for (Eveniment evt : evenimente) {
-                if (evt.getInactiveState() == false){
-                    //Calendar cal = Calendar.getInstance();
-                    calendar.setTime(evt.getInceput());
-                    String time = calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);  
-                    model.setValueAt(time + " " + evt.getTitlu(), counter, i);
-                    counter++;
-                    if(counter > size){
-                        size++;
-                        model.addRow(new Object[] {});
+            evenimente = Agenda.SelectareEvente(dateBefore, "DAY").getEventList(); */
+            table.getColumnModel().getColumn(i).setCellRenderer(new CellRenderer(evtZi));
+            List <Eveniment> evts = evtZi.getEventList();
+            if(!evts.isEmpty()){
+                for (Eveniment evt : evtZi.getEventList()) {
+                    if (evt.getInactiveState() == false){
+                        //Calendar cal = Calendar.getInstance();
+                        calendar.setTime(evt.getInceput());
+                        String time = calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);  
+                        model.setValueAt(time + " " + evt.getTitlu(), counter, i);
+                        counter++;
+                        if(counter > size){
+                            size++;
+                            model.addRow(new Object[] {});
+                        }
                     }
                 }
             }
+            i++;
         }
     }
 }
