@@ -52,13 +52,17 @@ public class CellRendererForMonth extends DefaultTableCellRenderer
             int pos = date.intValue() - 1;
             //System.out.println(map.size() + " " + row + " " + column + "=" + (row * 7 + column));
             if (map.get(pos).size() > 1) {
-                System.out.println("1 " + pos);
+                //System.out.println("1 " + pos);
                 this.setFont(this.getFont().deriveFont(Font.BOLD));
             } else if (map.get(pos).size() == 1) {
-                System.out.println("2 " + pos);
+                //System.out.println("2 " + pos);
+                //System.out.println(map.get(pos));
                 //System.out.println("2");
                 this.setBackground(CellRendererForWeek.HexToColor(map.get(pos).get(0)));
-            } 
+            } else {
+                //System.out.println("3");
+                this.setBackground(null); 
+            }
         } else {
             //System.out.println("3");
             this.setBackground(null); 
