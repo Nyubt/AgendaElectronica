@@ -6,7 +6,8 @@
 package View;
 
 import Controller.Agenda;
-import Model.CellRenderer;
+import Model.CellRendererForMonth;
+import Model.CellRendererForWeek;
 import Model.Eveniment;
 import Model.Saptamana;
 import Model.Zi;
@@ -94,20 +95,53 @@ public class CalendarFiller {
                 }
             } else {    
                 mod.setRowCount(6);        
-                Calendar cal = Calendar.getInstance();
-                cal.set(year, currentMonth, day);
-                int start = cal.get(cal.DAY_OF_WEEK);
-                int maxdays = cal.getActualMaximum(cal.DAY_OF_MONTH);
-                start--;
-                int j = 0;
-                for(a = 1; a <= maxdays; a++){
+                try {
+                    /*Calendar cal = Calendar.getInstance();
+                    cal.set(year, currentMonth, day);
+                    int start = cal.get(cal.DAY_OF_WEEK);
+                    int maxdays = cal.getActualMaximum(cal.DAY_OF_MONTH);
+                    start--;
+                    int j = 0;
+                    for(a = 1; a <= maxdays; a++){
                     mod.setValueAt(a, j, start);
                     start++;
                     if(start==7){
-                        start=0;
-                        j++;
+                    start=0;
+                    j++;
                     }
+                    }*/
+                    addMonthToTable(table[i], mod, currentMonth, day);
+                } catch (ParseException ex) {
+                    Logger.getLogger(CalendarFiller.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
+        }
+    }
+    
+    private static void addMonthToTable(JTable table, DefaultTableModel model, int currentMonth, int day) throws ParseException{
+        Calendar cal = Calendar.getInstance();
+        cal.set(year, currentMonth, day);
+        int start = cal.get(cal.DAY_OF_WEEK);
+        int maxdays = cal.getActualMaximum(cal.DAY_OF_MONTH);
+        start--;
+        int j = 0;
+        Date data = cal.getTime();
+        List <Zi> evenimente = Agenda.SelectareEvente(data, "MONTH").getEventList();
+        Iterator<Zi> iter = evenimente.iterator();
+        //table.setDefaultRenderer(String.class, new CellRendererForMonth(evenimente));
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(new CellRendererForMonth(evenimente));
+        }
+        //System.out.println("Month! " + currentMonth);
+        for(int a = 1; a <= maxdays; a++){
+            Zi evt = iter.next();
+            //System.out.println(evt.getEventList());
+            //System.out.println(evt.getEventList().size());
+            model.setValueAt(a, j, start);
+            start++;
+            if(start==7){
+                start=0;
+                j++;
             }
         }
     }
@@ -130,7 +164,7 @@ public class CalendarFiller {
             /*int n = (i - current + 1);
             Date dateBefore = new Date(data.getTime() + n * 24 * 3600 * 1000l);
             evenimente = Agenda.SelectareEvente(dateBefore, "DAY").getEventList(); */
-            table.getColumnModel().getColumn(i).setCellRenderer(new CellRenderer(evtZi));
+            table.getColumnModel().getColumn(i).setCellRenderer(new CellRendererForWeek(evtZi));
             List <Eveniment> evts = evtZi.getEventList();
             if(!evts.isEmpty()){
                 for (Eveniment evt : evtZi.getEventList()) {

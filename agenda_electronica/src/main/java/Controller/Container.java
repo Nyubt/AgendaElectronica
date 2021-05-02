@@ -8,7 +8,7 @@ package Controller;
 import Model.Eveniment;
 import Model.Alarma;
 import Model.An;
-import Model.CellRenderer;
+import Model.CellRendererForWeek;
 import Model.Luna;
 import Model.Saptamana;
 import Model.Zi;
@@ -118,9 +118,21 @@ public class Container {
      * @param data
      * @return
      */
-    public static Luna FurnizareLuna(Date data) {
-        //
-        return null;
+    public static Luna FurnizareLuna(Date data) throws ParseException {
+        List <Zi> luna = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(data);
+        int current = calendar.get(calendar.DAY_OF_MONTH);
+        int maxDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        //System.out.println(maxDays);
+        for(int i = 0; i < maxDays; i++){
+            int n = (i - current + 1);
+            Date datesOfWeek = new Date(data.getTime() + n * 24 * 3600 * 1000l);
+            List <Eveniment> evte = Agenda.SelectareEvente(datesOfWeek, "DAY").getEventList();
+            luna.add(new Zi(evte));
+        }
+        
+        return new Luna(luna);
     }
 
     /**
@@ -131,20 +143,12 @@ public class Container {
     public static Saptamana FurnizareSaptamana(Date data) throws ParseException {
         List <Zi> saptamana = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(calendar.getTime());
-        //System.out.println(data);
-        /*int currentMonth = month - 1;
-        calendar.set(year, currentMonth, date);
-        Date date = calendar.getTime();*/
-        int i;//, counter, size = 0;
+        calendar.setTime(data);
         int current = calendar.get(calendar.DAY_OF_WEEK);
-        System.out.println(current);
-        for(i = 0; i < 7; i++){
-            //counter = 0;
+        for(int i = 0; i < 7; i++){
             int n = (i - current + 1);
             Date datesOfWeek = new Date(data.getTime() + n * 24 * 3600 * 1000l);
             List <Eveniment> evte = Agenda.SelectareEvente(datesOfWeek, "DAY").getEventList();
-            //System.out.println(evte);
             saptamana.add(new Zi(evte));
         }
         return new Saptamana(saptamana);

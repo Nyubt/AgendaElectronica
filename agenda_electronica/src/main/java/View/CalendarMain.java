@@ -569,7 +569,7 @@ public class CalendarMain extends javax.swing.JFrame {
 
         jScrollPane2.setBorder(null);
 
-        jMonthTable.setFont(new java.awt.Font("Courier New", 1, 24)); // NOI18N
+        jMonthTable.setFont(new java.awt.Font("Courier New", 0, 24)); // NOI18N
         jMonthTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

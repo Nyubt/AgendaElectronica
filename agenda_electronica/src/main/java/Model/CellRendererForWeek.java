@@ -18,11 +18,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Elena
  */
-public class CellRenderer extends DefaultTableCellRenderer 
+public class CellRendererForWeek extends DefaultTableCellRenderer 
 {    
     private List<String> colors;
     
-    public CellRenderer(Zi evenimente){
+    public CellRendererForWeek(){
+    }
+    
+    public CellRendererForWeek(Zi evenimente){
         this.colors = new ArrayList<String>();
         for(Eveniment evt: evenimente.getEventList()){
             colors.add(evt.getCuloare());
@@ -41,7 +44,7 @@ public class CellRenderer extends DefaultTableCellRenderer
         return this;
     }
     
-    private Color HexToColor(String hex) 
+    public static Color HexToColor(String hex) 
     {
         hex = hex.replace("#", "");
         switch (hex.length()) {
