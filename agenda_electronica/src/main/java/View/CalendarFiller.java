@@ -134,25 +134,26 @@ public class CalendarFiller {
             evenimente = Agenda.SelectareEvente(data, "ALL").getEventList();
             sortListByDate(evenimente);
             for(Eveniment evt : evenimente){
-                dList.addElement(evt.getInceput() + " Name: " + evt.getTitlu() + " Duration: " + getDateDiff(evt.getInceput(),evt.getSfarsit(),TimeUnit.MINUTES));
+                dList.addElement(evt.getInceput() + " Name: " + evt.getTitlu() + "Id: " + evt.getEvenimentId() + " Duration: " + 
+                        getDateDiff(evt.getInceput(),evt.getSfarsit(),TimeUnit.MINUTES));
             }
         } else if(panelSelected == 3) {
             evenimente = Agenda.SelectareEvente(data, "DAY").getEventList();
             sortListByDate(evenimente);
             for(Eveniment evt : evenimente){
-                dList.addElement(evt.getInceput() + " Name: " + evt.getTitlu() + " Duration: " + 
+                dList.addElement(evt.getInceput() + " Name: " + evt.getTitlu()  + " Id: " + evt.getEvenimentId() + " Duration: " + 
                         getDateDiff(evt.getInceput(),evt.getSfarsit(),TimeUnit.MINUTES)/60 + " hours");
             }
         }
         eventList.setModel(dList);   
     }
     
-    private static void sortListByDate(List<Eveniment> originalList){
+    public static void sortListByDate(List<Eveniment> originalList){
         Comparator<Eveniment> compareByDate = (Eveniment o1, Eveniment o2) -> o1.getInceput().compareTo(o2.getInceput()); 
         Collections.sort(originalList, compareByDate);
     }
     
-    private static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
+    public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
         long diffInMillies = date2.getTime() - date1.getTime();
         return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
     }

@@ -5,8 +5,17 @@
  */
 package View;
 
+import Controller.Agenda;
+import Model.Eveniment;
+import static View.CalendarFiller.sortListByDate;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JFrame;
 
 /**
@@ -23,9 +32,18 @@ public class EventDetails extends javax.swing.JFrame  {
         initComponents();
     }
 
-    public EventDetails(CalendarMain parent){
+    public EventDetails(CalendarMain parent, String info) throws ParseException{
         initComponents();
-        parentFrame = parent;
+        this.parentFrame = parent;
+        Integer id = getIdFromString(info);
+        Eveniment evt = getEvenimentFromInfo(id);
+        jTitluTextField.setText(evt.getTitlu());
+        jDescriereTextArea.setText(evt.getDescriere());
+        jInceputTextField.setText(evt.getInceput().toString());
+        jSfarsitTextField.setText(evt.getSfarsit().toString());
+        jColorTextField.setText(getColorNameFromHex(evt.getCuloare()));
+        jRecurentaComboBox.setSelectedItem(evt.getAlarma().getFactorRecurenta() + " min");
+        jIntervalTimpTextField.setText(evt.getAlarma().getIntervalTimp() + " min");
         parentFrame.setVisible(false);
     }
     
@@ -41,18 +59,21 @@ public class EventDetails extends javax.swing.JFrame  {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jTextField1 = new javax.swing.JTextField();
+        jDescriereTextArea = new javax.swing.JTextArea();
+        jTitluTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        jInceputTextField = new javax.swing.JTextField();
+        jSfarsitTextField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        jColorTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jRecurentaComboBox = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jIntervalTimpTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -71,47 +92,66 @@ public class EventDetails extends javax.swing.JFrame  {
         jLabel2.setForeground(new java.awt.Color(0, 102, 102));
         jLabel2.setText("Descriere");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextArea1.setRows(5);
-        jTextArea1.setName("JTextAreaDescriere"); // NOI18N
-        jScrollPane1.setViewportView(jTextArea1);
+        jDescriereTextArea.setColumns(20);
+        jDescriereTextArea.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jDescriereTextArea.setRows(5);
+        jDescriereTextArea.setName("JTextAreaDescriere"); // NOI18N
+        jScrollPane1.setViewportView(jDescriereTextArea);
+        jDescriereTextArea.getAccessibleContext().setAccessibleName("jDescriereTextArea");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField1.setText(" ");
-        jTextField1.setMaximumSize(new java.awt.Dimension(20, 20));
-        jTextField1.setName("JTextFiledTitle"); // NOI18N
+        jTitluTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTitluTextField.setText(" ");
+        jTitluTextField.setMaximumSize(new java.awt.Dimension(20, 20));
+        jTitluTextField.setName("JTextFiledTitle"); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 102, 102));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("Incepe");
+        jLabel3.setText("Inceput");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel4.setText("Final");
+        jLabel4.setText("Sfarsit");
+        jLabel4.setToolTipText("");
 
-        jTextField2.setName("jTextFiledIncepe"); // NOI18N
+        jInceputTextField.setEditable(false);
+        jInceputTextField.setName("jTextFiledIncepe"); // NOI18N
 
-        jTextField3.setText("  ");
-        jTextField3.setName("jTextFiledFinal"); // NOI18N
+        jSfarsitTextField.setEditable(false);
+        jSfarsitTextField.setText("  ");
+        jSfarsitTextField.setName("jTextFiledFinal"); // NOI18N
 
-        jLabel6.setText("jLabel6");
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel6.setText("Culoare");
 
         jLabel7.setForeground(new java.awt.Color(0, 102, 102));
         jLabel7.setText(" ");
 
-        jTextField4.setText(" ");
-        jTextField4.setName("jTextFiledIntervalTimp"); // NOI18N
+        jColorTextField.setEditable(false);
+        jColorTextField.setText(" ");
+        jColorTextField.setName("jTextFiledIntervalTimp"); // NOI18N
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recurenta.png"))); // NOI18N
 
-        jComboBox1.setForeground(new java.awt.Color(0, 102, 102));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "5 min", "10 min", "15 min", "30 min", "60 min" }));
+        jRecurentaComboBox.setForeground(new java.awt.Color(0, 102, 102));
+        jRecurentaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "5 min", "10 min", "15 min", "30 min", "60 min" }));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 102, 102));
         jLabel8.setText("DETALII EVENIMENT");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel9.setText("Recurenta");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel10.setText("IntervalTimp");
+
+        jIntervalTimpTextField.setEditable(false);
+        jIntervalTimpTextField.setText(" ");
+        jIntervalTimpTextField.setName("jTextFiledIntervalTimp"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,25 +160,31 @@ public class EventDetails extends javax.swing.JFrame  {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel6))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel9))))
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jSfarsitTextField)
+                            .addComponent(jTitluTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane1)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField4)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jInceputTextField)
+                            .addComponent(jColorTextField)
+                            .addComponent(jRecurentaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jIntervalTimpTextField)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(jLabel8)))
@@ -152,31 +198,44 @@ public class EventDetails extends javax.swing.JFrame  {
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTitluTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jInceputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSfarsitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jColorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jRecurentaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jIntervalTimpTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
+
+        jTitluTextField.getAccessibleContext().setAccessibleName("jTitluTextField");
+        jInceputTextField.getAccessibleContext().setAccessibleName("jInceputTextField");
+        jInceputTextField.getAccessibleContext().setAccessibleDescription("");
+        jSfarsitTextField.getAccessibleContext().setAccessibleName("jSfarsitTextField");
+        jColorTextField.getAccessibleContext().setAccessibleName("jColorTextField");
+        jRecurentaComboBox.getAccessibleContext().setAccessibleName("jRecurentaComboBox");
+        jIntervalTimpTextField.getAccessibleContext().setAccessibleName("jIntervalTimpTextField");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -185,6 +244,52 @@ public class EventDetails extends javax.swing.JFrame  {
         parentFrame.setVisible(true);
     }//GEN-LAST:event_formWindowClosing
 
+    private static Eveniment getEvenimentFromInfo(Integer id) throws ParseException{        
+        List<Eveniment> evenimente = Agenda.SelectareEvente(new Date(), "ALL").getEventList();  
+        if(id == null){
+            return null;
+        }
+        for(Eveniment evt : evenimente){   
+            if (id == evt.getEvenimentId()){
+                return evt;
+            }
+        }
+        return null;
+    }
+    
+    private static Integer getIdFromString(String info){
+        String regex = "Id: ([0-9]+) ";
+        Pattern pattern = Pattern.compile(regex);        
+        Matcher matcher = pattern.matcher(info);
+        while (matcher.find()){
+            return Integer.valueOf(matcher.group(1));
+        }
+        return null;
+    }
+    
+    private static String getColorNameFromHex(String hexColor){
+        if(hexColor.compareTo("#C0C0C0") == 0){
+            return "Silver";
+        }
+        if(hexColor.compareTo("#00FF00") == 0){
+            return "Green";
+        }
+        if(hexColor.compareTo("#808000") == 0){
+            return "Olive";
+        }
+        if(hexColor.compareTo("#008000") == 0){
+            return "Japanese Laurel";
+        }
+        if(hexColor.compareTo("#232323") == 0){
+            return "Mine Shaft";
+        }
+        if(hexColor.compareTo("#FF0000") == 0){
+            return "Red";
+        }
+        
+        return "No Color";
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -221,8 +326,12 @@ public class EventDetails extends javax.swing.JFrame  {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JTextField jColorTextField;
+    private javax.swing.JTextArea jDescriereTextArea;
+    private javax.swing.JTextField jInceputTextField;
+    private javax.swing.JTextField jIntervalTimpTextField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -230,11 +339,10 @@ public class EventDetails extends javax.swing.JFrame  {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JComboBox<String> jRecurentaComboBox;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jSfarsitTextField;
+    private javax.swing.JTextField jTitluTextField;
     // End of variables declaration//GEN-END:variables
 }

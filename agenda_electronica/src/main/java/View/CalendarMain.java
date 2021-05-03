@@ -1188,8 +1188,9 @@ public class CalendarMain extends javax.swing.JFrame {
         JList list = (JList)evt.getSource();
         if (evt.getClickCount() == 2) {
             int index = list.locationToIndex(evt.getPoint());
-            System.out.println("index: "+index);
-            eventFrame = new EventDetails(this);
+            //System.out.println("index: " + index);
+            //System.out.println(list.getSelectedValue());
+            eventFrame = new EventDetails(this, list.getSelectedValue().toString());
             eventFrame.setVisible(true);
             eventFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
