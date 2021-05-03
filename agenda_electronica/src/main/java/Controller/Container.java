@@ -99,6 +99,9 @@ public class Container {
             //System.out.println("Alarma " + alarmActive);
             //System.out.println("Inactive " + !(rs.getObject("Inactive") == null || rs.getString("Inactive").contentEquals("0")));
             Boolean inactive = !(rs.getObject("Inactive") == null || rs.getString("Inactive").contentEquals("0"));
+            if (inactive == true){
+                continue;
+            }
             //System.out.println("Inactive " + inactive);
             Eveniment evt = new Eveniment(rs.getInt("EventId"), rs.getString("Title"), rs.getString("Description"), startDate, endDate, alarma, 
                     rs.getString("Color"), alarmActive, inactive);
@@ -167,8 +170,43 @@ public class Container {
      * Returneaza toate evenimentele din baza de date
      * @return
      */
-    public List <Eveniment> FurnizareToateEvent() {
-        return null;
+    public static Zi FurnizareToateEvent() throws ParseException {
+        evenimente = new ArrayList<Eveniment>();
+        try
+        {
+          Statement statement = connection.createStatement();
+          statement.setQueryTimeout(30);
+          ResultSet rs = statement.executeQuery("select * from Events");
+          while(rs != null && rs.next())
+          {
+            // read the result set
+            SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+            Date startDate=formatter1.parse(rs.getString("StartDate") + " " + rs.getString("StartTime"));  
+            Date endDate=formatter1.parse(rs.getString("EndDate") + " " + rs.getString("EndTime"));  
+            Alarma alarma = null;
+            try (Statement stmt = connection.createStatement()){
+                ResultSet al = stmt.executeQuery("select * from Alarms where AlarmId=" + rs.getString("AlarmId"));
+                while (al != null && al.next()) {
+                    alarma = new Alarma(al.getInt("ReminderMinutes"), al.getInt("Snooze"));
+                }
+            } catch(SQLException ex){
+                System.err.println("Connection 2 error: " + ex.getMessage());
+            }
+            Boolean alarmActive = (rs.getObject("AlarmActive") != null && rs.getString("AlarmActive").contentEquals("1"));
+            Boolean inactive = !(rs.getObject("Inactive") == null || rs.getString("Inactive").contentEquals("0"));
+            if (inactive == true){
+                continue;
+            }
+            Eveniment evt = new Eveniment(rs.getInt("EventId"), rs.getString("Title"), rs.getString("Description"), startDate, endDate, alarma, 
+                    rs.getString("Color"), alarmActive, inactive);
+            evenimente.add(evt);
+          }
+        }
+        catch(SQLException e)
+        {
+          System.err.println("Connection error: " + e.getMessage());
+        }
+        return new Zi(evenimente);
     }
 
     /**

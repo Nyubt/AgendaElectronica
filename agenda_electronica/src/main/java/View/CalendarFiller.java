@@ -20,13 +20,18 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
+import javax.swing.JList;
 import javax.swing.table.TableCellRenderer;
 
 /**
@@ -116,6 +121,40 @@ public class CalendarFiller {
                 }
             }
         }
+    }
+    
+    public static void fillInList(int panelSelected, JList eventList) throws ParseException{
+        List<Eveniment> evenimente;
+        Calendar calendar = Calendar.getInstance();
+        int currentMonth = month - 1;
+        calendar.set(year, currentMonth, date);
+        Date data = calendar.getTime();
+        DefaultListModel dList = new DefaultListModel();
+        if(panelSelected == 4){
+            evenimente = Agenda.SelectareEvente(data, "ALL").getEventList();
+            sortListByDate(evenimente);
+            for(Eveniment evt : evenimente){
+                dList.addElement(evt.getInceput() + " Name: " + evt.getTitlu() + " Duration: " + getDateDiff(evt.getInceput(),evt.getSfarsit(),TimeUnit.MINUTES));
+            }
+        } else if(panelSelected == 3) {
+            evenimente = Agenda.SelectareEvente(data, "DAY").getEventList();
+            sortListByDate(evenimente);
+            for(Eveniment evt : evenimente){
+                dList.addElement(evt.getInceput() + " Name: " + evt.getTitlu() + " Duration: " + 
+                        getDateDiff(evt.getInceput(),evt.getSfarsit(),TimeUnit.MINUTES)/60 + " hours");
+            }
+        }
+        eventList.setModel(dList);   
+    }
+    
+    private static void sortListByDate(List<Eveniment> originalList){
+        Comparator<Eveniment> compareByDate = (Eveniment o1, Eveniment o2) -> o1.getInceput().compareTo(o2.getInceput()); 
+        Collections.sort(originalList, compareByDate);
+    }
+    
+    private static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
+        long diffInMillies = date2.getTime() - date1.getTime();
+        return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
     }
     
     private static void addMonthToTable(JTable table, DefaultTableModel model, int currentMonth, int day) throws ParseException{

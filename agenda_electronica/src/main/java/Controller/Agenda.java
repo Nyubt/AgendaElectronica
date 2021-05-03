@@ -23,7 +23,7 @@ public class Agenda {
      * Enumerare moduri afisare
      */
     private enum EnumerareModAfisare {
-        DAY, WEEK, MONTH, YEAR;
+        DAY, WEEK, MONTH, YEAR, ALL;
     }
     /**
      * Modul de afisare a agendei
@@ -142,6 +142,8 @@ public class Agenda {
             return Container.getInstance().FurnizareLuna(data);
         } else if(mod == EnumerareModAfisare.YEAR || Agenda.modAfisare == EnumerareModAfisare.YEAR){
             return Container.getInstance().FurnizareAn(data);
+        } else if(mod == EnumerareModAfisare.ALL || Agenda.modAfisare == EnumerareModAfisare.ALL){
+            return Container.getInstance().FurnizareToateEvent();
         }
         return null;
     }

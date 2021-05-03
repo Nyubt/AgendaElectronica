@@ -74,13 +74,18 @@
             </MenuItem>
             <MenuItem class="javax.swing.JRadioButtonMenuItem" name="jMenuItemEventList">
               <Properties>
-                <Property name="selected" type="boolean" value="true"/>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="viewMenueGroup"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Events List"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
               <AccessibilityProperties>
                 <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="jMenuItemEventList"/>
               </AccessibilityProperties>
+              <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jMenuItemEventListItemStateChanged"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
