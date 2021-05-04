@@ -74,6 +74,8 @@ public class EventDetails extends javax.swing.JFrame  {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jIntervalTimpTextField = new javax.swing.JTextField();
+        jModificareButton = new javax.swing.JButton();
+        jAnulareButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -153,6 +155,20 @@ public class EventDetails extends javax.swing.JFrame  {
         jIntervalTimpTextField.setText(" ");
         jIntervalTimpTextField.setName("jTextFiledIntervalTimp"); // NOI18N
 
+        jModificareButton.setText("Modificare");
+        jModificareButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jModificareButtonActionPerformed(evt);
+            }
+        });
+
+        jAnulareButton.setText("Anulare");
+        jAnulareButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAnulareButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,20 +191,23 @@ public class EventDetails extends javax.swing.JFrame  {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
-                                    .addComponent(jLabel9))))
-                        .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSfarsitTextField)
-                            .addComponent(jTitluTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1)
-                            .addComponent(jInceputTextField)
-                            .addComponent(jColorTextField)
-                            .addComponent(jRecurentaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jIntervalTimpTextField)))
+                                    .addComponent(jLabel9)))
+                            .addComponent(jModificareButton))
+                        .addGap(51, 51, 51)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jSfarsitTextField)
+                                .addComponent(jTitluTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1)
+                                .addComponent(jInceputTextField)
+                                .addComponent(jColorTextField)
+                                .addComponent(jRecurentaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jIntervalTimpTextField))
+                            .addComponent(jAnulareButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(jLabel8)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,7 +245,11 @@ public class EventDetails extends javax.swing.JFrame  {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(jIntervalTimpTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jModificareButton)
+                    .addComponent(jAnulareButton))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jTitluTextField.getAccessibleContext().setAccessibleName("jTitluTextField");
@@ -236,6 +259,8 @@ public class EventDetails extends javax.swing.JFrame  {
         jColorTextField.getAccessibleContext().setAccessibleName("jColorTextField");
         jRecurentaComboBox.getAccessibleContext().setAccessibleName("jRecurentaComboBox");
         jIntervalTimpTextField.getAccessibleContext().setAccessibleName("jIntervalTimpTextField");
+        jModificareButton.getAccessibleContext().setAccessibleName("jModificareButton");
+        jAnulareButton.getAccessibleContext().setAccessibleName("jAnulareButton");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -243,6 +268,14 @@ public class EventDetails extends javax.swing.JFrame  {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         parentFrame.setVisible(true);
     }//GEN-LAST:event_formWindowClosing
+
+    private void jModificareButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jModificareButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jModificareButtonActionPerformed
+
+    private void jAnulareButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAnulareButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jAnulareButtonActionPerformed
 
     private static Eveniment getEvenimentFromInfo(Integer id) throws ParseException{        
         List<Eveniment> evenimente = Agenda.SelectareEvente(new Date(), "ALL").getEventList();  
@@ -326,6 +359,7 @@ public class EventDetails extends javax.swing.JFrame  {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jAnulareButton;
     private javax.swing.JTextField jColorTextField;
     private javax.swing.JTextArea jDescriereTextArea;
     private javax.swing.JTextField jInceputTextField;
@@ -340,6 +374,7 @@ public class EventDetails extends javax.swing.JFrame  {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JButton jModificareButton;
     private javax.swing.JComboBox<String> jRecurentaComboBox;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jSfarsitTextField;

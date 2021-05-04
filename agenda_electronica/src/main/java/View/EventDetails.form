@@ -48,16 +48,20 @@
                                   <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <Component id="jModificareButton" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jSfarsitTextField" max="32767" attributes="0"/>
-                          <Component id="jTitluTextField" max="32767" attributes="0"/>
-                          <Component id="jScrollPane1" max="32767" attributes="0"/>
-                          <Component id="jInceputTextField" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jColorTextField" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jRecurentaComboBox" alignment="0" min="-2" pref="166" max="-2" attributes="0"/>
-                          <Component id="jIntervalTimpTextField" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jSfarsitTextField" max="32767" attributes="0"/>
+                              <Component id="jTitluTextField" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" max="32767" attributes="0"/>
+                              <Component id="jInceputTextField" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jColorTextField" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jRecurentaComboBox" alignment="0" min="-2" pref="166" max="-2" attributes="0"/>
+                              <Component id="jIntervalTimpTextField" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="jAnulareButton" min="-2" pref="95" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -65,7 +69,7 @@
                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="28" max="32767" attributes="0"/>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -113,7 +117,12 @@
                   <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jIntervalTimpTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="65" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jModificareButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jAnulareButton" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="22" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -328,6 +337,28 @@
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="jIntervalTimpTextField"/>
       </AccessibilityProperties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jModificareButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Modificare"/>
+      </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="jModificareButton"/>
+      </AccessibilityProperties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jModificareButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jAnulareButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Anulare"/>
+      </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="jAnulareButton"/>
+      </AccessibilityProperties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAnulareButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

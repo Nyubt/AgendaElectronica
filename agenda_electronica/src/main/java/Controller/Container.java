@@ -214,15 +214,46 @@ public class Container {
      * @param eveniment 
      */
     public void ModificareEvent(Eveniment eveniment) {
-
+        PrelucrareEvent(eveniment, "edit");
     }
 
     /**
      * Anuleaza un eveniment
      * @param eveniment 
      */
-    public void AnulareEvent(Eveniment eveniment) {
-
+    public static void AnulareEvent(Eveniment eveniment) {
+        PrelucrareEvent(eveniment, "delete");        
+    }
+    
+    private static void PrelucrareEvent(Eveniment eveniment, String operation){
+        try
+        {
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);
+            ResultSet rs = statement.executeQuery("select * from Events where EventId=" + eveniment.getEvenimentId());
+            while(rs != null && rs.next())
+            {
+                if(operation.compareTo("edit") == 0){
+                    String newTitle = eveniment.getTitlu();
+                    String newDescription = eveniment.getDescriere();
+                    try (Statement stmt2 = connection.createStatement()){
+                          stmt2.executeUpdate("update Events set Title=\"" + newTitle + "\",Description=\"" + newDescription + "\" where EventId=" + eveniment.getEvenimentId());
+                    } catch(SQLException ex2){
+                        System.err.println("Connection error, failed to update: " + ex2.getMessage());
+                    }
+                } else if(operation.compareTo("delete") == 0){
+                    try (Statement stmt2 = connection.createStatement()){
+                          stmt2.executeUpdate("update Events set Inactive=" + true + " where EventId=" + eveniment.getEvenimentId());
+                    } catch(SQLException ex3){
+                        System.err.println("Connection error, failed to update: " + ex3.getMessage());
+                    }
+                }
+            }          
+        }
+        catch(SQLException e)
+        {
+          System.err.println("Connection error: " + e.getMessage());
+        }
     }
 
     /**

@@ -150,16 +150,18 @@ public class Agenda {
 
     /**
      * Modificarea unui eveniment
+     * @param eveniment
      */
-    public void ModificareEvent() {
+    public void ModificareEvent(Eveniment eveniment) {
+        Container.getInstance().ModificareEvent(eveniment);
         
     }
 
     /**
      * Anularea unui eveniment
+     * @param eveniment
      */
-    public void AnulareEvent() {
-        
+    public void AnulareEvent(Eveniment eveniment) {
     }
 
     /**
