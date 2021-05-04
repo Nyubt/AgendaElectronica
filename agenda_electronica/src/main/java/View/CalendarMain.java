@@ -1212,9 +1212,13 @@ public class CalendarMain extends javax.swing.JFrame {
         JList list = (JList)evt.getSource();
         if (evt.getClickCount() == 2) {
             int index = list.locationToIndex(evt.getPoint());
-            //System.out.println("index: " + index);
-            //System.out.println(list.getSelectedValue());
-            eventFrame = new EventDetails(this, list.getSelectedValue().toString());
+            try {
+                //System.out.println("index: " + index);
+                //System.out.println(list.getSelectedValue());
+                eventFrame = new EventDetails(this, list.getSelectedValue().toString());
+            } catch (ParseException ex) {
+                Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
             eventFrame.setVisible(true);
             eventFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
