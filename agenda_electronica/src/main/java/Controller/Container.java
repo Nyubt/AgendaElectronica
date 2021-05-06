@@ -213,7 +213,8 @@ public class Container {
      * Modifica un eveniment
      * @param eveniment 
      */
-    public void ModificareEvent(Eveniment eveniment) {
+    public static void ModificareEvent(Eveniment eveniment) {
+        System.out.println(eveniment.getTitlu());
         PrelucrareEvent(eveniment, "edit");
     }
 
@@ -226,6 +227,7 @@ public class Container {
     }
     
     private static void PrelucrareEvent(Eveniment eveniment, String operation){
+        System.out.println(eveniment.getEvenimentId());
         try
         {
             Statement statement = connection.createStatement();

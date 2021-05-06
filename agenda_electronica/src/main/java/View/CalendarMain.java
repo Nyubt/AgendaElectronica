@@ -69,25 +69,6 @@ public class CalendarMain extends javax.swing.JFrame {
         jMonthTextField.setText(String.valueOf(month));
         jDateText.setText(String.valueOf(date));
         jMonthYearLabel.setText(String.valueOf(year));
-        
-        /*try {
-            InputStream in = new FileInputStream(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav"));
-            AudioStream a = new AudioStream(in);
-            AudioPlayer.player.start(a);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
-        /*try {
-            //URL url = getClass().getClassLoader().getResource(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav");
-            //System.out.println(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav");
-            //System.out.println(url.getFile().toString());
-            File f = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav");
-          
-            AudioClip clip = (AudioClip) f.toURI().toURL().getContent();
-            clip.play();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
     }
 
     /** This method is called from within the constructor to
@@ -1190,7 +1171,7 @@ public class CalendarMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemDayViewItemStateChanged
 
     private void jEventListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jEventListMouseClicked
-        
+        openEventDetailsWindow(evt);
     }//GEN-LAST:event_jEventListMouseClicked
 
     private void jStopAlarmButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jStopAlarmButtonMouseClicked
@@ -1210,6 +1191,23 @@ public class CalendarMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemEventListItemStateChanged
 
     private void jDayEventListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDayEventListMouseClicked
+        /*JList list = (JList)evt.getSource();
+        if (evt.getClickCount() == 2) {
+            int index = list.locationToIndex(evt.getPoint());
+            try {
+                //System.out.println("index: " + index);
+                //System.out.println(list.getSelectedValue());
+                eventFrame = new EventDetails(this, list.getSelectedValue().toString());
+            } catch (ParseException ex) {
+                Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            eventFrame.setVisible(true);
+            eventFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        }*/
+        openEventDetailsWindow(evt);
+    }//GEN-LAST:event_jDayEventListMouseClicked
+
+    private void openEventDetailsWindow(java.awt.event.MouseEvent evt){
         JList list = (JList)evt.getSource();
         if (evt.getClickCount() == 2) {
             int index = list.locationToIndex(evt.getPoint());
@@ -1223,8 +1221,8 @@ public class CalendarMain extends javax.swing.JFrame {
             eventFrame.setVisible(true);
             eventFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
-    }//GEN-LAST:event_jDayEventListMouseClicked
-
+    }
+    
     /**
      * @param args the command line arguments
      */

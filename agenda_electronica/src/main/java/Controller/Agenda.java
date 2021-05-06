@@ -152,7 +152,8 @@ public class Agenda {
      * Modificarea unui eveniment
      * @param eveniment
      */
-    public void ModificareEvent(Eveniment eveniment) {
+    public static void ModificareEvent(Eveniment eveniment) {
+        //System.out.println(eveniment.getTitlu());
         Container.getInstance().ModificareEvent(eveniment);
         
     }
@@ -161,7 +162,8 @@ public class Agenda {
      * Anularea unui eveniment
      * @param eveniment
      */
-    public void AnulareEvent(Eveniment eveniment) {
+    public static void AnulareEvent(Eveniment eveniment) {
+        Container.getInstance().AnulareEvent(eveniment);
     }
 
     /**
