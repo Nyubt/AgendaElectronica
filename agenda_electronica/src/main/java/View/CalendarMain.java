@@ -1208,10 +1208,11 @@ public class CalendarMain extends javax.swing.JFrame {
     private void openEventDetailsWindow(java.awt.event.MouseEvent evt){
         JList list = (JList)evt.getSource();
         if (evt.getClickCount() == 2) {
-            int index = list.locationToIndex(evt.getPoint());
+            //int index = list.locationToIndex(evt.getPoint());
+            //System.out.println(index);
             try {
-                eventFrame = new EventDetails(this, list.getSelectedValue().toString());
-            } catch (ParseException ex) {
+                eventFrame = new EventDetails(this, (Eveniment)list.getSelectedValue());
+            } catch (Exception ex) {
                 Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
             }
             eventFrame.setVisible(true);

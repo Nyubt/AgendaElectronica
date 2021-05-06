@@ -34,11 +34,10 @@ public class EventDetails extends javax.swing.JFrame  {
         initComponents();
     }
 
-    public EventDetails(CalendarMain parent, String info) throws ParseException{
+    public EventDetails(CalendarMain parent, Eveniment info){
         initComponents();
         this.parentFrame = parent;
-        Integer id = getIdFromString(info);
-        eveniment = getEvenimentFromInfo(id);
+        eveniment = info;
         jTitluTextField.setText(eveniment.getTitlu());
         jDescriereTextArea.setText(eveniment.getDescriere());
         jInceputTextField.setText(eveniment.getInceput().toString());
@@ -282,7 +281,7 @@ public class EventDetails extends javax.swing.JFrame  {
         super.dispose();
     }//GEN-LAST:event_jAnulareButtonMouseClicked
 
-    private static Eveniment getEvenimentFromInfo(Integer id) throws ParseException{        
+    /*private static Eveniment getEvenimentFromInfo(Integer id) throws ParseException{        
         List<Eveniment> evenimente = Agenda.SelectareEvente(new Date(), "ALL").getEventList();  
         if(id == null){
             return null;
@@ -293,9 +292,9 @@ public class EventDetails extends javax.swing.JFrame  {
             }
         }
         return null;
-    }
+    }*/
     
-    private static Integer getIdFromString(String info){
+    /*private static Integer getIdFromString(String info){
         String regex = "Id: ([0-9]+) ";
         Pattern pattern = Pattern.compile(regex);        
         Matcher matcher = pattern.matcher(info);
@@ -303,7 +302,7 @@ public class EventDetails extends javax.swing.JFrame  {
             return Integer.valueOf(matcher.group(1));
         }
         return null;
-    }
+    }*/
     
     private static String getColorNameFromHex(String hexColor){
         if(hexColor.compareTo("#C0C0C0") == 0){
