@@ -8,6 +8,7 @@ package View;
 import Controller.Agenda;
 import Model.CellRendererForMonth;
 import Model.CellRendererForWeek;
+import Model.ElementRendererForList;
 import Model.Eveniment;
 import Model.Saptamana;
 import Model.Zi;
@@ -130,19 +131,22 @@ public class CalendarFiller {
         calendar.set(year, currentMonth, date);
         Date data = calendar.getTime();
         DefaultListModel dList = new DefaultListModel();
+        eventList.setCellRenderer(new ElementRendererForList());
         if(panelSelected == 4){
             evenimente = Agenda.SelectareEvente(data, "ALL").getEventList();
             sortListByDate(evenimente);
             for(Eveniment evt : evenimente){
-                dList.addElement(evt.getInceput() + " Name: " + evt.getTitlu() + "Id: " + evt.getEvenimentId() + " Duration: " + 
-                        getDateDiff(evt.getInceput(),evt.getSfarsit(),TimeUnit.MINUTES));
+                dList.addElement(evt);
+                /*dList.addElement(evt.getInceput() + " Name: " + evt.getTitlu() + "Id: " + evt.getEvenimentId() + " Duration: " + 
+                        getDateDiff(evt.getInceput(),evt.getSfarsit(),TimeUnit.MINUTES));*/
             }
         } else if(panelSelected == 3) {
             evenimente = Agenda.SelectareEvente(data, "DAY").getEventList();
             sortListByDate(evenimente);
             for(Eveniment evt : evenimente){
-                dList.addElement(evt.getInceput() + " Name: " + evt.getTitlu()  + " Id: " + evt.getEvenimentId() + " Duration: " + 
-                        getDateDiff(evt.getInceput(),evt.getSfarsit(),TimeUnit.MINUTES)/60 + " hours");
+                dList.addElement(evt);
+                /*dList.addElement(evt.getInceput() + " Name: " + evt.getTitlu()  + " Id: " + evt.getEvenimentId() + " Duration: " + 
+                        getDateDiff(evt.getInceput(),evt.getSfarsit(),TimeUnit.MINUTES)/60 + " hours");*/
             }
         }
         eventList.setModel(dList);   

@@ -27,6 +27,8 @@ import javax.swing.JOptionPane;
 import java.util.Calendar;
 import static java.util.Calendar.MONTH;  
 import java.applet.AudioClip;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.FocusListener;
 import java.text.ParseException;
 import java.util.Date;
@@ -698,6 +700,11 @@ public class CalendarMain extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        jEventsList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jEventsListMouseClicked(evt);
+            }
+        });
         jScrollPane17.setViewportView(jEventsList);
         jEventsList.getAccessibleContext().setAccessibleName("jEventsList");
 
@@ -1171,7 +1178,7 @@ public class CalendarMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemDayViewItemStateChanged
 
     private void jEventListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jEventListMouseClicked
-        openEventDetailsWindow(evt);
+        
     }//GEN-LAST:event_jEventListMouseClicked
 
     private void jStopAlarmButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jStopAlarmButtonMouseClicked
@@ -1191,29 +1198,18 @@ public class CalendarMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemEventListItemStateChanged
 
     private void jDayEventListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDayEventListMouseClicked
-        /*JList list = (JList)evt.getSource();
-        if (evt.getClickCount() == 2) {
-            int index = list.locationToIndex(evt.getPoint());
-            try {
-                //System.out.println("index: " + index);
-                //System.out.println(list.getSelectedValue());
-                eventFrame = new EventDetails(this, list.getSelectedValue().toString());
-            } catch (ParseException ex) {
-                Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            eventFrame.setVisible(true);
-            eventFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }*/
         openEventDetailsWindow(evt);
     }//GEN-LAST:event_jDayEventListMouseClicked
+
+    private void jEventsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jEventsListMouseClicked
+        openEventDetailsWindow(evt);
+    }//GEN-LAST:event_jEventsListMouseClicked
 
     private void openEventDetailsWindow(java.awt.event.MouseEvent evt){
         JList list = (JList)evt.getSource();
         if (evt.getClickCount() == 2) {
             int index = list.locationToIndex(evt.getPoint());
             try {
-                //System.out.println("index: " + index);
-                //System.out.println(list.getSelectedValue());
                 eventFrame = new EventDetails(this, list.getSelectedValue().toString());
             } catch (ParseException ex) {
                 Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
@@ -1255,6 +1251,13 @@ public class CalendarMain extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new CalendarMain().setVisible(true);
+                /*CalendarMain.super.addComponentListener(new ComponentAdapter(){
+                    public void componentShown(ComponentEvent e) {
+                        if(panelSelected = 4){
+                            
+                        }
+                     }
+                });*/
             }
         });
     }
