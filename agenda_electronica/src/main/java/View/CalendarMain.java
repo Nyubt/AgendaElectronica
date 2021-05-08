@@ -27,6 +27,8 @@ import javax.swing.JOptionPane;
 import java.util.Calendar;
 import static java.util.Calendar.MONTH;  
 import java.applet.AudioClip;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.FocusListener;
 import java.text.ParseException;
 import java.util.Date;
@@ -69,25 +71,6 @@ public class CalendarMain extends javax.swing.JFrame {
         jMonthTextField.setText(String.valueOf(month));
         jDateText.setText(String.valueOf(date));
         jMonthYearLabel.setText(String.valueOf(year));
-        
-        /*try {
-            InputStream in = new FileInputStream(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav"));
-            AudioStream a = new AudioStream(in);
-            AudioPlayer.player.start(a);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
-        /*try {
-            //URL url = getClass().getClassLoader().getResource(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav");
-            //System.out.println(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav");
-            //System.out.println(url.getFile().toString());
-            File f = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav");
-          
-            AudioClip clip = (AudioClip) f.toURI().toURL().getContent();
-            clip.play();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
     }
 
     /** This method is called from within the constructor to
@@ -717,6 +700,11 @@ public class CalendarMain extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        jEventsList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jEventsListMouseClicked(evt);
+            }
+        });
         jScrollPane17.setViewportView(jEventsList);
         jEventsList.getAccessibleContext().setAccessibleName("jEventsList");
 
@@ -1210,21 +1198,28 @@ public class CalendarMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemEventListItemStateChanged
 
     private void jDayEventListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDayEventListMouseClicked
+        openEventDetailsWindow(evt);
+    }//GEN-LAST:event_jDayEventListMouseClicked
+
+    private void jEventsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jEventsListMouseClicked
+        openEventDetailsWindow(evt);
+    }//GEN-LAST:event_jEventsListMouseClicked
+
+    private void openEventDetailsWindow(java.awt.event.MouseEvent evt){
         JList list = (JList)evt.getSource();
         if (evt.getClickCount() == 2) {
-            int index = list.locationToIndex(evt.getPoint());
+            //int index = list.locationToIndex(evt.getPoint());
+            //System.out.println(index);
             try {
-                //System.out.println("index: " + index);
-                //System.out.println(list.getSelectedValue());
-                eventFrame = new EventDetails(this, list.getSelectedValue().toString());
-            } catch (ParseException ex) {
+                eventFrame = new EventDetails(this, (Eveniment)list.getSelectedValue());
+            } catch (Exception ex) {
                 Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
             }
             eventFrame.setVisible(true);
             eventFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
-    }//GEN-LAST:event_jDayEventListMouseClicked
-
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -1257,6 +1252,13 @@ public class CalendarMain extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new CalendarMain().setVisible(true);
+                /*CalendarMain.super.addComponentListener(new ComponentAdapter(){
+                    public void componentShown(ComponentEvent e) {
+                        if(panelSelected = 4){
+                            
+                        }
+                     }
+                });*/
             }
         });
     }

@@ -32,8 +32,10 @@ public class CellRendererForMonth extends DefaultTableCellRenderer
         int i = 0;
         for(Zi evtZi: evenimente){
             List<String> colors = new ArrayList<String>();
-            for(Eveniment evt: evtZi.getEventList()){
-                colors.add(evt.getCuloare());
+            if(!evtZi.getEventList().isEmpty()){
+                for(Eveniment evt: evtZi.getEventList()){
+                    colors.add(evt.getCuloare());
+                }
             }
             map.put(i++, colors);
         }
