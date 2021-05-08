@@ -37,12 +37,13 @@ public class EventDetails extends javax.swing.JFrame  {
     public EventDetails(CalendarMain parent, Eveniment info){
         initComponents();
         this.parentFrame = parent;
-        eveniment = info;
+        this.eveniment = info;
         jTitluTextField.setText(eveniment.getTitlu());
         jDescriereTextArea.setText(eveniment.getDescriere());
         jInceputTextField.setText(eveniment.getInceput().toString());
         jSfarsitTextField.setText(eveniment.getSfarsit().toString());
         jColorTextField.setText(getColorNameFromHex(eveniment.getCuloare()));
+        jRecurentaTextField.setText(getModRecurenta());
         jRecurentaComboBox.setSelectedItem(eveniment.getAlarma().getFactorRecurenta() + " min");
         jIntervalTimpTextField.setText(eveniment.getAlarma().getIntervalTimp() + " min");
         parentFrame.setVisible(false);
@@ -76,6 +77,8 @@ public class EventDetails extends javax.swing.JFrame  {
         jIntervalTimpTextField = new javax.swing.JTextField();
         jModificareButton = new javax.swing.JButton();
         jAnulareButton = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        jRecurentaTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -168,43 +171,62 @@ public class EventDetails extends javax.swing.JFrame  {
             }
         });
 
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel11.setText("Se repeta");
+
+        jRecurentaTextField.setEditable(false);
+        jRecurentaTextField.setText(" ");
+        jRecurentaTextField.setName("jTextFiledIntervalTimp"); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(77, 77, 77)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel9)
-                                .addComponent(jLabel10))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jModificareButton)
-                                .addGap(10, 10, 10)))
-                        .addGap(68, 68, 68)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jSfarsitTextField)
-                                .addComponent(jTitluTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1)
-                                .addComponent(jInceputTextField)
-                                .addComponent(jColorTextField)
-                                .addComponent(jIntervalTimpTextField)
-                                .addComponent(jRecurentaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jAnulareButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jModificareButton)
+                                        .addGap(78, 78, 78))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(14, 14, 14)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel10)
+                                            .addComponent(jLabel9))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jIntervalTimpTextField)
+                                        .addComponent(jRecurentaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jAnulareButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel11))
+                                .addGap(68, 68, 68)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jRecurentaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jSfarsitTextField)
+                                        .addComponent(jTitluTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jScrollPane1)
+                                        .addComponent(jInceputTextField)
+                                        .addComponent(jColorTextField)))))))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -233,7 +255,11 @@ public class EventDetails extends javax.swing.JFrame  {
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jColorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRecurentaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRecurentaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
@@ -245,7 +271,7 @@ public class EventDetails extends javax.swing.JFrame  {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jModificareButton)
                     .addComponent(jAnulareButton))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTitluTextField.getAccessibleContext().setAccessibleName("jTitluTextField");
@@ -257,6 +283,7 @@ public class EventDetails extends javax.swing.JFrame  {
         jIntervalTimpTextField.getAccessibleContext().setAccessibleName("jIntervalTimpTextField");
         jModificareButton.getAccessibleContext().setAccessibleName("jModificareButton");
         jAnulareButton.getAccessibleContext().setAccessibleName("jAnulareButton");
+        jRecurentaTextField.getAccessibleContext().setAccessibleName("jRecurentaTextField");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -327,6 +354,22 @@ public class EventDetails extends javax.swing.JFrame  {
         return "No Color";
     }
     
+    public String getModRecurenta(){        
+        if(eveniment.getRecurenta().getModRecurenta() == 1){
+            return "Zilnic";
+        }
+        if(eveniment.getRecurenta().getModRecurenta() == 2){
+            return "Saptamanal";
+        }
+        if(eveniment.getRecurenta().getModRecurenta() == 3){
+            return "Lunar";
+        }
+        if(eveniment.getRecurenta().getModRecurenta() == 4){
+            return "Anual";
+        }
+        return "";
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -370,6 +413,7 @@ public class EventDetails extends javax.swing.JFrame  {
     private javax.swing.JTextField jIntervalTimpTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -379,6 +423,7 @@ public class EventDetails extends javax.swing.JFrame  {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JButton jModificareButton;
     private javax.swing.JComboBox<String> jRecurentaComboBox;
+    private javax.swing.JTextField jRecurentaTextField;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jSfarsitTextField;
     private javax.swing.JTextField jTitluTextField;
