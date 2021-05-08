@@ -10,6 +10,7 @@ import Model.Alarma;
 import Model.An;
 import Model.CellRendererForWeek;
 import Model.Luna;
+import Model.Recurenta;
 import Model.Saptamana;
 import Model.Zi;
 import static View.CalendarFiller.date;
@@ -102,8 +103,18 @@ public class Container {
             if (inactive == true){
                 continue;
             }
+            Recurenta recurenta = null;
+            try (Statement stmt = connection.createStatement()){
+                ResultSet re = stmt.executeQuery("select * from Recurrence where RecurrenceId=" + rs.getString("RecurrenceId"));
+                while (re != null && re.next()) {
+                    Date endDate2=dateFormat.parse(re.getString("EndDate"));
+                    recurenta = new Recurenta(re.getInt("RepetMode"), endDate2);
+                }
+            } catch(SQLException ex){
+                System.err.println("Connection 2 error: " + ex.getMessage());
+            }
             //System.out.println("Inactive " + inactive);
-            Eveniment evt = new Eveniment(rs.getInt("EventId"), rs.getString("Title"), rs.getString("Description"), startDate, endDate, alarma, 
+            Eveniment evt = new Eveniment(rs.getInt("EventId"), rs.getString("Title"), rs.getString("Description"), startDate, endDate, alarma, recurenta,
                     rs.getString("Color"), alarmActive, inactive);
             //System.out.println(evt.getInceput());
             evenimente.add(evt);
@@ -197,7 +208,19 @@ public class Container {
             if (inactive == true){
                 continue;
             }
-            Eveniment evt = new Eveniment(rs.getInt("EventId"), rs.getString("Title"), rs.getString("Description"), startDate, endDate, alarma, 
+            
+            Recurenta recurenta = null;
+            try (Statement stmt = connection.createStatement()){
+                ResultSet re = stmt.executeQuery("select * from Recurrence where RecurrenceId=" + rs.getString("RecurrenceId"));
+                while (re != null && re.next()) {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    Date endDate2=dateFormat.parse(re.getString("EndDate"));
+                    recurenta = new Recurenta(re.getInt("RepetMode"), endDate2);
+                }
+            } catch(SQLException ex){
+                System.err.println("Connection 2 error: " + ex.getMessage());
+            }
+            Eveniment evt = new Eveniment(rs.getInt("EventId"), rs.getString("Title"), rs.getString("Description"), startDate, endDate, alarma, recurenta,
                     rs.getString("Color"), alarmActive, inactive);
             evenimente.add(evt);
           }
@@ -214,7 +237,6 @@ public class Container {
      * @param eveniment 
      */
     public static void ModificareEvent(Eveniment eveniment) {
-        System.out.println(eveniment.getTitlu());
         PrelucrareEvent(eveniment, "edit");
     }
 
@@ -227,7 +249,6 @@ public class Container {
     }
     
     private static void PrelucrareEvent(Eveniment eveniment, String operation){
-        System.out.println(eveniment.getEvenimentId());
         try
         {
             Statement statement = connection.createStatement();
