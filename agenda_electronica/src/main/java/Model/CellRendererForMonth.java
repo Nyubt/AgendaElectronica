@@ -9,6 +9,7 @@ import java.awt.Component;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -47,20 +48,27 @@ public class CellRendererForMonth extends DefaultTableCellRenderer
         super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         
         //System.out.println("!");
-        Integer date = (Integer)value;
-        //System.out.println(date);
-        //System.out.println(pos == date);
-        if(date != null && (date.intValue() - 1) < map.size()){
-            int pos = date.intValue() - 1;
-            //System.out.println(map.size() + " " + row + " " + column + "=" + (row * 7 + column));
-            if (map.get(pos).size() > 1) {
-                //System.out.println("1 " + pos);
-                this.setFont(this.getFont().deriveFont(Font.BOLD));
-            } else if (map.get(pos).size() == 1) {
-                //System.out.println("2 " + pos);
-                //System.out.println(map.get(pos));
-                //System.out.println("2");
-                this.setBackground(CellRendererForWeek.HexToColor(map.get(pos).get(0)));
+        Zi evt = (Zi)value;
+        if(evt != null){  
+            Integer date = dateToDay(evt.getDate());
+            //System.out.println(date);
+            //System.out.println(pos == date);        
+            this.setText(date.toString());
+            if(date != null && (date.intValue() - 1) < map.size()){
+                int pos = date.intValue() - 1;
+                //System.out.println(map.size() + " " + row + " " + column + "=" + (row * 7 + column));
+                if (map.get(pos).size() > 1) {
+                    //System.out.println("1 " + pos);
+                    this.setFont(this.getFont().deriveFont(Font.BOLD));
+                } else if (map.get(pos).size() == 1) {
+                    //System.out.println("2 " + pos);
+                    //System.out.println(map.get(pos));
+                    //System.out.println("2");
+                    this.setBackground(CellRendererForWeek.HexToColor(map.get(pos).get(0)));
+                } else {
+                    //System.out.println("3");
+                    this.setBackground(null); 
+                }
             } else {
                 //System.out.println("3");
                 this.setBackground(null); 
@@ -73,4 +81,9 @@ public class CellRendererForMonth extends DefaultTableCellRenderer
         return this;
     }
      
+    private Integer dateToDay(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.DAY_OF_MONTH);
+    }
 }

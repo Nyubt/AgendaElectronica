@@ -5,6 +5,7 @@
  */
 package Model;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,13 +17,27 @@ public class Zi implements ListEventsInterface {
      * Lista de obiecte Eveniment dintr-o zi
      */
     private List <Eveniment> eveniment;
-
+    /**
+     * Data zilei evenimentului
+     */
+    private Date data;
     /**
      * Constructorul clasei Zi
      * @param eveniment 
      */
     public Zi(List <Eveniment> eveniment) {
         this.eveniment = eveniment;
+        this.data = null;
+    }
+    
+    /**
+     * Constructorul clasei Zi
+     * @param eveniment 
+     * @param date 
+     */
+    public Zi(List <Eveniment> eveniment, Date date) {
+        this.eveniment = eveniment;
+        this.data = date;
     }
 
     /**
@@ -31,5 +46,9 @@ public class Zi implements ListEventsInterface {
      */
     public List <Eveniment> getEventList() {
         return this.eveniment;
+    }
+    
+    public Date getDate(){
+        return this.data;
     }
 }

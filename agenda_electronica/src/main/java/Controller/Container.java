@@ -143,7 +143,7 @@ public class Container {
             int n = (i - current + 1);
             Date datesOfWeek = new Date(data.getTime() + n * 24 * 3600 * 1000l);
             List <Eveniment> evte = Agenda.SelectareEvente(datesOfWeek, "DAY").getEventList();
-            luna.add(new Zi(evte));
+            luna.add(new Zi(evte, datesOfWeek));
         }
         
         return new Luna(luna);

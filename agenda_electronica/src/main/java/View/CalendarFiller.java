@@ -174,9 +174,11 @@ public class CalendarFiller {
         //System.out.println("Month! " + currentMonth);
         for(int a = 1; a <= maxdays; a++){
             Zi evt = iter.next();
+            //System.out.println(evt.getDate());
             //System.out.println(evt.getEventList());
             //System.out.println(evt.getEventList().size());
-            model.setValueAt(a, j, start);
+            //model.setValueAt(a, j, start);
+            model.setValueAt(evt, j, start); //trimis Zi??
             start++;
             if(start==7){
                 start=0;
