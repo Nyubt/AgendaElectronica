@@ -7,6 +7,10 @@
 package View;
 
 import Model.Eveniment;
+import Model.Zi;
+import static View.CalendarFiller.date;
+import static View.CalendarFiller.month;
+import static View.CalendarFiller.year;
 import java.applet.Applet;
 import java.awt.event.ItemEvent;
 import javax.swing.JPanel;
@@ -42,6 +46,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 import javax.swing.JList;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -188,10 +193,15 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableJan.setColumnSelectionAllowed(true);
+        jTableJan.setCellSelectionEnabled(false);
         jTableJan.setRowHeight(11);
+        jTableJan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTableJanMousePressed(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTableJan);
-        jTableJan.getAccessibleContext().setAccessibleName("jTableJan");
+        jTableJan.getAccessibleContext().setAccessibleName("");
 
         label1.setAlignment(java.awt.Label.CENTER);
         label1.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
@@ -211,11 +221,16 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableFeb.setColumnSelectionAllowed(true);
+        jTableFeb.setCellSelectionEnabled(false);
         jTableFeb.setMaximumSize(new java.awt.Dimension(145, 44));
         jTableFeb.setRowHeight(11);
+        jTableFeb.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTableJanMousePressed(evt);
+            }
+        });
         jScrollPane4.setViewportView(jTableFeb);
-        jTableFeb.getAccessibleContext().setAccessibleName("jTableFeb");
+        jTableFeb.getAccessibleContext().setAccessibleName("");
 
         label2.setAlignment(java.awt.Label.CENTER);
         label2.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
@@ -235,10 +250,15 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableMar.setColumnSelectionAllowed(true);
+        jTableMar.setCellSelectionEnabled(false);
         jTableMar.setRowHeight(11);
+        jTableMar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTableJanMousePressed(evt);
+            }
+        });
         jScrollPane5.setViewportView(jTableMar);
-        jTableMar.getAccessibleContext().setAccessibleName("jTableMar");
+        jTableMar.getAccessibleContext().setAccessibleName("");
 
         label3.setAlignment(java.awt.Label.CENTER);
         label3.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
@@ -258,10 +278,15 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableApr.setColumnSelectionAllowed(true);
+        jTableApr.setCellSelectionEnabled(false);
         jTableApr.setRowHeight(11);
+        jTableApr.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTableJanMousePressed(evt);
+            }
+        });
         jScrollPane6.setViewportView(jTableApr);
-        jTableApr.getAccessibleContext().setAccessibleName("jTableApr");
+        jTableApr.getAccessibleContext().setAccessibleName("");
 
         label4.setAlignment(java.awt.Label.CENTER);
         label4.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
@@ -281,10 +306,15 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableMay.setColumnSelectionAllowed(true);
+        jTableMay.setCellSelectionEnabled(false);
         jTableMay.setRowHeight(11);
+        jTableMay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTableJanMousePressed(evt);
+            }
+        });
         jScrollPane7.setViewportView(jTableMay);
-        jTableMay.getAccessibleContext().setAccessibleName("jTableMay");
+        jTableMay.getAccessibleContext().setAccessibleName("");
 
         label5.setAlignment(java.awt.Label.CENTER);
         label5.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
@@ -305,10 +335,15 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableJun.setColumnSelectionAllowed(true);
+        jTableJun.setCellSelectionEnabled(false);
         jTableJun.setRowHeight(11);
+        jTableJun.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTableJanMousePressed(evt);
+            }
+        });
         jScrollPane8.setViewportView(jTableJun);
-        jTableJun.getAccessibleContext().setAccessibleName("jTableJun");
+        jTableJun.getAccessibleContext().setAccessibleName("");
 
         label6.setAlignment(java.awt.Label.CENTER);
         label6.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
@@ -328,10 +363,15 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableJul.setColumnSelectionAllowed(true);
+        jTableJul.setCellSelectionEnabled(false);
         jTableJul.setRowHeight(11);
+        jTableJul.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTableJanMousePressed(evt);
+            }
+        });
         jScrollPane9.setViewportView(jTableJul);
-        jTableJul.getAccessibleContext().setAccessibleName("jTableJul");
+        jTableJul.getAccessibleContext().setAccessibleName("");
 
         label7.setAlignment(java.awt.Label.CENTER);
         label7.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
@@ -351,10 +391,15 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableAug.setColumnSelectionAllowed(true);
+        jTableAug.setCellSelectionEnabled(false);
         jTableAug.setRowHeight(11);
+        jTableAug.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTableJanMousePressed(evt);
+            }
+        });
         jScrollPane10.setViewportView(jTableAug);
-        jTableAug.getAccessibleContext().setAccessibleName("jTableAug");
+        jTableAug.getAccessibleContext().setAccessibleName("");
 
         label8.setAlignment(java.awt.Label.CENTER);
         label8.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
@@ -374,10 +419,15 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableSep.setColumnSelectionAllowed(true);
+        jTableSep.setCellSelectionEnabled(false);
         jTableSep.setRowHeight(11);
+        jTableSep.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTableJanMousePressed(evt);
+            }
+        });
         jScrollPane11.setViewportView(jTableSep);
-        jTableSep.getAccessibleContext().setAccessibleName("jTableSep");
+        jTableSep.getAccessibleContext().setAccessibleName("");
 
         label9.setAlignment(java.awt.Label.CENTER);
         label9.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
@@ -397,10 +447,15 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableOct.setColumnSelectionAllowed(true);
+        jTableOct.setCellSelectionEnabled(false);
         jTableOct.setRowHeight(11);
+        jTableOct.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTableJanMousePressed(evt);
+            }
+        });
         jScrollPane12.setViewportView(jTableOct);
-        jTableOct.getAccessibleContext().setAccessibleName("jTableOct");
+        jTableOct.getAccessibleContext().setAccessibleName("");
 
         label10.setAlignment(java.awt.Label.CENTER);
         label10.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
@@ -420,10 +475,15 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableNov.setColumnSelectionAllowed(true);
+        jTableNov.setCellSelectionEnabled(false);
         jTableNov.setRowHeight(11);
+        jTableNov.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTableJanMousePressed(evt);
+            }
+        });
         jScrollPane13.setViewportView(jTableNov);
-        jTableNov.getAccessibleContext().setAccessibleName("jTableNov");
+        jTableNov.getAccessibleContext().setAccessibleName("");
 
         label11.setAlignment(java.awt.Label.CENTER);
         label11.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
@@ -443,10 +503,15 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableDec.setColumnSelectionAllowed(true);
+        jTableDec.setCellSelectionEnabled(false);
         jTableDec.setRowHeight(11);
+        jTableDec.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTableJanMousePressed(evt);
+            }
+        });
         jScrollPane14.setViewportView(jTableDec);
-        jTableDec.getAccessibleContext().setAccessibleName("jTableDec");
+        jTableDec.getAccessibleContext().setAccessibleName("");
 
         label12.setAlignment(java.awt.Label.CENTER);
         label12.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
@@ -583,6 +648,11 @@ public class CalendarMain extends javax.swing.JFrame {
         jMonthTable.setCellSelectionEnabled(true);
         jMonthTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jMonthTable.setRowHeight(56);
+        jMonthTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTableJanMousePressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(jMonthTable);
         jMonthTable.getAccessibleContext().setAccessibleName("jMonthTable");
 
@@ -1204,6 +1274,35 @@ public class CalendarMain extends javax.swing.JFrame {
     private void jEventsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jEventsListMouseClicked
         openEventDetailsWindow(evt);
     }//GEN-LAST:event_jEventsListMouseClicked
+
+    private void jTableJanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableJanMousePressed
+        JTable table =(JTable) evt.getSource();
+        if (evt.getClickCount() == 2 && table.getSelectedRow() != -1) {
+            //System.out.println(table.getSelectedRow());
+            int row = table.getSelectedRow();
+            int column = table.getSelectedColumn();
+            Zi event = (Zi)table.getValueAt(row, column);
+            //table.setValueAt(event, row, column);
+            if(null != table.getCellEditor()) {
+                table.getCellEditor().stopCellEditing();
+            }
+            if(event != null){
+                cal.setTime(event.getDate());
+                jDateText.setText(String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
+                jMonthTextField.setText(String.valueOf(cal.get(Calendar.MONTH) + 1));
+                jYearTextField.setText(String.valueOf(cal.get(Calendar.YEAR)));
+                switchPanels(jDayPanel);
+                jMenuItemDayView.setSelected(true);
+                panelSelected = 3;
+                DateJumpButtonActionPerformed(null);
+                try {
+                    CalendarFiller.fillInList(panelSelected, jDayEventList);
+                } catch (ParseException ex) {
+                    Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+            }
+        }
+    }//GEN-LAST:event_jTableJanMousePressed
 
     private void openEventDetailsWindow(java.awt.event.MouseEvent evt){
         JList list = (JList)evt.getSource();

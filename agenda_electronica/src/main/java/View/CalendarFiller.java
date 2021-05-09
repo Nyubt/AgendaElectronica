@@ -178,7 +178,7 @@ public class CalendarFiller {
             //System.out.println(evt.getEventList());
             //System.out.println(evt.getEventList().size());
             //model.setValueAt(a, j, start);
-            model.setValueAt(evt, j, start); //trimis Zi??
+            model.setValueAt(evt, j, start);
             start++;
             if(start==7){
                 start=0;
