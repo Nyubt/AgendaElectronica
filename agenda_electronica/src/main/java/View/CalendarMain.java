@@ -70,6 +70,9 @@ public class CalendarMain extends javax.swing.JFrame {
         int year = LocalDate.now().getYear();
         int month = LocalDate.now().getMonthValue();
         int date = LocalDate.now().getDayOfMonth();
+        //System.out.println(CalendarMain.getFrames()[0]);
+        java.awt.Image img = new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\main\\resources\\iconita.png").getImage();
+        CalendarMain.getFrames()[0].setIconImage(img);
         
         CalendarFiller.year = year;
         CalendarFiller.month = month;
