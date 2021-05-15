@@ -352,7 +352,6 @@
                         <Column editable="true" title="Title 4" type="java.lang.Object"/>
                       </Table>
                     </Property>
-                    <Property name="cellSelectionEnabled" type="boolean" value="false"/>
                     <Property name="rowHeight" type="int" value="11"/>
                   </Properties>
                   <AccessibilityProperties>
@@ -398,7 +397,6 @@
                         <Column editable="true" title="Title 4" type="java.lang.Object"/>
                       </Table>
                     </Property>
-                    <Property name="cellSelectionEnabled" type="boolean" value="false"/>
                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[145, 44]"/>
                     </Property>
@@ -447,7 +445,6 @@
                         <Column editable="true" title="Title 4" type="java.lang.Object"/>
                       </Table>
                     </Property>
-                    <Property name="cellSelectionEnabled" type="boolean" value="false"/>
                     <Property name="rowHeight" type="int" value="11"/>
                   </Properties>
                   <AccessibilityProperties>
@@ -493,7 +490,6 @@
                         <Column editable="true" title="Title 4" type="java.lang.Object"/>
                       </Table>
                     </Property>
-                    <Property name="cellSelectionEnabled" type="boolean" value="false"/>
                     <Property name="rowHeight" type="int" value="11"/>
                   </Properties>
                   <AccessibilityProperties>
@@ -539,7 +535,6 @@
                         <Column editable="true" title="Title 4" type="java.lang.Object"/>
                       </Table>
                     </Property>
-                    <Property name="cellSelectionEnabled" type="boolean" value="false"/>
                     <Property name="rowHeight" type="int" value="11"/>
                   </Properties>
                   <AccessibilityProperties>
@@ -588,7 +583,6 @@
                         <Column editable="true" title="Title 4" type="java.lang.Object"/>
                       </Table>
                     </Property>
-                    <Property name="cellSelectionEnabled" type="boolean" value="false"/>
                     <Property name="rowHeight" type="int" value="11"/>
                   </Properties>
                   <AccessibilityProperties>
@@ -634,7 +628,6 @@
                         <Column editable="true" title="Title 4" type="java.lang.Object"/>
                       </Table>
                     </Property>
-                    <Property name="cellSelectionEnabled" type="boolean" value="false"/>
                     <Property name="rowHeight" type="int" value="11"/>
                   </Properties>
                   <AccessibilityProperties>
@@ -680,7 +673,6 @@
                         <Column editable="true" title="Title 4" type="java.lang.Object"/>
                       </Table>
                     </Property>
-                    <Property name="cellSelectionEnabled" type="boolean" value="false"/>
                     <Property name="rowHeight" type="int" value="11"/>
                   </Properties>
                   <AccessibilityProperties>
@@ -726,7 +718,6 @@
                         <Column editable="true" title="Title 4" type="java.lang.Object"/>
                       </Table>
                     </Property>
-                    <Property name="cellSelectionEnabled" type="boolean" value="false"/>
                     <Property name="rowHeight" type="int" value="11"/>
                   </Properties>
                   <AccessibilityProperties>
@@ -772,7 +763,6 @@
                         <Column editable="true" title="Title 4" type="java.lang.Object"/>
                       </Table>
                     </Property>
-                    <Property name="cellSelectionEnabled" type="boolean" value="false"/>
                     <Property name="rowHeight" type="int" value="11"/>
                   </Properties>
                   <AccessibilityProperties>
@@ -818,7 +808,6 @@
                         <Column editable="true" title="Title 4" type="java.lang.Object"/>
                       </Table>
                     </Property>
-                    <Property name="cellSelectionEnabled" type="boolean" value="false"/>
                     <Property name="rowHeight" type="int" value="11"/>
                   </Properties>
                   <AccessibilityProperties>
@@ -864,7 +853,6 @@
                         <Column editable="true" title="Title 4" type="java.lang.Object"/>
                       </Table>
                     </Property>
-                    <Property name="cellSelectionEnabled" type="boolean" value="false"/>
                     <Property name="rowHeight" type="int" value="11"/>
                   </Properties>
                   <AccessibilityProperties>
@@ -1019,6 +1007,7 @@
                       </Table>
                     </Property>
                     <Property name="cellSelectionEnabled" type="boolean" value="true"/>
+                    <Property name="rowHeight" type="int" value="35"/>
                   </Properties>
                   <AccessibilityProperties>
                     <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="jWeekTable"/>

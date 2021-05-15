@@ -124,6 +124,11 @@ public class Container {
         {
           System.err.println("Connection error: " + e.getMessage());
         }
+        List<Eveniment> evtRepet = AdaugareEvenimenteRepetateZi(data);
+        //System.out.println(evtRepet);
+        if (!evtRepet.isEmpty()) {
+            evenimente.addAll(evtRepet);
+        }
         return new Zi(evenimente);
     }
 
@@ -278,15 +283,6 @@ public class Container {
           System.err.println("Connection error: " + e.getMessage());
         }
     }
-
-    /**
-     * Returneaza lista de alarme
-     * @param alarma
-     * @return 
-     */
-    public Alarma FurnizareAlarme(Alarma alarma) {
-        return null;
-    }
     
     /**
      * Actualizarea statutului alarmei in baza de date
@@ -343,5 +339,73 @@ public class Container {
         {
           System.err.println("Connection error: " + e.getMessage());
         }
+    }
+    
+    private static List<Eveniment> AdaugareEvenimenteRepetateZi(Date data) throws ParseException{
+        ArrayList<Eveniment> evte = new ArrayList<Eveniment>();
+        try
+        {
+          Statement statement = connection.createStatement();
+          //System.out.println("connection 1");
+          // set timeout to 30 sec.
+          statement.setQueryTimeout(30);  
+          SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+          ResultSet rs = statement.executeQuery("select * from Events where date(\"StartDate\") < date(\"" + dateFormat.format(data) + "\")");
+          //System.out.println("data "+data);
+          while(rs != null && rs.next())
+          {
+            // read the result set
+            SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+            //System.out.println("event start date "+startDate);
+            //System.out.println("event end date "+endDate);
+            Recurenta recurenta = null;
+            try (Statement stmt = connection.createStatement()){
+                ResultSet re = stmt.executeQuery("select * from Recurrence where RecurrenceId=" + rs.getString("RecurrenceId"));
+                while (re != null && re.next()) {
+                    Date endDate2 = dateFormat.parse(re.getString("EndDate"));
+                    int mod = re.getInt("RepetMode");
+                    if (mod == 1 && endDate2.compareTo(dateFormat.parse(dateFormat.format(data))) >= 0){
+                        //System.out.println(endDate2);
+                        //System.out.println(dateFormat.parse(dateFormat.format(data)));
+                        recurenta = new Recurenta(mod, endDate2);
+                    }
+                }
+            } catch(SQLException ex){
+                System.err.println("Connection 2 error: " + ex.getMessage());
+            }
+            if (recurenta == null){
+                continue;
+            }
+            
+            Alarma alarma = null;
+            try (Statement stmt = connection.createStatement()){
+                ResultSet al = stmt.executeQuery("select * from Alarms where AlarmId=" + rs.getString("AlarmId"));
+                while (al != null && al.next()) {
+                    alarma = new Alarma(al.getInt("ReminderMinutes"), al.getInt("Snooze"));
+                }
+            } catch(SQLException ex){
+                System.err.println("Connection 2 error: " + ex.getMessage());
+            }
+            Boolean alarmActive = (rs.getObject("AlarmActive") != null && rs.getString("AlarmActive").contentEquals("1"));
+            //System.out.println("Alarma " + alarmActive);
+            //System.out.println("Inactive " + !(rs.getObject("Inactive") == null || rs.getString("Inactive").contentEquals("0")));
+            Boolean inactive = !(rs.getObject("Inactive") == null || rs.getString("Inactive").contentEquals("0"));
+            if (inactive == true){
+                continue;
+            }
+            Date startDate=formatter1.parse(dateFormat.format(data) + " " + rs.getString("StartTime"));  
+            Date endDate=formatter1.parse(dateFormat.format(data) + " " + rs.getString("EndTime"));  
+            //System.out.println("Inactive " + inactive);
+            Eveniment evt = new Eveniment(rs.getInt("EventId"), rs.getString("Title"), rs.getString("Description"), startDate, endDate, alarma, recurenta,
+                    rs.getString("Color"), alarmActive, inactive);
+            //System.out.println(evt.getInceput());
+            evte.add(evt);
+          }
+        }
+        catch(SQLException e)
+        {
+          System.err.println("Connection error: " + e.getMessage());
+        }
+        return new ArrayList(evte);
     }
 }

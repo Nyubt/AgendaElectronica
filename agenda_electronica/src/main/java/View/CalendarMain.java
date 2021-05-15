@@ -57,6 +57,8 @@ public class CalendarMain extends javax.swing.JFrame {
 
     String monthLabel = "";
     String yearLabel = "";
+    String weekLabel = "";
+    String dayLabel = "";
     int panelSelected = 0;
     Calendar cal = Calendar.getInstance();
     EventDetails eventFrame;
@@ -193,7 +195,6 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableJan.setCellSelectionEnabled(false);
         jTableJan.setRowHeight(11);
         jTableJan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -221,7 +222,6 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableFeb.setCellSelectionEnabled(false);
         jTableFeb.setMaximumSize(new java.awt.Dimension(145, 44));
         jTableFeb.setRowHeight(11);
         jTableFeb.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -250,7 +250,6 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableMar.setCellSelectionEnabled(false);
         jTableMar.setRowHeight(11);
         jTableMar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -278,7 +277,6 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableApr.setCellSelectionEnabled(false);
         jTableApr.setRowHeight(11);
         jTableApr.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -306,7 +304,6 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableMay.setCellSelectionEnabled(false);
         jTableMay.setRowHeight(11);
         jTableMay.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -335,7 +332,6 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableJun.setCellSelectionEnabled(false);
         jTableJun.setRowHeight(11);
         jTableJun.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -363,7 +359,6 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableJul.setCellSelectionEnabled(false);
         jTableJul.setRowHeight(11);
         jTableJul.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -391,7 +386,6 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableAug.setCellSelectionEnabled(false);
         jTableAug.setRowHeight(11);
         jTableAug.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -419,7 +413,6 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableSep.setCellSelectionEnabled(false);
         jTableSep.setRowHeight(11);
         jTableSep.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -447,7 +440,6 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableOct.setCellSelectionEnabled(false);
         jTableOct.setRowHeight(11);
         jTableOct.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -475,7 +467,6 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableNov.setCellSelectionEnabled(false);
         jTableNov.setRowHeight(11);
         jTableNov.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -503,7 +494,6 @@ public class CalendarMain extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableDec.setCellSelectionEnabled(false);
         jTableDec.setRowHeight(11);
         jTableDec.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -706,6 +696,7 @@ public class CalendarMain extends javax.swing.JFrame {
             }
         ));
         jWeekTable.setCellSelectionEnabled(true);
+        jWeekTable.setRowHeight(35);
         jScrollPane15.setViewportView(jWeekTable);
         jWeekTable.getAccessibleContext().setAccessibleName("jWeekTable");
 
@@ -1059,6 +1050,7 @@ public class CalendarMain extends javax.swing.JFrame {
             switchPanels(jMonthPanel);
             jMonthYearLabel.setText(monthLabel);
             panelSelected = 1;
+            CalendarFiller.fillInTable(panelSelected, jMonthTable);
         }
     }//GEN-LAST:event_jMenuItemMonthViewItemStateChanged
 
@@ -1067,6 +1059,7 @@ public class CalendarMain extends javax.swing.JFrame {
             switchPanels(jYearPanel);
             jMonthYearLabel.setText(yearLabel);
             panelSelected = 0;
+            CalendarFiller.fillInTable(panelSelected, jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
         }
     }//GEN-LAST:event_jMenuItemYearViewItemStateChanged
 
@@ -1074,6 +1067,7 @@ public class CalendarMain extends javax.swing.JFrame {
         if(evt.getStateChange() == ItemEvent.SELECTED){
             switchPanels(jWeekPanel);
             panelSelected = 2;
+            jMonthYearLabel.setText(weekLabel);
             CalendarFiller.fillInTable(panelSelected, jWeekTable);
         }
     }//GEN-LAST:event_jMenuItemWeekViewItemStateChanged
@@ -1182,9 +1176,12 @@ public class CalendarMain extends javax.swing.JFrame {
                 CalendarFiller.month = ld.getMonthValue();
                 CalendarFiller.date = ld.getDayOfMonth();
             }
+            //System.out.println(CalendarFiller.date);
         } else {
             CalendarFiller.year++;
         }
+        cal.set(CalendarFiller.year, CalendarFiller.month - 1, CalendarFiller.date);
+        
         jMonthTextField.setText(String.valueOf(CalendarFiller.month));
         jYearTextField.setText(String.valueOf(CalendarFiller.year));
         jDateText.setText(String.valueOf(CalendarFiller.date));
@@ -1261,9 +1258,12 @@ public class CalendarMain extends javax.swing.JFrame {
                 CalendarFiller.month = ld.getMonthValue();
                 CalendarFiller.date = ld.getDayOfMonth();
             }
+            //System.out.println(CalendarFiller.date);
         } else {
             CalendarFiller.year--;
         }
+        cal.set(CalendarFiller.year, CalendarFiller.month - 1, CalendarFiller.date);
+        
         jMonthTextField.setText(String.valueOf(CalendarFiller.month));
         jYearTextField.setText(String.valueOf(CalendarFiller.year));
         jDateText.setText(String.valueOf(CalendarFiller.date));
@@ -1287,6 +1287,7 @@ public class CalendarMain extends javax.swing.JFrame {
           if(evt.getStateChange() == ItemEvent.SELECTED){
             switchPanels(jDayPanel);
             panelSelected = 3;
+            jMonthYearLabel.setText(dayLabel);
             try {
                 CalendarFiller.fillInList(panelSelected, jDayEventList);
             } catch (ParseException ex) {
@@ -1307,6 +1308,7 @@ public class CalendarMain extends javax.swing.JFrame {
         if(evt.getStateChange() == ItemEvent.SELECTED){
             switchPanels(jEventsListPanel);
             panelSelected = 4;
+            jMonthYearLabel.setText("All Events");
             try {
                 CalendarFiller.fillInList(panelSelected, jEventsList);
             } catch (ParseException ex) {
@@ -1399,13 +1401,6 @@ public class CalendarMain extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new CalendarMain().setVisible(true);
-                /*CalendarMain.super.addComponentListener(new ComponentAdapter(){
-                    public void componentShown(ComponentEvent e) {
-                        if(panelSelected = 4){
-                            
-                        }
-                     }
-                });*/
             }
         });
     }
@@ -1422,10 +1417,17 @@ public class CalendarMain extends javax.swing.JFrame {
         cal.set(MONTH, Integer.parseInt(jMonthTextField.getText()) - 1);
         monthLabel = cal.getDisplayName(MONTH, Calendar.LONG, Locale.ENGLISH);
         yearLabel = jYearTextField.getText();
+        weekLabel = "Week " + String.valueOf(cal.get(Calendar.WEEK_OF_YEAR));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        dayLabel = dateFormat.format(cal.getTime());
         if(panelSelected == 0){
             jMonthYearLabel.setText(yearLabel);
         } else if(panelSelected == 1){
             jMonthYearLabel.setText(monthLabel);
+        } else if(panelSelected == 2){
+            jMonthYearLabel.setText(weekLabel);
+        } else if(panelSelected == 3){
+            jMonthYearLabel.setText(dayLabel);
         }
     }
 
