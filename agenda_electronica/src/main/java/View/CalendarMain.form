@@ -1007,11 +1007,14 @@
                       </Table>
                     </Property>
                     <Property name="cellSelectionEnabled" type="boolean" value="true"/>
-                    <Property name="rowHeight" type="int" value="35"/>
+                    <Property name="rowHeight" type="int" value="50"/>
                   </Properties>
                   <AccessibilityProperties>
                     <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="jWeekTable"/>
                   </AccessibilityProperties>
+                  <Events>
+                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jWeekTableMousePressed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

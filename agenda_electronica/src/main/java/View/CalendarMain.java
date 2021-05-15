@@ -696,7 +696,12 @@ public class CalendarMain extends javax.swing.JFrame {
             }
         ));
         jWeekTable.setCellSelectionEnabled(true);
-        jWeekTable.setRowHeight(35);
+        jWeekTable.setRowHeight(50);
+        jWeekTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jWeekTableMousePressed(evt);
+            }
+        });
         jScrollPane15.setViewportView(jWeekTable);
         jWeekTable.getAccessibleContext().setAccessibleName("jWeekTable");
 
@@ -1074,67 +1079,70 @@ public class CalendarMain extends javax.swing.JFrame {
 
     private void DateJumpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DateJumpButtonActionPerformed
         switchPanelName();
-        try{
-        
-        if(Integer.valueOf(jYearTextField.getText())<2018&&Integer.valueOf(jYearTextField.getText())>2030)
-            throw new LimiteAni();
-               
-        int n=Integer.valueOf(jYearTextField.getText());;
-        int nrcifre=0;
-        while (n!=0)
-		{
-			nrcifre++;
-			n = n / 10;
-		}
-        if(nrcifre!=4)
-            throw new Exceptie4cifre();
-        CalendarFiller.year = Integer.valueOf(jYearTextField.getText());
-        }
-       catch(NumberFormatException e) {
-				System.out.println("Exceptie : Introduceti doar cifre in caseta pt an!");
-			} 
-        catch (Exceptie4cifre ex) {
-            System.out.println("Exceptie : "+ex.toString());
+        try{        
+            if(Integer.valueOf(jYearTextField.getText())<2018&&Integer.valueOf(jYearTextField.getText())>2030) {
+                throw new LimiteAni();
+            }
+            int n=Integer.valueOf(jYearTextField.getText());;
+            int nrcifre=0;
+            while (n!=0)
+            {
+                nrcifre++;
+                n = n / 10;
+            }
+            if(nrcifre!=4){
+                throw new Exceptie4cifre();
+            }
+            CalendarFiller.year = Integer.valueOf(jYearTextField.getText());
+        } catch(NumberFormatException e) {
+            System.out.println("Exceptie : Introduceti doar cifre in caseta pt an!");
+        } catch (Exceptie4cifre ex) {
+            System.out.println("Exceptie : " + ex.toString());
         } catch (LimiteAni ex) {
-             System.out.println("Exceptie : "+ex.toString());
+             System.out.println("Exceptie : " + ex.toString());
         }
-        try{
-       
-        if(Integer.valueOf(jMonthTextField.getText())<1&&Integer.valueOf(jMonthTextField.getText())>12)
-            throw new ExceptieLuna();
-         CalendarFiller.month = Integer.valueOf(jMonthTextField.getText());
+        
+        try{       
+            if(Integer.valueOf(jMonthTextField.getText())<1&&Integer.valueOf(jMonthTextField.getText())>12) {
+                throw new ExceptieLuna();
+            }
+            CalendarFiller.month = Integer.valueOf(jMonthTextField.getText());
         } catch (ExceptieLuna ex) {
             System.out.println("Exceptie : "+ex.toString());
         }
         catch(NumberFormatException e) {
-				System.out.println("Exceptie : Introduceti doar cifre in caseta pt luna!");
-			} 
-        try{
+            System.out.println("Exceptie : Introduceti doar cifre in caseta pt luna!");
+        } 
         
-        if(Integer.valueOf(jDateText.getText())<1&&Integer.valueOf(jDateText.getText())>31)
-            throw new ExceptieZi();
-        if(Integer.valueOf(jMonthTextField.getText())==2&&Integer.valueOf(jDateText.getText())>29)
-            throw new ExceptieFebruarie();
-        CalendarFiller.date = Integer.valueOf(jDateText.getText());
-        }
-        catch(NumberFormatException e) {
-				System.out.println("Exceptie : Introduceti doar cifre in caseta pt zi!");
-			} 
-        catch(ExceptieZi ex)
-        { System.out.println("Exceptie : "+ex.toString());} 
-        catch (ExceptieFebruarie ex) {
+        try {        
+            if(Integer.valueOf(jDateText.getText())<1&&Integer.valueOf(jDateText.getText())>31){
+                throw new ExceptieZi();
+            }            
+            if(Integer.valueOf(jMonthTextField.getText())==2&&Integer.valueOf(jDateText.getText())>29) {
+                throw new ExceptieFebruarie();
+            }
+            CalendarFiller.date = Integer.valueOf(jDateText.getText());
+        } catch(NumberFormatException e) {
+            System.out.println("Exceptie : Introduceti doar cifre in caseta pt zi!");
+        } catch(ExceptieZi ex)
+        { 
+            System.out.println("Exceptie : "+ex.toString());
+        } catch (ExceptieFebruarie ex) {
              System.out.println("Exceptie : "+ex.toString());
         }
+        
         try {
             CalendarFiller.fillInList(panelSelected, jDayEventList);
         } catch (ParseException ex) {
             Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         try {
             CalendarFiller.fillInList(panelSelected, jEventsList);
         } catch (ParseException ex) {
             Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         CalendarFiller.fillInTable(panelSelected, jMonthTable);
         CalendarFiller.fillInTable(panelSelected, jWeekTable);
         CalendarFiller.fillInTable(panelSelected, jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
@@ -1353,6 +1361,30 @@ public class CalendarMain extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jTableJanMousePressed
+
+    private void jWeekTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jWeekTableMousePressed
+        JTable table = (JTable) evt.getSource();                                    
+        if (evt.getClickCount() == 2) {
+            int row = table.getSelectedRow();
+            int column = table.getSelectedColumn();
+            Eveniment event = (Eveniment)table.getValueAt(row, column);
+            //System.out.println(event);
+            if(null != table.getCellEditor()) {
+                table.getCellEditor().stopCellEditing();
+            }
+            if(event != null){
+                try {
+                    eventFrame = new EventDetails(this, event);
+                } catch (Exception ex) {
+                    Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                eventFrame.setVisible(true);
+                eventFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+            CalendarFiller.fillInTable(panelSelected, jWeekTable);
+        }
+        
+    }//GEN-LAST:event_jWeekTableMousePressed
 
     private void openEventDetailsWindow(java.awt.event.MouseEvent evt){
         JList list = (JList)evt.getSource();

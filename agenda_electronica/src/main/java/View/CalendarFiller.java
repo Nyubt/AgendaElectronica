@@ -100,7 +100,7 @@ public class CalendarFiller {
                     Logger.getLogger(CalendarFiller.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {    
-                mod.setRowCount(6);        
+                mod.setRowCount(6);
                 try {
                     /*Calendar cal = Calendar.getInstance();
                     cal.set(year, currentMonth, day);
@@ -171,12 +171,8 @@ public class CalendarFiller {
         for (int i = 0; i < table.getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setCellRenderer(new CellRendererForMonth(evenimente));
         }
-        //System.out.println("Month! " + currentMonth);
         for(int a = 1; a <= maxdays; a++){
             Zi evt = iter.next();
-            //System.out.println(evt.getDate());
-            //System.out.println(evt.getEventList());
-            //System.out.println(evt.getEventList().size());
             //model.setValueAt(a, j, start);
             model.setValueAt(evt, j, start);
             start++;
@@ -188,16 +184,11 @@ public class CalendarFiller {
     }
     
     private static void addWeekToTable(JTable table, DefaultTableModel model) throws ParseException{ 
-        //System.out.println("1");
         Calendar calendar = Calendar.getInstance();
         int currentMonth = month - 1;
         calendar.set(year, currentMonth, date);
-        //System.out.println("2");
         Date data = calendar.getTime();
-        //System.out.println("3");
         List <Zi> evenimente = Agenda.SelectareEvente(data, "WEEK").getEventList();
-        //System.out.println(evenimente);
-        //System.out.println("4");
         //int current = calendar.get(calendar.DAY_OF_WEEK);
         int i = 0, counter, size = 0;
         for(Zi evtZi : evenimente){
@@ -211,9 +202,10 @@ public class CalendarFiller {
                 for (Eveniment evt : evtZi.getEventList()) {
                     if (evt.getInactiveState() == false){
                         //Calendar cal = Calendar.getInstance();
-                        calendar.setTime(evt.getInceput());
-                        String time = calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);  
-                        model.setValueAt(time + " " + evt.getTitlu(), counter, i);
+                        //calendar.setTime(evt.getInceput());
+                        //String time = calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);  
+                        //model.setValueAt(time + " " + evt.getTitlu(), counter, i);
+                        model.setValueAt(evt, counter, i);
                         counter++;
                         if(counter > size){
                             size++;
