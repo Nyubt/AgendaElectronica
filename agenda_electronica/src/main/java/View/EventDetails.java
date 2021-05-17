@@ -332,23 +332,14 @@ public class EventDetails extends javax.swing.JFrame  {
     }*/
     
     private static String getColorNameFromHex(String hexColor){
-        if(hexColor.compareTo("#C0C0C0") == 0){
-            return "Silver";
+        if(hexColor.compareTo("#A8DADC") == 0){
+            return "Aqua Island";
         }
-        if(hexColor.compareTo("#00FF00") == 0){
-            return "Green";
+        if(hexColor.compareTo("#457B9D") == 0){
+            return "Wedgewood";
         }
-        if(hexColor.compareTo("#808000") == 0){
-            return "Olive";
-        }
-        if(hexColor.compareTo("#008000") == 0){
-            return "Japanese Laurel";
-        }
-        if(hexColor.compareTo("#232323") == 0){
-            return "Mine Shaft";
-        }
-        if(hexColor.compareTo("#FF0000") == 0){
-            return "Red";
+        if(hexColor.compareTo("#D0F0C0") == 0){
+            return "Tea Green";
         }
         
         return "No Color";
