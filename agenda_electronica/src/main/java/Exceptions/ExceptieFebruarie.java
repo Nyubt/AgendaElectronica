@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package Exceptions;
 
 /**
  *
  * @author Ale-PC
  */
-public class Exceptie4cifre extends Exception{
-    public String toString(){
-		 return "Anul trebuie sa aiba 4 cifre! MAI INCEARCA!";
+public class ExceptieFebruarie extends Exception{
+      public String toString(){
+		 return "Luna februarie are 29 zile! MAI INCEARCA!";
 		}
 }

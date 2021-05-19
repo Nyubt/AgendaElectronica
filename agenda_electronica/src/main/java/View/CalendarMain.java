@@ -6,6 +6,11 @@
 
 package View;
 
+import Exceptions.ExceptieFebruarie;
+import Exceptions.ExceptieLuna;
+import Exceptions.LimiteAni;
+import Exceptions.Exceptie4cifre;
+import Exceptions.ExceptieZi;
 import Model.Eveniment;
 import Model.Zi;
 import static View.CalendarFiller.date;
@@ -62,10 +67,17 @@ public class CalendarMain extends javax.swing.JFrame {
     int panelSelected = 0;
     Calendar cal = Calendar.getInstance();
     EventDetails eventFrame;
+    AddEvent addEventFrame;
     
     /** Creates new form CalendarMain */
     public CalendarMain() {
         initComponents();
+        jAddEventMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openAddEventWindow(evt);
+            }
+        });
         TimeChecker.checkAlarm(jAlarmList, jAlarmTextField);
         int year = LocalDate.now().getYear();
         int month = LocalDate.now().getMonthValue();
@@ -167,6 +179,8 @@ public class CalendarMain extends javax.swing.JFrame {
         jMenuItemWeekView = new javax.swing.JRadioButtonMenuItem();
         jMenuItemDayView = new javax.swing.JRadioButtonMenuItem();
         jMenuItemEventList = new javax.swing.JRadioButtonMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jAddEventMenuItem = new javax.swing.JMenuItem();
 
         jPasswordField1.setText("jPasswordField1");
 
@@ -956,6 +970,7 @@ public class CalendarMain extends javax.swing.JFrame {
         jMenu1.setText("View");
 
         viewMenueGroup.add(jMenuItemYearView);
+        jMenuItemYearView.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jMenuItemYearView.setSelected(true);
         jMenuItemYearView.setText("Year");
         jMenuItemYearView.addItemListener(new java.awt.event.ItemListener() {
@@ -967,6 +982,7 @@ public class CalendarMain extends javax.swing.JFrame {
         jMenuItemYearView.getAccessibleContext().setAccessibleName("jMenuItemYearView");
 
         viewMenueGroup.add(jMenuItemMonthView);
+        jMenuItemMonthView.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jMenuItemMonthView.setText("Month");
         jMenuItemMonthView.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -977,6 +993,7 @@ public class CalendarMain extends javax.swing.JFrame {
         jMenuItemMonthView.getAccessibleContext().setAccessibleName("jMenuItemMonthView");
 
         viewMenueGroup.add(jMenuItemWeekView);
+        jMenuItemWeekView.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jMenuItemWeekView.setText("Week");
         jMenuItemWeekView.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -987,6 +1004,7 @@ public class CalendarMain extends javax.swing.JFrame {
         jMenuItemWeekView.getAccessibleContext().setAccessibleName("jMenuItemWeekView");
 
         viewMenueGroup.add(jMenuItemDayView);
+        jMenuItemDayView.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jMenuItemDayView.setText("Day");
         jMenuItemDayView.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -998,6 +1016,7 @@ public class CalendarMain extends javax.swing.JFrame {
         jMenuItemDayView.getAccessibleContext().setAccessibleDescription("");
 
         viewMenueGroup.add(jMenuItemEventList);
+        jMenuItemEventList.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jMenuItemEventList.setText("Events List");
         jMenuItemEventList.setToolTipText("");
         jMenuItemEventList.addItemListener(new java.awt.event.ItemListener() {
@@ -1010,6 +1029,14 @@ public class CalendarMain extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
         jMenu1.getAccessibleContext().setAccessibleName("jMenu");
+
+        jMenu2.setText("Edit");
+
+        jAddEventMenuItem.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jAddEventMenuItem.setText("Adaugare eveniment");
+        jMenu2.add(jAddEventMenuItem);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -1081,74 +1108,83 @@ public class CalendarMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemWeekViewItemStateChanged
 
     private void DateJumpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DateJumpButtonActionPerformed
-        switchPanelName();
-        try{        
-            if(Integer.valueOf(jYearTextField.getText())<2018&&Integer.valueOf(jYearTextField.getText())>2030) {
+        boolean canJump = true;
+        try {        
+            if(Integer.parseInt(jYearTextField.getText()) < 2018 || Integer.parseInt(jYearTextField.getText()) > 2030) {
+                canJump = false;
                 throw new LimiteAni();
             }
-            int n=Integer.valueOf(jYearTextField.getText());;
-            int nrcifre=0;
-            while (n!=0)
+            int n = Integer.parseInt(jYearTextField.getText());
+            int nrCifre = 0;
+            while (n != 0)
             {
-                nrcifre++;
+                nrCifre++;
                 n = n / 10;
             }
-            if(nrcifre!=4){
+            if(nrCifre != 4){
+                canJump = false;
                 throw new Exceptie4cifre();
             }
-            CalendarFiller.year = Integer.valueOf(jYearTextField.getText());
+            CalendarFiller.year = Integer.parseInt(jYearTextField.getText());
         } catch(NumberFormatException e) {
             System.out.println("Exceptie : Introduceti doar cifre in caseta pt an!");
         } catch (Exceptie4cifre ex) {
             System.out.println("Exceptie : " + ex.toString());
         } catch (LimiteAni ex) {
-             System.out.println("Exceptie : " + ex.toString());
+            System.out.println("Exceptie : " + ex.toString());
         }
         
-        try{       
-            if(Integer.valueOf(jMonthTextField.getText())<1&&Integer.valueOf(jMonthTextField.getText())>12) {
+        try {       
+            if(Integer.parseInt(jMonthTextField.getText()) < 1 || Integer.parseInt(jMonthTextField.getText()) > 12) {
+                canJump = false;
                 throw new ExceptieLuna();
             }
             CalendarFiller.month = Integer.valueOf(jMonthTextField.getText());
         } catch (ExceptieLuna ex) {
-            System.out.println("Exceptie : "+ex.toString());
+            System.out.println("Exceptie : " + ex.toString());
         }
         catch(NumberFormatException e) {
             System.out.println("Exceptie : Introduceti doar cifre in caseta pt luna!");
         } 
         
         try {        
-            if(Integer.valueOf(jDateText.getText())<1&&Integer.valueOf(jDateText.getText())>31){
+            if(Integer.valueOf(jDateText.getText()) < 1 || Integer.valueOf(jDateText.getText()) > 31){
+                canJump = false;
                 throw new ExceptieZi();
             }            
-            if(Integer.valueOf(jMonthTextField.getText())==2&&Integer.valueOf(jDateText.getText())>29) {
+            if(Integer.valueOf(jMonthTextField.getText()) == 2 && Integer.valueOf(jDateText.getText()) > 29) {
+                canJump = false;
                 throw new ExceptieFebruarie();
             }
             CalendarFiller.date = Integer.valueOf(jDateText.getText());
         } catch(NumberFormatException e) {
             System.out.println("Exceptie : Introduceti doar cifre in caseta pt zi!");
-        } catch(ExceptieZi ex)
-        { 
-            System.out.println("Exceptie : "+ex.toString());
+        } catch(ExceptieZi ex) { 
+            System.out.println("Exceptie : " + ex.toString());
         } catch (ExceptieFebruarie ex) {
-             System.out.println("Exceptie : "+ex.toString());
+            System.out.println("Exceptie : " + ex.toString());
         }
         
-        try {
-            CalendarFiller.fillInList(panelSelected, jDayEventList);
-        } catch (ParseException ex) {
-            Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
+        if (canJump){
+            cal.set(year, month, date);
+            switchPanelName();       
+
+            try {
+                CalendarFiller.fillInList(panelSelected, jDayEventList);
+            } catch (ParseException ex) {
+                Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            try {
+                CalendarFiller.fillInList(panelSelected, jEventsList);
+            } catch (ParseException ex) {
+                Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            CalendarFiller.fillInTable(panelSelected, jMonthTable);
+            CalendarFiller.fillInTable(panelSelected, jWeekTable);
+            CalendarFiller.fillInTable(panelSelected, jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
         }
-        
-        try {
-            CalendarFiller.fillInList(panelSelected, jEventsList);
-        } catch (ParseException ex) {
-            Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        CalendarFiller.fillInTable(panelSelected, jMonthTable);
-        CalendarFiller.fillInTable(panelSelected, jWeekTable);
-        CalendarFiller.fillInTable(panelSelected, jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
     }//GEN-LAST:event_DateJumpButtonActionPerformed
 
     private void jButtonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextActionPerformed
@@ -1404,6 +1440,17 @@ public class CalendarMain extends javax.swing.JFrame {
         }
     }
     
+    private void openAddEventWindow(java.awt.event.ActionEvent evt){
+        //System.out.println("!!!");
+        try {
+            addEventFrame = new AddEvent(this);
+        } catch (Exception ex) {
+            Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        addEventFrame.setVisible(true);
+        addEventFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -1455,6 +1502,7 @@ public class CalendarMain extends javax.swing.JFrame {
         weekLabel = "Week " + String.valueOf(cal.get(Calendar.WEEK_OF_YEAR));
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         dayLabel = dateFormat.format(cal.getTime());
+        //System.out.println(cal.getTime());
         if(panelSelected == 0){
             jMonthYearLabel.setText(yearLabel);
         } else if(panelSelected == 1){
@@ -1468,6 +1516,7 @@ public class CalendarMain extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DateJumpButton;
+    private javax.swing.JMenuItem jAddEventMenuItem;
     private javax.swing.JList<String> jAlarmList;
     private javax.swing.JTextField jAlarmTextField;
     private javax.swing.JButton jButtonBack;
@@ -1480,6 +1529,7 @@ public class CalendarMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLayeredPane jLayeredPanel;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JRadioButtonMenuItem jMenuItemDayView;
     private javax.swing.JRadioButtonMenuItem jMenuItemEventList;
