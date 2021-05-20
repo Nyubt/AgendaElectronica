@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package Exceptions;
 
 /**
  *
  * @author Ale-PC
  */
-public class ExceptieZi extends Exception{
-     public String toString(){
-		 return "Ziua poate sa fie intre 1 si 31! MAI INCEARCA!";
+public class LimiteAni extends Exception{
+      public String toString(){
+		 return "Ani pot fi alesi intre 2018 si 2030! MAI INCEARCA!";
 		}
+    
 }

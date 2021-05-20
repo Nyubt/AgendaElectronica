@@ -290,6 +290,7 @@ public class EventDetails extends javax.swing.JFrame  {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         parentFrame.setVisible(true);
+        super.dispose();
     }//GEN-LAST:event_formWindowClosing
 
     private void jModificareButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jModificareButtonMouseClicked
@@ -331,7 +332,7 @@ public class EventDetails extends javax.swing.JFrame  {
         return null;
     }*/
     
-    private static String getColorNameFromHex(String hexColor){
+    public static String getColorNameFromHex(String hexColor){
         if(hexColor.compareTo("#A8DADC") == 0){
             return "Aqua Island";
         }
