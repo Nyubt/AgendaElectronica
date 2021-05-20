@@ -120,9 +120,10 @@ public class Agenda {
     }
     
     /**
-     * Afisarea unui eveniment
+     * Adaugarea unui eveniment
      */
-    public void Afisare() {
+    public void AdaugareEveniment() {
+        
     }
 
     /**

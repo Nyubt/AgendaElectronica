@@ -573,16 +573,19 @@ public class AddEvent extends javax.swing.JFrame {
     private void jAddButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jAddButtonMouseClicked
         String title = jTitleTextField.getText();
         String description = jDescriptionTextArea.getText();
-        String startDate = String.format("%4s", jStartYearTextField.getText()).replace(' ', '0') + "-" + String.format("%2s", jStartMonthTextField.getText()).replace(' ', '0') + "-" + String.format("%2s", jStartDayTextField.getText()).replace(' ', '0');
+        String startDate = jStartYearTextField.getText() + "-" + String.format("%2s", jStartMonthTextField.getText()).replace(' ', '0') + "-" + String.format("%2s", jStartDayTextField.getText()).replace(' ', '0');
         String startTime = jStartHourTextField.getText() + ":" + String.format("%2s", jStartMinTextField.getText()).replace(' ', '0') + ":00";
-        String endDate = String.format("%4s", jEndYearTextField.getText()).replace(' ', '0') + "-" + String.format("%2s", jEndMonthTextField.getText()).replace(' ', '0') + "-" + String.format("%2s", jEndDayTextField.getText()).replace(' ', '0');
+        String endDate = jEndYearTextField.getText() + "-" + String.format("%2s", jEndMonthTextField.getText()).replace(' ', '0') + "-" + String.format("%2s", jEndDayTextField.getText()).replace(' ', '0');
         String endTime = jEndHourTextField.getText() + ":" + String.format("%2s", jEndMinTextField.getText()).replace(' ', '0') + ":00";
-        String recDate = String.format("%4s", jUntilYearTextField.getText()).replace(' ', '0') + "-" + String.format("%2s", jUntilMonthTextField.getText()).replace(' ', '0') + "-" + String.format("%2s", jUntilDayTextField.getText()).replace(' ', '0');
         String color = String.valueOf(jColorComboBox.getSelectedItem());
+        
         Boolean alrmOn = jAlarmCheckBox.isSelected();
         int snooze = Integer.parseInt(jSnoozeComboBox.getSelectedItem().toString());
         int notif = Integer.parseInt(jRemMinComboBox.getSelectedItem().toString());
+        
         Boolean recOn = jRecurCheckBox.isSelected();
+        String recDate = jUntilYearTextField.getText() + "-" + String.format("%2s", jUntilMonthTextField.getText()).replace(' ', '0') + "-" + String.format("%2s", jUntilDayTextField.getText()).replace(' ', '0');
+        int repetMode = jRecurComboBox.getSelectedIndex();
         
         System.out.println(title);
         System.out.println(description);
@@ -591,11 +594,14 @@ public class AddEvent extends javax.swing.JFrame {
         System.out.println(endDate);
         System.out.println(endTime);
         System.out.println(color);
+        
         System.out.println(alrmOn);
         System.out.println(snooze);
         System.out.println(notif);
+        
         System.out.println(recOn);
         System.out.println(recDate);
+        System.out.println(repetMode);
         System.out.println();
         
     }//GEN-LAST:event_jAddButtonMouseClicked
