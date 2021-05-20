@@ -104,8 +104,12 @@ public class Container {
             try (Statement stmt = connection.createStatement()){
                 ResultSet re = stmt.executeQuery("select * from Recurrence where RecurrenceId=" + rs.getString("RecurrenceId"));
                 while (re != null && re.next()) {
-                    Date endDate2=dateFormat.parse(re.getString("EndDate"));
-                    recurenta = new Recurenta(re.getInt("RepetMode"), endDate2);
+                    if (re.getInt("RepetMode") == 0){
+                        recurenta = new Recurenta();
+                    } else {
+                        Date endDate2 = dateFormat.parse(re.getString("EndDate"));
+                        recurenta = new Recurenta(re.getInt("RepetMode"), endDate2);
+                    }
                 }
             } catch(SQLException ex){
                 System.err.println("Connection 2 error: " + ex.getMessage());
@@ -213,7 +217,7 @@ public class Container {
                 ResultSet re = stmt.executeQuery("select * from Recurrence where RecurrenceId=" + rs.getString("RecurrenceId"));
                 while (re != null && re.next()) {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    Date endDate2=dateFormat.parse(re.getString("EndDate"));
+                    Date endDate2 = dateFormat.parse(re.getString("EndDate"));
                     recurenta = new Recurenta(re.getInt("RepetMode"), endDate2);
                 }
             } catch(SQLException ex){
@@ -226,13 +230,123 @@ public class Container {
         }
         catch(SQLException e)
         {
-          System.err.println("Connection error: " + e.getMessage());
+            System.err.println("Connection error: " + e.getMessage());
         }
         return new Zi(evenimente);
     }
     
-    public static void AdaugareEveniment(){
-        
+    /**
+     * 
+     * @param titlu
+     * @param descriere
+     * @param dataInceput
+     * @param timpInceput
+     * @param dataSfarsit
+     * @param timpSfarsit
+     * @param culoare
+     * @param alarmaPornita
+     * @param factorRecurenta
+     * @param intervalTimp
+     * @param esteRecurenta
+     * @param modRecurenta
+     * @param dataFinala 
+     */
+    public static void AdaugareEveniment(String titlu, String descriere, String dataInceput, String timpInceput, String dataSfarsit, String timpSfarsit, String culoare, 
+            boolean alarmaPornita, int factorRecurenta, int intervalTimp, boolean esteRecurenta, int modRecurenta, String dataFinala){
+        String INSERT_SQL = "INSERT INTO Events(Title, StartDate, StartTime, EndDate, EndTime, Color, Description, AlarmId, RecurrenceId, AlarmActive, Inactive) " + 
+                "VALUES(?, Date(?), Time(?), Date(?), Time(?), ?, ?, ?, ?, ?, ?)";
+        PreparedStatement stmt = null;
+        Integer alarmId = 1;
+        Integer recurrenceId = 1;
+        if (alarmaPornita){
+            alarmId = AdaudareAlarma(factorRecurenta, intervalTimp);
+        }
+        if (esteRecurenta){
+            recurrenceId = AdaugareRecurenta(modRecurenta, dataFinala);
+        }
+        try {
+            stmt = connection.prepareStatement(INSERT_SQL);
+            stmt.setString(1, titlu);
+            stmt.setString(2, dataInceput);
+            stmt.setString(3, timpInceput);
+            stmt.setString(4, dataSfarsit);
+            stmt.setString(5, timpSfarsit);
+            stmt.setString(6, culoare);
+            stmt.setString(7, descriere);
+            stmt.setInt(8, alarmId);
+            stmt.setInt(9, recurrenceId);
+            stmt.setBoolean(10, alarmaPornita);
+            stmt.setBoolean(11, false);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(stmt);
+        }
+    }
+    
+    /**
+     * 
+     * @param factorRecurenta
+     * @param intervalTimp
+     * @return 
+     */
+    private static Integer AdaudareAlarma(int factorRecurenta, int intervalTimp){
+        String INSERT_SQL = "INSERT INTO Alarms(Snooze, ReminderMinutes) VALUES(?, ?)";
+        PreparedStatement stmt = null;
+        Integer alarmId = null;
+        try {
+            stmt = connection.prepareStatement(INSERT_SQL);
+            stmt.setInt(1, factorRecurenta);
+            stmt.setInt(2, intervalTimp);
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+               alarmId = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(stmt);
+        }
+        return alarmId;
+    } 
+    
+    /**
+     * 
+     * @param modRecurenta
+     * @param dataFinala
+     * @return 
+     */
+    private static Integer AdaugareRecurenta(int modRecurenta, String dataFinala){
+        String INSERT_SQL = "INSERT INTO Recurrence(RepetMode, EndDate) VALUES(?, Date(?))";
+        PreparedStatement stmt = null;
+        Integer recurrenceId = null;
+        try {
+            stmt = connection.prepareStatement(INSERT_SQL);
+            stmt.setInt(1, modRecurenta);
+            stmt.setString(2, dataFinala);
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+               recurrenceId = rs.getInt(1);
+            }            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(stmt);
+        }
+        return recurrenceId;
+    }
+    
+    private static void close(Statement statement) {
+        try {
+            if (statement != null) {
+                statement.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

@@ -121,9 +121,24 @@ public class Agenda {
     
     /**
      * Adaugarea unui eveniment
+     * @param titlu
+     * @param descriere
+     * @param dataInceput
+     * @param timpSfarsit
+     * @param dataSfarsit
+     * @param timpInceput
+     * @param culoare
+     * @param alarmaPornita
+     * @param factorRecurenta
+     * @param intervalTimp
+     * @param esteRecurenta
+     * @param modRecurenta
+     * @param dataFinala
      */
-    public void AdaugareEveniment() {
-        
+    public static void AdaugareEveniment(String titlu, String descriere, String dataInceput, String timpInceput, String dataSfarsit, String timpSfarsit, String culoare, 
+            boolean alarmaPornita, int factorRecurenta, int intervalTimp, boolean esteRecurenta, int modRecurenta, String dataFinala) {
+        Container.getInstance().AdaugareEveniment(titlu, descriere, dataInceput, timpInceput, dataSfarsit, timpSfarsit, culoare, 
+                alarmaPornita, factorRecurenta, intervalTimp, esteRecurenta, modRecurenta, dataFinala);
     }
 
     /**

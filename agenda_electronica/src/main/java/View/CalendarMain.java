@@ -1088,7 +1088,6 @@ public class CalendarMain extends javax.swing.JFrame {
         boolean canJump = true;
         try {        
             if(Integer.parseInt(jYearTextField.getText()) < 2018 || Integer.parseInt(jYearTextField.getText()) > 2030) {
-                canJump = false;
                 throw new LimiteAni();
             }
             int n = Integer.parseInt(jYearTextField.getText());
@@ -1099,46 +1098,50 @@ public class CalendarMain extends javax.swing.JFrame {
                 n = n / 10;
             }
             if(nrCifre != 4){
-                canJump = false;
                 throw new Exceptie4cifre();
             }
             CalendarFiller.year = Integer.parseInt(jYearTextField.getText());
         } catch(NumberFormatException e) {
+            canJump = false;
             System.out.println("Exceptie : Introduceti doar cifre in caseta pt an!");
         } catch (Exceptie4cifre ex) {
+            canJump = false;
             System.out.println("Exceptie : " + ex.toString());
         } catch (LimiteAni ex) {
+            canJump = false;
             System.out.println("Exceptie : " + ex.toString());
         }
         
         try {       
             if(Integer.parseInt(jMonthTextField.getText()) < 1 || Integer.parseInt(jMonthTextField.getText()) > 12) {
-                canJump = false;
                 throw new ExceptieLuna();
             }
             CalendarFiller.month = Integer.valueOf(jMonthTextField.getText());
         } catch (ExceptieLuna ex) {
+            canJump = false;
             System.out.println("Exceptie : " + ex.toString());
         }
         catch(NumberFormatException e) {
+            canJump = false;
             System.out.println("Exceptie : Introduceti doar cifre in caseta pt luna!");
         } 
         
         try {        
             if(Integer.valueOf(jDateText.getText()) < 1 || Integer.valueOf(jDateText.getText()) > 31){
-                canJump = false;
                 throw new ExceptieZi();
             }            
             if(Integer.valueOf(jMonthTextField.getText()) == 2 && Integer.valueOf(jDateText.getText()) > 29) {
-                canJump = false;
                 throw new ExceptieFebruarie();
             }
             CalendarFiller.date = Integer.valueOf(jDateText.getText());
         } catch(NumberFormatException e) {
+            canJump = false;
             System.out.println("Exceptie : Introduceti doar cifre in caseta pt zi!");
         } catch(ExceptieZi ex) { 
+            canJump = false;
             System.out.println("Exceptie : " + ex.toString());
         } catch (ExceptieFebruarie ex) {
+            canJump = false;
             System.out.println("Exceptie : " + ex.toString());
         }
         
