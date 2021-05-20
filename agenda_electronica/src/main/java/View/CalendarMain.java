@@ -1079,7 +1079,13 @@ public class CalendarMain extends javax.swing.JFrame {
             CalendarFiller.fillInTable(panelSelected, jWeekTable);
         }
     }//GEN-LAST:event_jMenuItemWeekViewItemStateChanged
-
+     /**
+     * The button to jump to a specific date
+     * you can introduce only numbers in YearField, MonthField and DayField
+     * For MonthField you can introduce numbers less than 12
+     * For February is an exception: you can introduce numbers less than 29 
+     * For the rest - numbers less than 31 
+     */
     private void DateJumpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DateJumpButtonActionPerformed
         switchPanelName();
         try{        
@@ -1151,6 +1157,13 @@ public class CalendarMain extends javax.swing.JFrame {
         CalendarFiller.fillInTable(panelSelected, jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
     }//GEN-LAST:event_DateJumpButtonActionPerformed
 
+    
+     /**
+     *  If the selected panel = 1, you can move to the next year
+     *  If the selected panel = 2, you can move to the next month
+     *  If the selected panel = 1, you can move to the next day of month
+     */
+    
     private void jButtonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextActionPerformed
         if(panelSelected == 1){
             if(CalendarFiller.month < 12){
@@ -1233,6 +1246,11 @@ public class CalendarMain extends javax.swing.JFrame {
        CalendarFiller.fillInTable(panelSelected, jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
     }//GEN-LAST:event_formWindowOpened
 
+      /**
+     *  If the selected panel = 1, you can move to the previous year
+     *  If the selected panel = 2, you can move to the previous month
+     *  If the selected panel = 1, you can move to the previous day of month
+     */
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
         if(panelSelected == 1){
             if(CalendarFiller.month > 1){
@@ -1389,6 +1407,9 @@ public class CalendarMain extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jWeekTableMousePressed
 
+    /**
+     *  The function to open the windows with the event details
+     */
     private void openEventDetailsWindow(java.awt.event.MouseEvent evt){
         JList list = (JList)evt.getSource();
         if (evt.getClickCount() == 2) {
@@ -1440,6 +1461,7 @@ public class CalendarMain extends javax.swing.JFrame {
         });
     }
     
+    
     public void switchPanels(JPanel panel){
         jLayeredPanel.removeAll();
         jLayeredPanel.add(panel);
@@ -1447,7 +1469,9 @@ public class CalendarMain extends javax.swing.JFrame {
         jLayeredPanel.revalidate();
         switchPanelName();
     }
-    
+    /**
+     * switch between the 4 panels(year, month, week and day)
+     */
     private void switchPanelName(){
         cal.set(MONTH, Integer.parseInt(jMonthTextField.getText()) - 1);
         monthLabel = cal.getDisplayName(MONTH, Calendar.LONG, Locale.ENGLISH);

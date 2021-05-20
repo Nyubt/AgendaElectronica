@@ -39,6 +39,11 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author Elena
  */
+
+
+/**
+*  Filling the calendar with the info (columns)
+*/
 public class CalendarFiller {
     public static int date;
     public static int month;
@@ -69,7 +74,10 @@ public class CalendarFiller {
             //mod.setRowCount(6);
         }
     }
-    
+     /**
+     * Filling the table with the information 
+     */
+
     public static void fillInTable(int panelSelected, JTable... table){
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(JLabel.RIGHT);
@@ -124,6 +132,10 @@ public class CalendarFiller {
         }
     }
     
+    /**
+     * Filling the list 
+    */
+
     public static void fillInList(int panelSelected, JList eventList) throws ParseException{
         List<Eveniment> evenimente;
         Calendar calendar = Calendar.getInstance();
@@ -152,11 +164,18 @@ public class CalendarFiller {
         eventList.setModel(dList);   
     }
     
+    /**
+     * Sortează lista după dată
+     */
     public static void sortListByDate(List<Eveniment> originalList){
         Comparator<Eveniment> compareByDate = (Eveniment o1, Eveniment o2) -> o1.getInceput().compareTo(o2.getInceput()); 
         Collections.sort(originalList, compareByDate);
     }
     
+     /**
+     * Adding the months to the table
+     */
+
     private static void addMonthToTable(JTable table, DefaultTableModel model, int currentMonth, int day) throws ParseException{
         Calendar cal = Calendar.getInstance();
         cal.set(year, currentMonth, day);
@@ -183,6 +202,9 @@ public class CalendarFiller {
         }
     }
     
+     s/**
+     * Adding the weeks to the table
+     */
     private static void addWeekToTable(JTable table, DefaultTableModel model) throws ParseException{ 
         Calendar calendar = Calendar.getInstance();
         int currentMonth = month - 1;

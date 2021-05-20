@@ -341,6 +341,12 @@ public class Container {
         }
     }
     
+    
+    /**
+     * Adaugarea unui eveniment
+     * @param eveniment 
+     */
+
     private static List<Eveniment> AdaugareEvenimenteRepetateZi(Date data) throws ParseException{
         ArrayList<Eveniment> evte = new ArrayList<Eveniment>();
         try
