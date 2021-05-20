@@ -1,21 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller;
 
 import Model.Eveniment;
 import Model.Alarma;
 import Model.An;
-import Model.CellRendererForWeek;
 import Model.Luna;
 import Model.Recurenta;
 import Model.Saptamana;
 import Model.Zi;
-import static View.CalendarFiller.date;
-import static View.CalendarFiller.month;
-import static View.CalendarFiller.year;
 import java.util.Date;
 import java.util.List;
 import java.sql.*;

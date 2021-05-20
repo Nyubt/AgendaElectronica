@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
 
 import org.junit.jupiter.api.AfterEach;
@@ -60,9 +55,7 @@ public class AlarmaTest {
         Alarma instance = new Alarma(2,3);
         int expResult = 3;
         int result = instance.getFactorRecurenta();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
+        assertEquals(expResult, result); 
     }
 
     /**
@@ -76,9 +69,7 @@ public class AlarmaTest {
         instance.setIntervalTimp(intervalTimp);
         int expResult = 20;
         int result = instance.getIntervalTimp();
-         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+         assertEquals(expResult, result); 
     }
 
     /**
@@ -92,9 +83,7 @@ public class AlarmaTest {
         instance.setFactorRecurenta(factorRecurenta);
          int expResult = 15;
         int result = instance.getFactorRecurenta();
-         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
+         assertEquals(expResult, result); 
     }
     
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
 import Controller.Agenda;
@@ -83,7 +78,6 @@ public class CalendarFiller {
         renderer.setHorizontalAlignment(JLabel.RIGHT);
         int currentMonth = month - 1;
         int day = 1;
-        //System.out.println(panelSelected);
         for(int i = 0; i < table.length; i++){
             if(table.length > 1){
                 currentMonth = i;
@@ -202,7 +196,7 @@ public class CalendarFiller {
         }
     }
     
-     s/**
+     /**
      * Adding the weeks to the table
      */
     private static void addWeekToTable(JTable table, DefaultTableModel model) throws ParseException{ 

@@ -1,23 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
 import Controller.Agenda;
 import Model.Eveniment;
-import static View.CalendarFiller.sortListByDate;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -294,7 +278,6 @@ public class EventDetails extends javax.swing.JFrame  {
     }//GEN-LAST:event_formWindowClosing
 
     private void jModificareButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jModificareButtonMouseClicked
-        //System.out.println(eveniment.getTitlu());
         eveniment.setTitlu(jTitluTextField.getText());
         eveniment.setDescriere(jDescriereTextArea.getText());
         Agenda.ModificareEvent(eveniment);

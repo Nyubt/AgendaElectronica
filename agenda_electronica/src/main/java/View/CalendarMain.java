@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package View;
 
 import Exceptions.ExceptieFebruarie;
@@ -16,43 +10,21 @@ import Model.Zi;
 import static View.CalendarFiller.date;
 import static View.CalendarFiller.month;
 import static View.CalendarFiller.year;
-import java.applet.Applet;
 import java.awt.event.ItemEvent;
 import javax.swing.JPanel;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.GraphicsEnvironment;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.Year;
 import java.util.Locale;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import java.util.Calendar;
 import static java.util.Calendar.MONTH;  
-import java.applet.AudioClip;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.FocusListener;
 import java.text.ParseException;
-import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
-import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+ 
 
 /**
  *
@@ -82,7 +54,6 @@ public class CalendarMain extends javax.swing.JFrame {
         int year = LocalDate.now().getYear();
         int month = LocalDate.now().getMonthValue();
         int date = LocalDate.now().getDayOfMonth();
-        //System.out.println(CalendarMain.getFrames()[0]);
         java.awt.Image img = new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\main\\resources\\iconita.png").getImage();
         CalendarMain.getFrames()[0].setIconImage(img);
         
@@ -1236,7 +1207,6 @@ public class CalendarMain extends javax.swing.JFrame {
                 CalendarFiller.month = ld.getMonthValue();
                 CalendarFiller.date = ld.getDayOfMonth();
             }
-            //System.out.println(CalendarFiller.date);
         } else {
             CalendarFiller.year++;
         }
@@ -1323,7 +1293,6 @@ public class CalendarMain extends javax.swing.JFrame {
                 CalendarFiller.month = ld.getMonthValue();
                 CalendarFiller.date = ld.getDayOfMonth();
             }
-            //System.out.println(CalendarFiller.date);
         } else {
             CalendarFiller.year--;
         }
@@ -1393,7 +1362,6 @@ public class CalendarMain extends javax.swing.JFrame {
     private void jTableJanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableJanMousePressed
         JTable table =(JTable) evt.getSource();
         if (evt.getClickCount() == 2 && table.getSelectedRow() != -1) {
-            //System.out.println(table.getSelectedRow());
             int row = table.getSelectedRow();
             int column = table.getSelectedColumn();
             Zi event = (Zi)table.getValueAt(row, column);
@@ -1425,7 +1393,6 @@ public class CalendarMain extends javax.swing.JFrame {
             int row = table.getSelectedRow();
             int column = table.getSelectedColumn();
             Eveniment event = (Eveniment)table.getValueAt(row, column);
-            //System.out.println(event);
             if(null != table.getCellEditor()) {
                 table.getCellEditor().stopCellEditing();
             }
@@ -1450,7 +1417,6 @@ public class CalendarMain extends javax.swing.JFrame {
         JList list = (JList)evt.getSource();
         if (evt.getClickCount() == 2) {
             //int index = list.locationToIndex(evt.getPoint());
-            //System.out.println(index);
             try {
                 eventFrame = new EventDetails(this, (Eveniment)list.getSelectedValue());
             } catch (Exception ex) {
@@ -1462,7 +1428,6 @@ public class CalendarMain extends javax.swing.JFrame {
     }
     
     private void openAddEventWindow(java.awt.event.ActionEvent evt){
-        //System.out.println("!!!");
         try {
             addEventFrame = new AddEvent(this);
         } catch (Exception ex) {
@@ -1526,7 +1491,6 @@ public class CalendarMain extends javax.swing.JFrame {
         weekLabel = "Week " + String.valueOf(cal.get(Calendar.WEEK_OF_YEAR));
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         dayLabel = dateFormat.format(cal.getTime());
-        //System.out.println(cal.getTime());
         if(panelSelected == 0){
             jMonthYearLabel.setText(yearLabel);
         } else if(panelSelected == 1){

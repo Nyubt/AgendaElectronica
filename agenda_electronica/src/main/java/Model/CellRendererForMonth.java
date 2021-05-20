@@ -1,25 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
 
 import java.awt.Component;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.MouseEvent;
+import java.awt.Font;;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.EventObject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -48,37 +38,30 @@ public class CellRendererForMonth extends DefaultTableCellRenderer
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
     {
         super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-        
-        //System.out.println(value.getClass());
-        //System.out.println(value.getClass().equals(Model.Zi.class));
+      
         if(value instanceof Zi) {
             Zi evt = (Zi)value;
             if(evt != null){  
-                Integer date = dateToDay(evt.getDate());
-                //System.out.println(date);
-                //System.out.println(pos == date);        
+                Integer date = dateToDay(evt.getDate());       
                 this.setText(date.toString());
                 if(date != null && (date.intValue() - 1) < map.size()){
                     int pos = date.intValue() - 1;
-                    //System.out.println(map.size() + " " + row + " " + column + "=" + (row * 7 + column));
-                    if (map.get(pos).size() > 1) {
-                        //System.out.println("1 " + pos);
+                    
+                    if (map.get(pos).size() > 1) {                        
                         this.setFont(this.getFont().deriveFont(Font.BOLD));
                     } else if (map.get(pos).size() == 1) {
-                        //System.out.println("2 " + pos);
-                        //System.out.println(map.get(pos));
-                        //System.out.println("2");
+                        
                         this.setBackground(CellRendererForWeek.HexToColor(map.get(pos).get(0)));
                     } else {
-                        //System.out.println("3");
+                    
                         this.setBackground(null); 
                     }
                 } else {
-                    //System.out.println("3");
+                  
                     this.setBackground(null); 
                 }
             } else {
-                //System.out.println("3");
+               
                 this.setBackground(null); 
             }
         } else {

@@ -1,19 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package Model;
+ package Model;
 
 import java.awt.Component;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Calendar;
-import javax.swing.JLabel;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -37,25 +30,20 @@ public class CellRendererForWeek extends DefaultTableCellRenderer
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-        //System.out.println((Eveniment)value);
+        
         Eveniment evt = null;
         
         if (value instanceof Eveniment) {
             evt = (Eveniment)value;
-            //System.out.println(evt.getTitlu());
-            //System.out.println(evt.getInceput());
+             
             if(evt != null){
-                //System.out.println(evt);
+                
                 calendar.setTime(evt.getInceput());
                 String time = calendar.get(Calendar.HOUR_OF_DAY) + ":" + String.format("%02d", calendar.get(Calendar.MINUTE));   
                 String labelText = "<html>" + time + "<br/>" + evt.getTitlu();
                 this.setText(labelText);
                 this.setBackground(HexToColor(evt.getCuloare()));
-                /*if (row < this.colors.size()) {
-                    this.setBackground(HexToColor(this.colors.get(row)));
-                } else {
-                    this.setBackground(null); 
-                }*/
+               
             } else {
                 this.setBackground(null);
             }

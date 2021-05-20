@@ -1,26 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
 import Model.Eveniment;
 import Controller.*;
-import Model.Alarma;
-import java.applet.Applet;
+ 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-//import sun.audio.AudioPlayer;AudioClip
-//import sun.audio.AudioStream;
 import java.applet.AudioClip;
 import java.io.IOException;
 import static java.lang.Thread.sleep;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -81,13 +68,10 @@ public class TimeChecker {
                     }
                     DefaultListModel model = new DefaultListModel();
                     String firstAlarm = "";
-                    for (Map.Entry<Date, Eveniment> entry : map.entrySet()) {    
-                        //System.out.println("xx");                        
+                    for (Map.Entry<Date, Eveniment> entry : map.entrySet()) {                            
                         Eveniment event = entry.getValue();
                         Date now = new Date();     
-                        //System.out.print(now + " ");
                         Date eventDate = entry.getKey();
-                        //System.out.println(eventDate);
                         
                         long duration  = eventDate.getTime() - now.getTime();
                         if(firstAlarm.isEmpty() || Integer.parseInt(firstAlarm) > duration){
@@ -96,7 +80,6 @@ public class TimeChecker {
                         model.addElement(event.getInceput());     
                         
                         if (eventDate.compareTo(now) <= 0) { 
-                            //System.out.println("yes!");
                             try {
                                 file = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\AlarmClockShort.wav");
                                 clip = (AudioClip) file.toURI().toURL().getContent();
@@ -147,16 +130,12 @@ public class TimeChecker {
         while (i < evenimente.size()) { 
             Eveniment event = evenimente.get(i);
             Date eventDate = new Date(event.getInceput().getTime() - (event.getAlarma().getIntervalTimp() * ONE_MINUTE_IN_MILLIS));
-            //System.out.println("Is key " + eventDate);
-            //System.out.println("Inactive " + event.getInactiveState());
-            //System.out.println("Alarma pornita " + event.isAlarmaPornita());
+            
             if(!map.containsValue(event) && event.isAlarmaPornita() == true && event.getInactiveState() == false && eventDate.compareTo(new Date()) >= 0) {
                 map.put(eventDate, evenimente.get(i));
-                //System.out.println("Added key " + eventDate);
             }
             if((map.containsKey(eventDate) || map.containsValue(event)) && (event.getInactiveState() == true || event.isAlarmaPornita() == false)){
                 map.remove(eventDate);
-                //System.out.println("Removed key " + eventDate);
             }
             i++;
         }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller;
 
 import Model.ListEventsInterface;
@@ -11,8 +6,12 @@ import Model.Alarma;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.Timer;
+
+/**
+ *
+ * @author Nadia
+ */
 
 /**
  * Clasa Agenda face legatura dintre interfata agendei si metodele de manipulare a evenimentelor

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
 
 import java.util.Calendar;
@@ -54,8 +49,6 @@ Alarma a=new Alarma(2,2);
         int expResult = 2;
         int result = instance.getEvenimentId();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
     }
 
     /**
@@ -72,8 +65,6 @@ Alarma a=new Alarma(2,2);
         String expResult = "a";
         String result = instance.getTitlu();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -91,8 +82,6 @@ Alarma a=new Alarma(2,2);
         String expResult = "b";
         String result = instance.getDescriere();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-       //fail("The test case is a prototype.");
     }
 
     /**
@@ -110,8 +99,6 @@ Alarma a=new Alarma(2,2);
         Date expResult =  new GregorianCalendar(2014, Calendar.FEBRUARY, 11).getTime();
         Date result = instance.getInceput();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
     }
 
     /**
@@ -129,8 +116,6 @@ Alarma a=new Alarma(2,2);
         Date expResult = new GregorianCalendar(2015, Calendar.FEBRUARY, 11).getTime();
         Date result = instance.getSfarsit();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
     }
 
     /**
@@ -148,8 +133,6 @@ Alarma a=new Alarma(2,2);
         Alarma expResult = a;
         Alarma result = instance.getAlarma();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -165,9 +148,7 @@ Alarma a=new Alarma(2,2);
         Eveniment instance = new Eveniment(2,"a","b",startdate,enddate,a,r,"c",true,false);
         String expResult = "c";
         String result = instance.getCuloare();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        assertEquals(expResult, result); 
     }
 
     /**
@@ -184,9 +165,7 @@ Alarma a=new Alarma(2,2);
         
         boolean expResult = false;
         boolean result = instance.getInactiveState();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
+        assertEquals(expResult, result); 
     }
 
     /**
@@ -203,9 +182,7 @@ Alarma a=new Alarma(2,2);
         
         boolean expResult = true;
         boolean result = instance.isAlarmaPornita();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        assertEquals(expResult, result); 
     }
 
     /**
@@ -223,9 +200,7 @@ Alarma a=new Alarma(2,2);
        String expResult= "x";
         instance.setTitlu(titlu);
         String result= instance.getTitlu();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        assertEquals(expResult, result); 
     }
 
     /**
@@ -244,9 +219,7 @@ Alarma a=new Alarma(2,2);
        instance.setDescriere(descriere);
         String result= instance.getDescriere();
         assertEquals(expResult, result);
-       
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -264,9 +237,7 @@ Alarma a=new Alarma(2,2);
        Date expResult=new GregorianCalendar(2014, Calendar.FEBRUARY, 25).getTime();
         instance.setInceput(inceput);
         Date result=instance.getInceput();
-         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
+         assertEquals(expResult, result); 
     }
 
     /**
@@ -285,9 +256,7 @@ Alarma a=new Alarma(2,2);
          instance.setSfarsit(sfarsit);
         Date result=instance.getSfarsit();
          assertEquals(expResult, result);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+         
     }
 
     /**
@@ -305,8 +274,7 @@ Recurenta r=new Recurenta(1,enddate);
         instance.setAlarma(alarma);
         Alarma result=instance.getAlarma();
          assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -325,9 +293,6 @@ Alarma a=new Alarma(2,2);
         instance.setCuloare(culoare);
         String result=instance.getCuloare();
                  assertEquals(expResult, result);
-
-        // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
     }
 
     /**
@@ -345,9 +310,7 @@ Alarma a=new Alarma(2,2);
         boolean expResult=alarmaPornita;
         instance.setStareAlarma(alarmaPornita);
         boolean result=instance.isAlarmaPornita();
-         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-      //  fail("The test case is a prototype.");
+         assertEquals(expResult, result); 
     }
 
     /**
@@ -365,9 +328,7 @@ Recurenta r=new Recurenta(1,enddate);
         boolean expResult=inactive;
         instance.setInactiveState(inactive);
         boolean result=instance.isAlarmaPornita();
-         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-      //  fail("The test case is a prototype.");
+         assertEquals(expResult, result); 
     }
 
     /**
@@ -384,9 +345,7 @@ Alarma a=new Alarma(2,2);
         Eveniment instance = new Eveniment(2,"a","b",startdate,enddate,a,r,"c",true,false);
                 boolean expResult = false;
         boolean result = instance.equals(obj);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
+        assertEquals(expResult, result); 
     }
     
 }
