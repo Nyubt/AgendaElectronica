@@ -228,7 +228,42 @@ public class Container {
         return new Zi(evenimente);
     }
     
-    public static void AdaugareEveniment(){
+    /**
+     * 
+     * @param titlu
+     * @param descriere
+     * @param dataInceput
+     * @param timpInceput
+     * @param dataSfarsit
+     * @param timpSfarsit
+     * @param culoare
+     * @param alarmaPornita
+     * @param factorRecurenta
+     * @param intervalTimp
+     * @param esteRecurenta
+     * @param modRecurenta
+     * @param dataFinala 
+     */
+    public static void AdaugareEveniment(String titlu, String descriere, String dataInceput, String timpInceput, String dataSfarsit, String timpSfarsit, String culoare, 
+            boolean alarmaPornita, int factorRecurenta, int intervalTimp, boolean esteRecurenta, int modRecurenta, String dataFinala){
+        
+    }
+    
+    /**
+     * 
+     * @param factorRecurenta
+     * @param intervalTimp 
+     */
+    private static void AdaudareAlarma(int factorRecurenta, int intervalTimp){
+        
+    } 
+    
+    /**
+     * 
+     * @param modRecurenta
+     * @param dataFinala 
+     */
+    private static void AdaugareRecurenta(int modRecurenta, String dataFinala){
         
     }
 
