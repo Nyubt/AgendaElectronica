@@ -1,12 +1,16 @@
 package View;
 
+import Controller.Agenda;
 import Exceptions.Exceptie4cifre;
 import Exceptions.ExceptieFebruarie;
 import Exceptions.ExceptieLuna;
 import Exceptions.ExceptieZi;
 import Exceptions.LimiteAni;
 import Model.ComboHtmlRenderer;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -108,7 +112,6 @@ public class AddEvent extends javax.swing.JFrame {
         jLabel1.setText("Titlu");
 
         jTitleTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTitleTextField.setText(" ");
         jTitleTextField.setMaximumSize(new java.awt.Dimension(20, 20));
         jTitleTextField.setName("JTextFiledTitle"); // NOI18N
 
@@ -153,12 +156,10 @@ public class AddEvent extends javax.swing.JFrame {
         label7.setText("ORA");
 
         jEndDayTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jEndDayTextField.setText(" ");
         jEndDayTextField.setMaximumSize(new java.awt.Dimension(20, 20));
         jEndDayTextField.setName("JTextFiledTitle"); // NOI18N
 
         jEndHourTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jEndHourTextField.setText(" ");
         jEndHourTextField.setMaximumSize(new java.awt.Dimension(20, 20));
         jEndHourTextField.setName("JTextFiledTitle"); // NOI18N
 
@@ -167,7 +168,6 @@ public class AddEvent extends javax.swing.JFrame {
         label8.setText("MINUTE");
 
         jEndMinTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jEndMinTextField.setText(" ");
         jEndMinTextField.setMaximumSize(new java.awt.Dimension(20, 20));
         jEndMinTextField.setName("JTextFiledTitle"); // NOI18N
 
@@ -180,12 +180,10 @@ public class AddEvent extends javax.swing.JFrame {
         label1.setText("AN");
 
         jEndMonthTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jEndMonthTextField.setText(" ");
         jEndMonthTextField.setMaximumSize(new java.awt.Dimension(20, 20));
         jEndMonthTextField.setName("JTextFiledTitle"); // NOI18N
 
         jEndYearTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jEndYearTextField.setText(" ");
         jEndYearTextField.setMaximumSize(new java.awt.Dimension(20, 20));
         jEndYearTextField.setName("JTextFiledTitle"); // NOI18N
 
@@ -248,7 +246,6 @@ public class AddEvent extends javax.swing.JFrame {
         label9.setText("ZI");
 
         jUntilDayTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jUntilDayTextField.setText(" ");
         jUntilDayTextField.setMaximumSize(new java.awt.Dimension(20, 20));
         jUntilDayTextField.setName("JTextFiledTitle"); // NOI18N
 
@@ -261,12 +258,10 @@ public class AddEvent extends javax.swing.JFrame {
         label13.setText("AN");
 
         jUntilMonthTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jUntilMonthTextField.setText(" ");
         jUntilMonthTextField.setMaximumSize(new java.awt.Dimension(20, 20));
         jUntilMonthTextField.setName("JTextFiledTitle"); // NOI18N
 
         jUntilYearTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jUntilYearTextField.setText(" ");
         jUntilYearTextField.setMaximumSize(new java.awt.Dimension(20, 20));
         jUntilYearTextField.setName("JTextFiledTitle"); // NOI18N
 
@@ -333,12 +328,10 @@ public class AddEvent extends javax.swing.JFrame {
         label15.setText("ORA");
 
         jStartDayTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jStartDayTextField.setText(" ");
         jStartDayTextField.setMaximumSize(new java.awt.Dimension(20, 20));
         jStartDayTextField.setName("JTextFiledTitle"); // NOI18N
 
         jStartHourTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jStartHourTextField.setText(" ");
         jStartHourTextField.setMaximumSize(new java.awt.Dimension(20, 20));
         jStartHourTextField.setName("JTextFiledTitle"); // NOI18N
 
@@ -347,7 +340,6 @@ public class AddEvent extends javax.swing.JFrame {
         label16.setText("MINUTE");
 
         jStartMinTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jStartMinTextField.setText(" ");
         jStartMinTextField.setMaximumSize(new java.awt.Dimension(20, 20));
         jStartMinTextField.setName("JTextFiledTitle"); // NOI18N
 
@@ -360,12 +352,10 @@ public class AddEvent extends javax.swing.JFrame {
         label18.setText("AN");
 
         jStartMonthTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jStartMonthTextField.setText(" ");
         jStartMonthTextField.setMaximumSize(new java.awt.Dimension(20, 20));
         jStartMonthTextField.setName("JTextFiledTitle"); // NOI18N
 
         jStartYearTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jStartYearTextField.setText(" ");
         jStartYearTextField.setMaximumSize(new java.awt.Dimension(20, 20));
         jStartYearTextField.setName("JTextFiledTitle"); // NOI18N
 
@@ -571,39 +561,78 @@ public class AddEvent extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jAddButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jAddButtonMouseClicked
-        String title = jTitleTextField.getText();
-        String description = jDescriptionTextArea.getText();
-        String startDate = jStartYearTextField.getText() + "-" + String.format("%2s", jStartMonthTextField.getText()).replace(' ', '0') + "-" + String.format("%2s", jStartDayTextField.getText()).replace(' ', '0');
-        String startTime = jStartHourTextField.getText() + ":" + String.format("%2s", jStartMinTextField.getText()).replace(' ', '0') + ":00";
-        String endDate = jEndYearTextField.getText() + "-" + String.format("%2s", jEndMonthTextField.getText()).replace(' ', '0') + "-" + String.format("%2s", jEndDayTextField.getText()).replace(' ', '0');
-        String endTime = jEndHourTextField.getText() + ":" + String.format("%2s", jEndMinTextField.getText()).replace(' ', '0') + ":00";
-        String color = String.valueOf(jColorComboBox.getSelectedItem());
+        String title = jTitleTextField.getText().replaceAll("\\s+","");
+        if (title.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Introduceti titlul");
+        } else {
+            String startDate = jStartYearTextField.getText().replaceAll("\\s+","") + "-" + 
+                    String.format("%2s", jStartMonthTextField.getText().replaceAll("\\s+","")).replace(' ', '0') + "-" + 
+                    String.format("%2s", jStartDayTextField.getText().replaceAll("\\s+","")).replace(' ', '0');
+            
+            boolean startDateValid = validateDateInput(jStartDayTextField.getText().replaceAll("\\s+",""), 
+                    jStartMonthTextField.getText().replaceAll("\\s+",""), jStartYearTextField.getText().replaceAll("\\s+",""));
+            if(!startDateValid){
+                JOptionPane.showMessageDialog(null, "Introduceti o data valida");
+            } else {
+                String startHour = jStartHourTextField.getText().replaceAll("\\s+","");
+                String startMinutes = jStartMinTextField.getText().replaceAll("\\s+","");
+                String startTime = String.format("%2s", startHour).replace(' ', '0') + ":" + String.format("%2s", startMinutes).replace(' ', '0') + ":00";
+                boolean startTimeValid = validateTimeInput(startTime);
+                if (startHour.isEmpty() || startMinutes.isEmpty() || !startTimeValid){
+                    JOptionPane.showMessageDialog(null, "Introduceti o ora valida");
+                } else {                    
+                    Boolean recOn = jRecurCheckBox.isSelected();
+                    boolean untilDateValid = validateDateInput(jUntilDayTextField.getText().replaceAll("\\s+",""), 
+                            jUntilMonthTextField.getText().replaceAll("\\s+",""), jUntilYearTextField.getText().replaceAll("\\s+",""));
+                    if(recOn && !untilDateValid){
+                        JOptionPane.showMessageDialog(null, "Introduceti o data valida pentru evenimentul de recurenta");
+                    } else {
+                        String endDate = jEndYearTextField.getText().replaceAll("\\s+","") + "-" + 
+                                String.format("%2s", jEndMonthTextField.getText().replaceAll("\\s+","")).replace(' ', '0') + "-" + 
+                                String.format("%2s", jEndDayTextField.getText().replaceAll("\\s+","")).replace(' ', '0');
+
+                        boolean endDateValid = validateDateInput(jEndDayTextField.getText().replaceAll("\\s+",""), 
+                                jEndMonthTextField.getText().replaceAll("\\s+",""), jEndYearTextField.getText().replaceAll("\\s+",""));
+                        if(!endDateValid){
+                            endDate = startDate;
+                        }
+                        
+                        String endHour = jEndHourTextField.getText().replaceAll("\\s+","");
+                        String endMinutes = jEndMinTextField.getText().replaceAll("\\s+","");
+                        String endTime = String.format("%2s", endHour).replace(' ', '0') + ":" + String.format("%2s", endMinutes).replace(' ', '0') + ":00";
+                        
+                        boolean endTimeValid = validateTimeInput(endTime);  
+                        if(endHour.isEmpty() || endMinutes.isEmpty() || !endTimeValid){
+                            endTime = startTime;
+                        }
+                        
+                        String recDate = jUntilYearTextField.getText().replaceAll("\\s+","") + "-" + 
+                                String.format("%2s", jUntilMonthTextField.getText().replaceAll("\\s+","")).replace(' ', '0') + "-" + 
+                                String.format("%2s", jUntilDayTextField.getText().replaceAll("\\s+","")).replace(' ', '0');
+
+                        int repetMode = 0;
+                        if (recOn){
+                            repetMode = jRecurComboBox.getSelectedIndex() + 1;
+                        }
+
+                        String description = jDescriptionTextArea.getText().replaceAll("\\s+","");
+                        String color = String.valueOf(jColorComboBox.getSelectedItem());      
+
+                        Boolean alrmOn = jAlarmCheckBox.isSelected();
+                        int snooze = Integer.parseInt(jSnoozeComboBox.getSelectedItem().toString());
+                        int notif = Integer.parseInt(jRemMinComboBox.getSelectedItem().toString());
         
-        Boolean alrmOn = jAlarmCheckBox.isSelected();
-        int snooze = Integer.parseInt(jSnoozeComboBox.getSelectedItem().toString());
-        int notif = Integer.parseInt(jRemMinComboBox.getSelectedItem().toString());
-        
-        Boolean recOn = jRecurCheckBox.isSelected();
-        String recDate = jUntilYearTextField.getText() + "-" + String.format("%2s", jUntilMonthTextField.getText()).replace(' ', '0') + "-" + String.format("%2s", jUntilDayTextField.getText()).replace(' ', '0');
-        int repetMode = jRecurComboBox.getSelectedIndex();
-        
-        System.out.println(title);
-        System.out.println(description);
-        System.out.println(startDate);
-        System.out.println(startTime);
-        System.out.println(endDate);
-        System.out.println(endTime);
-        System.out.println(color);
-        
-        System.out.println(alrmOn);
-        System.out.println(snooze);
-        System.out.println(notif);
-        
-        System.out.println(recOn);
-        System.out.println(recDate);
-        System.out.println(repetMode);
-        System.out.println();
-        
+                        try {
+                            Agenda.AdaugareEveniment(title, description, startDate, startTime, endDate, endTime, color, alrmOn, snooze, notif, recOn, repetMode, recDate);
+                            JOptionPane.showMessageDialog(null, "Eveniment adaugat!");
+                            jExitButtonMouseClicked(evt);
+                        } catch (Exception e){
+                            JOptionPane.showMessageDialog(null, "Eroare. Nu am putut salva evenimentul. Contactati customer support.");
+                        }
+                    }
+                }
+            }
+        }        
     }//GEN-LAST:event_jAddButtonMouseClicked
 
     private void jExitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jExitButtonMouseClicked
@@ -653,10 +682,9 @@ public class AddEvent extends javax.swing.JFrame {
     }
     
     public boolean validateDateInput(String day, String month, String year){
-        boolean validDate = true;
+        boolean dateValid = true;
         try {        
             if(Integer.parseInt(year) < 2018 || Integer.parseInt(year) > 2030) {
-                validDate = false;
                 throw new LimiteAni();
             }
             int n = Integer.parseInt(year);
@@ -667,46 +695,62 @@ public class AddEvent extends javax.swing.JFrame {
                 n = n / 10;
             }
             if(nrCifre != 4){
-                validDate = false;
                 throw new Exceptie4cifre();
             }
         } catch(NumberFormatException e) {
+                dateValid = false;
             System.out.println("Exceptie : Introduceti doar cifre in caseta pt an!");
         } catch (Exceptie4cifre ex) {
+                dateValid = false;
             System.out.println("Exceptie : " + ex.toString());
         } catch (LimiteAni ex) {
+                dateValid = false;
             System.out.println("Exceptie : " + ex.toString());
         }
         
         try {       
             if(Integer.parseInt(month) < 1 || Integer.parseInt(month) > 12) {
-                validDate = false;
                 throw new ExceptieLuna();
             }
         } catch (ExceptieLuna ex) {
+            dateValid = false;
             System.out.println("Exceptie : " + ex.toString());
         }
         catch(NumberFormatException e) {
+            dateValid = false;
             System.out.println("Exceptie : Introduceti doar cifre in caseta pt luna!");
         } 
         
         try {        
             if(Integer.parseInt(day) < 1 || Integer.parseInt(day) > 31){
-                validDate = false;
                 throw new ExceptieZi();
             }            
             if(Integer.parseInt(month) == 2 && Integer.parseInt(day) > 29) {
-                validDate = false;
                 throw new ExceptieFebruarie();
             }
         } catch(NumberFormatException e) {
+            dateValid = false;
             System.out.println("Exceptie : Introduceti doar cifre in caseta pt zi!");
         } catch(ExceptieZi ex) { 
+            dateValid = false;
             System.out.println("Exceptie : " + ex.toString());
         } catch (ExceptieFebruarie ex) {
+            dateValid = false;
             System.out.println("Exceptie : " + ex.toString());
         } 
-        return validDate;
+        System.out.println(dateValid);
+        return dateValid;
+    }
+    
+    public boolean validateTimeInput(String inputTimeString){
+        try {
+            LocalTime.parse(inputTimeString);
+            //System.out.println("Valid time string: " + inputTimeString);
+        } catch (DateTimeParseException | NullPointerException e) {
+            System.out.println("Invalid time string: " + inputTimeString);
+            return false;
+        }
+        return true;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
