@@ -561,44 +561,44 @@ public class AddEvent extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jAddButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jAddButtonMouseClicked
-        String title = jTitleTextField.getText().replaceAll("\\s+","");
+        String title = jTitleTextField.getText().trim();
         if (title.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Introduceti titlul");
         } else {
-            String startDate = jStartYearTextField.getText().replaceAll("\\s+","") + "-" + 
-                    String.format("%2s", jStartMonthTextField.getText().replaceAll("\\s+","")).replace(' ', '0') + "-" + 
-                    String.format("%2s", jStartDayTextField.getText().replaceAll("\\s+","")).replace(' ', '0');
+            String startDate = jStartYearTextField.getText().trim() + "-" + 
+                    String.format("%2s", jStartMonthTextField.getText().trim()).replace(' ', '0') + "-" + 
+                    String.format("%2s", jStartDayTextField.getText().trim()).replace(' ', '0');
             
-            boolean startDateValid = validateDateInput(jStartDayTextField.getText().replaceAll("\\s+",""), 
-                    jStartMonthTextField.getText().replaceAll("\\s+",""), jStartYearTextField.getText().replaceAll("\\s+",""));
+            boolean startDateValid = validateDateInput(jStartDayTextField.getText().trim(), 
+                    jStartMonthTextField.getText().trim(), jStartYearTextField.getText().trim());
             if(!startDateValid){
                 JOptionPane.showMessageDialog(null, "Introduceti o data valida");
             } else {
-                String startHour = jStartHourTextField.getText().replaceAll("\\s+","");
-                String startMinutes = jStartMinTextField.getText().replaceAll("\\s+","");
+                String startHour = jStartHourTextField.getText().trim();
+                String startMinutes = jStartMinTextField.getText().trim();
                 String startTime = String.format("%2s", startHour).replace(' ', '0') + ":" + String.format("%2s", startMinutes).replace(' ', '0') + ":00";
                 boolean startTimeValid = validateTimeInput(startTime);
                 if (startHour.isEmpty() || startMinutes.isEmpty() || !startTimeValid){
                     JOptionPane.showMessageDialog(null, "Introduceti o ora valida");
                 } else {                    
                     Boolean recOn = jRecurCheckBox.isSelected();
-                    boolean untilDateValid = validateDateInput(jUntilDayTextField.getText().replaceAll("\\s+",""), 
-                            jUntilMonthTextField.getText().replaceAll("\\s+",""), jUntilYearTextField.getText().replaceAll("\\s+",""));
+                    boolean untilDateValid = validateDateInput(jUntilDayTextField.getText().trim(), 
+                            jUntilMonthTextField.getText().trim(), jUntilYearTextField.getText().trim());
                     if(recOn && !untilDateValid){
                         JOptionPane.showMessageDialog(null, "Introduceti o data valida pentru evenimentul de recurenta");
                     } else {
-                        String endDate = jEndYearTextField.getText().replaceAll("\\s+","") + "-" + 
-                                String.format("%2s", jEndMonthTextField.getText().replaceAll("\\s+","")).replace(' ', '0') + "-" + 
-                                String.format("%2s", jEndDayTextField.getText().replaceAll("\\s+","")).replace(' ', '0');
+                        String endDate = jEndYearTextField.getText().trim() + "-" + 
+                                String.format("%2s", jEndMonthTextField.getText().trim()).replace(' ', '0') + "-" + 
+                                String.format("%2s", jEndDayTextField.getText().trim()).replace(' ', '0');
 
-                        boolean endDateValid = validateDateInput(jEndDayTextField.getText().replaceAll("\\s+",""), 
-                                jEndMonthTextField.getText().replaceAll("\\s+",""), jEndYearTextField.getText().replaceAll("\\s+",""));
+                        boolean endDateValid = validateDateInput(jEndDayTextField.getText().trim(), 
+                                jEndMonthTextField.getText().trim(), jEndYearTextField.getText().trim());
                         if(!endDateValid){
                             endDate = startDate;
                         }
                         
-                        String endHour = jEndHourTextField.getText().replaceAll("\\s+","");
-                        String endMinutes = jEndMinTextField.getText().replaceAll("\\s+","");
+                        String endHour = jEndHourTextField.getText().trim();
+                        String endMinutes = jEndMinTextField.getText().trim();
                         String endTime = String.format("%2s", endHour).replace(' ', '0') + ":" + String.format("%2s", endMinutes).replace(' ', '0') + ":00";
                         
                         boolean endTimeValid = validateTimeInput(endTime);  
@@ -606,16 +606,16 @@ public class AddEvent extends javax.swing.JFrame {
                             endTime = startTime;
                         }
                         
-                        String recDate = jUntilYearTextField.getText().replaceAll("\\s+","") + "-" + 
-                                String.format("%2s", jUntilMonthTextField.getText().replaceAll("\\s+","")).replace(' ', '0') + "-" + 
-                                String.format("%2s", jUntilDayTextField.getText().replaceAll("\\s+","")).replace(' ', '0');
+                        String recDate = jUntilYearTextField.getText().trim() + "-" + 
+                                String.format("%2s", jUntilMonthTextField.getText().trim()).replace(' ', '0') + "-" + 
+                                String.format("%2s", jUntilDayTextField.getText().trim()).replace(' ', '0');
 
                         int repetMode = 0;
                         if (recOn){
                             repetMode = jRecurComboBox.getSelectedIndex() + 1;
                         }
 
-                        String description = jDescriptionTextArea.getText().replaceAll("\\s+","");
+                        String description = jDescriptionTextArea.getText().trim();
                         String color = String.valueOf(jColorComboBox.getSelectedItem());      
 
                         Boolean alrmOn = jAlarmCheckBox.isSelected();
