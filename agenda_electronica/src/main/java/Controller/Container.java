@@ -236,6 +236,10 @@ public class Container {
         }
         return new Zi(evenimente);
     }
+    
+    public static void AdaugareEveniment(){
+        
+    }
 
     /**
      * Modifica un eveniment
