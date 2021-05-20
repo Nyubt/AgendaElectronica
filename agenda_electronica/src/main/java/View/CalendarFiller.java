@@ -71,8 +71,9 @@ public class CalendarFiller {
     }
      /**
      * Filling the table with the information 
+     * @param panelSelected
+     * @param table
      */
-
     public static void fillInTable(int panelSelected, JTable... table){
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(JLabel.RIGHT);
@@ -128,8 +129,10 @@ public class CalendarFiller {
     
     /**
      * Filling the list 
+     * @param panelSelected
+     * @param eventList
+     * @throws java.text.ParseException 
     */
-
     public static void fillInList(int panelSelected, JList eventList) throws ParseException{
         List<Eveniment> evenimente;
         Calendar calendar = Calendar.getInstance();
@@ -160,6 +163,7 @@ public class CalendarFiller {
     
     /**
      * Sortează lista după dată
+     * @param originalList
      */
     public static void sortListByDate(List<Eveniment> originalList){
         Comparator<Eveniment> compareByDate = (Eveniment o1, Eveniment o2) -> o1.getInceput().compareTo(o2.getInceput()); 
@@ -168,8 +172,12 @@ public class CalendarFiller {
     
      /**
      * Adding the months to the table
+     * @param table
+     * @param model
+     * @param currentMonth
+     * @param day
+     * @throws java.text.ParseException 
      */
-
     private static void addMonthToTable(JTable table, DefaultTableModel model, int currentMonth, int day) throws ParseException{
         Calendar cal = Calendar.getInstance();
         cal.set(year, currentMonth, day);
@@ -198,6 +206,10 @@ public class CalendarFiller {
     
      /**
      * Adding the weeks to the table
+     * @param table
+     * @param model
+     * @throws java.text.ParseException 
+     * 
      */
     private static void addWeekToTable(JTable table, DefaultTableModel model) throws ParseException{ 
         Calendar calendar = Calendar.getInstance();

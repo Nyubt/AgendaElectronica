@@ -15,6 +15,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+
+/**
+ *
+ * @author Elena, Nadia
+ */
+
 /**
  * Clasa Container manipuleaza cu evenimentele din baza de date
  *  
@@ -27,6 +33,11 @@ public class Container {
     private static Container instance;
     private static Connection connection;
     
+    
+    /**
+     *  Functia get pentru a obtine instanta
+     * @return instanta
+     */
     public static Container getInstance(){
         if (connection == null){
             try{
@@ -52,9 +63,9 @@ public class Container {
     }
     
     /**
-     * Returneaza evenimentele dintr-o zi
+     * Functia FurnizareZi: citeste evenimentele din baza de date pentru o anumita zi si le returneaza in formatul ("yyyy-MM-dd HH:mm:ss")
      * @param data
-     * @return
+     * @return evenimentele dint-o zi
      */
     public static Zi FurnizareZi(Date data) throws ParseException {
         //citire din DB pt anumita zi
@@ -62,25 +73,21 @@ public class Container {
         try
         {
           Statement statement = connection.createStatement();
-          //System.out.println("connection 1");
           // set timeout to 30 sec.
           statement.setQueryTimeout(30);  
           SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
           ResultSet rs = statement.executeQuery("select * from Events where date(\"StartDate\")=date(\"" + dateFormat.format(data) + "\")");
-          //System.out.println("data "+data);
           while(rs != null && rs.next())
           {
             // read the result set
             SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
             Date startDate=formatter1.parse(rs.getString("StartDate") + " " + rs.getString("StartTime"));  
             Date endDate=formatter1.parse(rs.getString("EndDate") + " " + rs.getString("EndTime"));  
-            //System.out.println("event start date "+startDate);
-            //System.out.println("event end date "+endDate);
+            
             Alarma alarma = null;
             try (Statement stmt = connection.createStatement()){
                 ResultSet al = stmt.executeQuery("select * from Alarms where AlarmId=" + rs.getString("AlarmId"));
-                //System.out.println("Alarma " + al.getInt("ReminderMinutes"));
-                //System.out.println("Alarma " + al.getInt("Snooze"));
+                
                 while (al != null && al.next()) {
                     alarma = new Alarma(al.getInt("ReminderMinutes"), al.getInt("Snooze"));
                 }
@@ -88,8 +95,7 @@ public class Container {
                 System.err.println("Connection 2 error: " + ex.getMessage());
             }
             Boolean alarmActive = (rs.getObject("AlarmActive") != null && rs.getString("AlarmActive").contentEquals("1"));
-            //System.out.println("Alarma " + alarmActive);
-            //System.out.println("Inactive " + !(rs.getObject("Inactive") == null || rs.getString("Inactive").contentEquals("0")));
+             
             Boolean inactive = !(rs.getObject("Inactive") == null || rs.getString("Inactive").contentEquals("0"));
             if (inactive == true){
                 continue;
@@ -104,10 +110,10 @@ public class Container {
             } catch(SQLException ex){
                 System.err.println("Connection 2 error: " + ex.getMessage());
             }
-            //System.out.println("Inactive " + inactive);
+         
             Eveniment evt = new Eveniment(rs.getInt("EventId"), rs.getString("Title"), rs.getString("Description"), startDate, endDate, alarma, recurenta,
                     rs.getString("Color"), alarmActive, inactive);
-            //System.out.println(evt.getInceput());
+          
             evenimente.add(evt);
           }
         }
@@ -116,7 +122,6 @@ public class Container {
           System.err.println("Connection error: " + e.getMessage());
         }
         List<Eveniment> evtRepet = AdaugareEvenimenteRepetateZi(data);
-        //System.out.println(evtRepet);
         if (!evtRepet.isEmpty()) {
             evenimente.addAll(evtRepet);
         }
@@ -124,9 +129,9 @@ public class Container {
     }
 
     /**
-     * Returneaza evenimentele dintr-o luna
+     * Functia FurnizareLuna: citeste evenimentele din baza de date pentru o anumita luna si le returneaza
      * @param data
-     * @return
+     * @return evenimentele dintr-o luna
      */
     public static Luna FurnizareLuna(Date data) throws ParseException {
         List <Zi> luna = new ArrayList<>();
@@ -134,21 +139,19 @@ public class Container {
         calendar.setTime(data);
         int current = calendar.get(calendar.DAY_OF_MONTH);
         int maxDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        //System.out.println(maxDays);
         for(int i = 0; i < maxDays; i++){
             int n = (i - current + 1);
             Date datesOfWeek = new Date(data.getTime() + n * 24 * 3600 * 1000l);
             List <Eveniment> evte = Agenda.SelectareEvente(datesOfWeek, "DAY").getEventList();
             luna.add(new Zi(evte, datesOfWeek));
         }
-        
         return new Luna(luna);
     }
 
     /**
-     * Returneaza evenimentele dintr-o saptamana
+     * Functia FurnizareSaptamana: citeste evenimentele din baza de date pentru o anumita saptamana si le returneaza
      * @param data
-     * @return
+     * @return evenimentele dintr-o saptamana
      */
     public static Saptamana FurnizareSaptamana(Date data) throws ParseException {
         List <Zi> saptamana = new ArrayList<>();
@@ -165,17 +168,17 @@ public class Container {
     }
 
     /**
-     * Returneaza evenimentele dintr-un an
+     * Functia FurnizareAn: citeste evenimentele din baza de date pentru un anumit an si le returneaza
      * @param data
-     * @return
+     * @return evenimentele dintr-un an
      */
     public static An FurnizareAn(Date data) {
         return null;
     }
 
     /**
-     * Returneaza toate evenimentele din baza de date
-     * @return
+     * Functia FurnizareToateEvent: citeste toate evenimentele din baza de date si le returneaza
+     * @return toate evenimentele din baza de date
      */
     public static Zi FurnizareToateEvent() throws ParseException {
         evenimente = new ArrayList<Eveniment>();
@@ -248,6 +251,11 @@ public class Container {
         PrelucrareEvent(eveniment, "delete");        
     }
     
+     /**
+     * Modificarea datelor unui eveniment: titlul, descrierea, ID-ului si stergerea sau stergerea unui eveniment
+     * Daca nu s-a putut conecta cu baza de date, returneaza un mesaj specific
+     * @param eveniment 
+     */
     private static void PrelucrareEvent(Eveniment eveniment, String operation){
         try
         {
@@ -284,8 +292,7 @@ public class Container {
      * @param eveniment 
      */
     public static void OprireAlarma(Eveniment eveniment){
-        //update db, set inactive to true
-        //System.out.println(eveniment.getEvenimentId());
+        //update db, set inactive to true 
         try
         {
           Statement statement = connection.createStatement();
@@ -300,12 +307,11 @@ public class Container {
     }
     
     /**
-     * Actualizarea intervalului alarmei in baza de date
+     * Functia de actualizare a intervalului alarmei in baza de date
      * @param eveniment 
      */
     public static void AmanareAlarma(Eveniment eveniment){
-        //update interval in db
-        //System.out.println(eveniment.getEvenimentId());
+        //update interval in db ;
         try
         {
           Statement statement = connection.createStatement();
@@ -338,36 +344,31 @@ public class Container {
     
     
     /**
-     * Adaugarea unui eveniment
+     * Functia de adaugare a unui eveniment
+     * Adaugam id, titlul, descrierea, data de inceput, data de sfarsit, recurenta, reminderMinutes, culoarea unui eveniment din combo box si daca alarma e activa sau nu, 
+     * Daca nu s-a putut conecta cu baza de date, returneaza un mesaj specific
      * @param eveniment 
      */
-
     private static List<Eveniment> AdaugareEvenimenteRepetateZi(Date data) throws ParseException{
         ArrayList<Eveniment> evte = new ArrayList<Eveniment>();
         try
         {
-          Statement statement = connection.createStatement();
-          //System.out.println("connection 1");
+          Statement statement = connection.createStatement(); 
           // set timeout to 30 sec.
           statement.setQueryTimeout(30);  
           SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-          ResultSet rs = statement.executeQuery("select * from Events where date(\"StartDate\") < date(\"" + dateFormat.format(data) + "\")");
-          //System.out.println("data "+data);
+          ResultSet rs = statement.executeQuery("select * from Events where date(\"StartDate\") < date(\"" + dateFormat.format(data) + "\")"); 
           while(rs != null && rs.next())
           {
             // read the result set
             SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
-            //System.out.println("event start date "+startDate);
-            //System.out.println("event end date "+endDate);
             Recurenta recurenta = null;
             try (Statement stmt = connection.createStatement()){
                 ResultSet re = stmt.executeQuery("select * from Recurrence where RecurrenceId=" + rs.getString("RecurrenceId"));
                 while (re != null && re.next()) {
                     Date endDate2 = dateFormat.parse(re.getString("EndDate"));
                     int mod = re.getInt("RepetMode");
-                    if (mod == 1 && endDate2.compareTo(dateFormat.parse(dateFormat.format(data))) >= 0){
-                        //System.out.println(endDate2);
-                        //System.out.println(dateFormat.parse(dateFormat.format(data)));
+                    if (mod == 1 && endDate2.compareTo(dateFormat.parse(dateFormat.format(data))) >= 0){ 
                         recurenta = new Recurenta(mod, endDate2);
                     }
                 }
@@ -388,18 +389,14 @@ public class Container {
                 System.err.println("Connection 2 error: " + ex.getMessage());
             }
             Boolean alarmActive = (rs.getObject("AlarmActive") != null && rs.getString("AlarmActive").contentEquals("1"));
-            //System.out.println("Alarma " + alarmActive);
-            //System.out.println("Inactive " + !(rs.getObject("Inactive") == null || rs.getString("Inactive").contentEquals("0")));
             Boolean inactive = !(rs.getObject("Inactive") == null || rs.getString("Inactive").contentEquals("0"));
             if (inactive == true){
                 continue;
             }
             Date startDate=formatter1.parse(dateFormat.format(data) + " " + rs.getString("StartTime"));  
             Date endDate=formatter1.parse(dateFormat.format(data) + " " + rs.getString("EndTime"));  
-            //System.out.println("Inactive " + inactive);
             Eveniment evt = new Eveniment(rs.getInt("EventId"), rs.getString("Title"), rs.getString("Description"), startDate, endDate, alarma, recurenta,
-                    rs.getString("Color"), alarmActive, inactive);
-            //System.out.println(evt.getInceput());
+                    rs.getString("Color"), alarmActive, inactive); 
             evte.add(evt);
           }
         }

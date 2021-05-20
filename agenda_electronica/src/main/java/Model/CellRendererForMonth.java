@@ -15,6 +15,9 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Elena
  */
+/**
+ *Functia care adauga un stil pentru luna
+ */
 public class CellRendererForMonth extends DefaultTableCellRenderer
 {
     Map<Integer, List<String>> map;
@@ -34,6 +37,9 @@ public class CellRendererForMonth extends DefaultTableCellRenderer
         }
     }
     
+ /**
+ *Functia care adauga un stil pentru tabel
+ */
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
     {
@@ -66,11 +72,14 @@ public class CellRendererForMonth extends DefaultTableCellRenderer
             }
         } else {
             this.setBackground(null); 
-        }
-         
+        } 
         return this;
     }
      
+    /**
+     *Functia care ia un parametru de tip Date și se referă la data dată care urmează să fie setată.
+     * @return date
+    */
     private Integer dateToDay(Date date){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);

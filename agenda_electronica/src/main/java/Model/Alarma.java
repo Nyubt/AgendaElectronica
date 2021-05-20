@@ -1,5 +1,4 @@
 package Model;
-
 /**
  *
  * @author Nadia
@@ -30,16 +29,16 @@ public class Alarma {
     }
 
     /**
-     * Returneaza intervalul de timp dinaintea alarmei
-     * @return 
+     * Funtia getter pentru a obtine intervalul de timp pana la alarma 
+     * @return intervalul de timp dinaintea alarmei
      */
     public int getIntervalTimp() {
         return this.intervalTimp;
     }
 
     /**
-     * Returneaza factorul de recurenta al alarmei
-     * @return 
+     * Funtia getter pentru factorul de recurenta
+     * @return factorul de recurenta al alarmei
      */
     public int getFactorRecurenta() {
         return this.factorRecurenta;

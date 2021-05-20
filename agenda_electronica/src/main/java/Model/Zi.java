@@ -41,13 +41,15 @@ public class Zi implements ListEventsInterface {
     }
 
     /**
-     * Returneaza lista de obiecte Eveniment
-     * @return 
+     * Getter pentru a afla lista de obiecte Eveniment
+     * @return  lista de obiecte Eveniment
      */
     public List <Eveniment> getEventList() {
         return this.eveniment;
     }
-    
+      /**
+     * @return data
+     */
     public Date getDate(){
         return this.data;
     }

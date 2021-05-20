@@ -12,6 +12,9 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Elena
  */
+ /**
+ *Functia care adauga un stil pentru saptamana
+ */
 public class CellRendererForWeek extends DefaultTableCellRenderer 
 {    
     private List<String> colors;
@@ -19,7 +22,10 @@ public class CellRendererForWeek extends DefaultTableCellRenderer
     
     public CellRendererForWeek(){
     }
-    
+ /**
+ *Functia care adauga o culoare evenimentelor din saptamana
+ * @param evenimente
+ */
     public CellRendererForWeek(Zi evenimente){
         this.colors = new ArrayList<String>();
         for(Eveniment evt: evenimente.getEventList()){
@@ -53,6 +59,10 @@ public class CellRendererForWeek extends DefaultTableCellRenderer
         return this;
     }
     
+ /**
+ *Functia care converteste un string in culoarea specifica
+ * @param hex
+ */
     public static Color HexToColor(String hex) 
     {
         hex = hex.replace("#", "");

@@ -25,8 +25,8 @@ public class Saptamana implements ListEventsInterface {
     }
 
     /**
-     * Returneaza lista cu obiectele Zi dintr-o saptamana
-     * @return 
+     * Getter pentru a afla lista cu obiectele Zi dintr-o saptamana
+     * @return lista cu obiectele Zi dintr-o saptamana
      */
     public List <Zi> getEventList () {
         return this.saptamana;

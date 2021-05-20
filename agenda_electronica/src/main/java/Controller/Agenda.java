@@ -56,32 +56,32 @@ public class Agenda {
     }
     
     /**
-     * Returneaza modul de afisare
-     * @return 
+     * Functia get pentru modul de afisare
+     * @return modul de afisare
      */
     public String getModAfisare() {
         return modAfisare.toString();
     }
 
     /**
-     * Returneaza data
-     * @return 
+     * Functia get pentru data
+     * @return data
      */
     public Date getData() {
         return data;
     }
 
     /**
-     * Returneaza lista de alarme
-     * @return 
+     *  Functia get pentru alarme
+     * @return lista de alarme
      */
     public List <Alarma> getAlarma() {
         return alarme;
     }
 
     /**
-     * Returneaza lista de timere
-     * @return 
+     * Functia get pentru timer
+     * @return lista de timere
      */
     public List <Timer> getTimer() {
         return timer;
@@ -155,7 +155,6 @@ public class Agenda {
     public static void ModificareEvent(Eveniment eveniment) {
         //System.out.println(eveniment.getTitlu());
         Container.getInstance().ModificareEvent(eveniment);
-        
     }
 
     /**
@@ -176,6 +175,7 @@ public class Agenda {
 
     /**
      * Oprireaz alarmei
+     * @param eveniment
      */
     public static void OprireAlarma(Eveniment eveniment) {
         Container.getInstance().OprireAlarma(eveniment);

@@ -1412,6 +1412,7 @@ public class CalendarMain extends javax.swing.JFrame {
 
     /**
      *  The function to open the windows with the event details
+     * @param evt
      */
     private void openEventDetailsWindow(java.awt.event.MouseEvent evt){
         JList list = (JList)evt.getSource();
@@ -1427,6 +1428,10 @@ public class CalendarMain extends javax.swing.JFrame {
         }
     }
     
+     /**
+     *  The function to open the add event windows 
+     * @param evt
+     */
     private void openAddEventWindow(java.awt.event.ActionEvent evt){
         try {
             addEventFrame = new AddEvent(this);
@@ -1437,9 +1442,7 @@ public class CalendarMain extends javax.swing.JFrame {
         addEventFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
     
-    /**
-     * @param args the command line arguments
-     */
+ 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1473,7 +1476,10 @@ public class CalendarMain extends javax.swing.JFrame {
         });
     }
     
-    
+     /**
+     *  The function to switch panels
+     * @param panel
+     */
     public void switchPanels(JPanel panel){
         jLayeredPanel.removeAll();
         jLayeredPanel.add(panel);

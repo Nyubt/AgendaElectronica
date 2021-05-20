@@ -51,10 +51,10 @@ public class Eveniment {
     /**
      * Constructorul clasei eveniment
      * @param id 
-     * @param titlu
-     * @param descriere
-     * @param inceput
-     * @param sfarsit
+     * @param titlu denuminrea evenimentului
+     * @param descriere 
+     * @param inceput data de inceput a evenimentului
+     * @param sfarsit data de sfarsit a evenimentului
      * @param alarma
      * @param recurenta
      * @param culoare 
@@ -75,80 +75,79 @@ public class Eveniment {
     }
 
     /**
-     * Returneaza id-ul evenimentului
-     * @return 
+     * Functia get pentru a accesa ID-ul evenimentului
+     * @return id-ul evenimentului
      */
     public int getEvenimentId() {
         return this.id;
     }
 
     /**
-     * Returneaza titlul evenimentului
-     * @return 
+     * Functia get pentru a gasi Titlul evenimentului
+     * @return  titlul evenimentului
      */
     public String getTitlu() {
         return this.titlu;
     }
 
     /**
-     * Returneaza descrierea evenimentului
-     * @return 
+     * Functia get pentru a gasi Descrierea evenimentului
+     * @return descrierea evenimentului
      */
     public String getDescriere() {
         return this.descriere;
     }
 
     /**
-     * Returneaza data de inceput a evenimentului
-     * @return 
+     * Functia get pentru a gasi data de inceput evenimentului
+     * @return data de inceput a evenimentului
      */
     public Date getInceput() {
         return this.inceput;
     }
 
     /**
-     * Returneaza data de sfarsit a evenimentului
-     * @return 
+     * Functia get pentru a gasi data de sfarsit evenimentului
+     * @return data de sfarsit a evenimentului
      */
     public Date getSfarsit() {
         return this.sfarsit;
     }
 
     /**
-     * Returneaza alarma evenimentului
-     * @return 
+     * Functia get pentru a gasi alarma evenimentului
+     * @return alarma evenimentului
      */
     public Alarma getAlarma() {
         return this.alarma;
     }
     
     /**
-     * Returneaza modul de recurenta a evenimentului
-     * @return 
+     * Functia get pentru a afla modul de recurenta al evenimentului
+     * @return modul de recurenta a evenimentului
      */
     public Recurenta getRecurenta(){
         return this.recurenta;
     }
 
     /**
-     * Returneaza culoarea evenimentului
-     * @return 
+     * Functia get pentru a afla culoarea evenimentului
+     * @return culoarea evenimentului
      */
     public String getCuloare() {
         return this.culoare;
     }
     
-    /**
-     * Returneaza starea evenimentului
-     * @return true or false
+    /**true or false
+     * Functia get pentru a afla daca starea evenimentului este true sau false
+     * @return starea evenimentului
      */
     public boolean getInactiveState(){
         return this.inactive;
     }
     
     /**
-     * Returneaza daca alarma e pornita sau nu
-     * @return 
+     * @return daca alarma e pornita sau nu
      */
     public boolean isAlarmaPornita(){
         return this.alarmaPornita;
@@ -221,7 +220,7 @@ public class Eveniment {
     /**
      * Supraincarcarea metodei equals pentru obiectul Eveniment
      * @param obj
-     * @return 
+     * @return id
      */
     @Override  
     public boolean equals(Object obj)   

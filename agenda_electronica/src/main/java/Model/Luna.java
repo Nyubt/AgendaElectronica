@@ -24,8 +24,8 @@ public class Luna implements ListEventsInterface {
     }
 
     /**
-     * Returneaza lista cu obiectele Zi dintr-o luna
-     * @return 
+     * Getter care returneaza lista cu obiectele Zi dintr-o luna
+     * @return luna
      */
     public List <Zi> getEventList () {
         return this.luna;

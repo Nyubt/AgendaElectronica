@@ -9,6 +9,11 @@ import java.text.SimpleDateFormat;
  *
  * @author Elena
  */
+
+/**
+ * Functia pentru a face conectiunea cu baza de date si pentru a citi datele 
+ * 
+ */
 public class DBConnection {
 
       public static void main(String[] args) throws ParseException
@@ -47,8 +52,6 @@ public class DBConnection {
             System.out.println("Activa = " + (rs.getObject("AlarmActive") == null ? "false" : "true"));
             System.out.println("Inactive = " + rs.getString("Inactive"));
             System.out.println("Inactive = " + (rs.getObject("Inactive") == null ? "false" : "true"));
-            //System.out.println("Alarma snooze = " + al.getInt("Snooze"));
-            //System.out.println("Alarma ReminderMinutes = " + al.getInt("ReminderMinutes"));
             System.out.println();
           }
         }

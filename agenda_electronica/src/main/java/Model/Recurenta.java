@@ -14,23 +14,25 @@ public class Recurenta {
         this.modRecurenta = 0;
         this.dateSfarsit = new Date();
     }
-    
+     /**
+     * Constructorul clasei Recurenta
+     */
     public Recurenta(int modRecurenta, Date dateSfarsit){
         this.modRecurenta = modRecurenta;
         this.dateSfarsit = dateSfarsit;
     }
     
     /**
-     * Returneaza valoare modului de recurenta
-     * @return 
+     * Getter pentru Modul de recurenta
+     * @return valoare modului de recurenta
      */
     public int getModRecurenta() {
         return this.modRecurenta;
     }
     
     /**
-     * Returneaza ultima data de recurenta
-     * @return 
+     * Getter pentru Data de Sfarsit
+     * @return ultima data de recurenta
      */
     public Date getDataSfarsit() {
         return this.dateSfarsit;

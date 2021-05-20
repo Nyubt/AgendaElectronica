@@ -11,6 +11,10 @@ import javax.swing.ListCellRenderer;
  *
  * @author Elena
  */
+
+ /**
+ *Functia care adauga un stil pentru saptamana
+ */
 public class ElementRendererForList extends JLabel implements ListCellRenderer<Eveniment> {
 
     @Override
@@ -21,7 +25,9 @@ public class ElementRendererForList extends JLabel implements ListCellRenderer<E
         
         return this;
     }
-    
+ /**
+ *Functia pentru a obtine diferenta intre 2 date
+ */
     private String getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
         long diffInMillies = date2.getTime() - date1.getTime();
         long duration = timeUnit.convert(diffInMillies, TimeUnit.MILLISECONDS);
