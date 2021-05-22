@@ -8,8 +8,9 @@ import java.util.List;
  */
 /**
  * Interfata pentru modelele folosite in agenda
- * 
+ *
  */
-public interface ListEventsInterface <T> {
+public interface ListEventsInterface<T> {
+
     List<? extends T> getEventList();
 }

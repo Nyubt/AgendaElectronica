@@ -10,19 +10,19 @@ import javax.swing.JList;
  *
  * @author Elena
  */
-
- /**
- *Functia care adauga un stil HTML Combo box-ului
+/**
+ * Functia care adauga un stil HTML Combo box-ului
  */
 public class ComboHtmlRenderer extends DefaultListCellRenderer {
+
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus) {
         super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
-        String colorName = (String)value;
+        String colorName = (String) value;
         Color actualColor = CellRendererForWeek.HexToColor(colorName);
         this.setBackground(actualColor);
         this.setText(EventDetails.getColorNameFromHex(colorName));
-        
+
         return this;
     }
 }

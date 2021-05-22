@@ -3,10 +3,15 @@ package Model;
 import java.util.Date;
 
 /**
- *  Clasa eveniment creaza un obiect cu informatii despre un singur eveniment
- * 
+ *
+ * @author Nadia
+ */
+/**
+ * Clasa eveniment creaza un obiect cu informatii despre un singur eveniment
+ *
  */
 public class Eveniment {
+
     /**
      * Titlul evenimentului
      */
@@ -34,13 +39,14 @@ public class Eveniment {
     /**
      * Culoarea evenimentului
      */
-    private String culoare;    
+    private String culoare;
     /**
      * Starea alarmei
      */
     private boolean alarmaPornita;
     /**
-     * ID-ul evenimentului folosit pentru a verifica daca doua evenimente sunt egale
+     * ID-ul evenimentului folosit pentru a verifica daca doua evenimente sunt
+     * egale
      */
     private int id;
     /**
@@ -50,16 +56,17 @@ public class Eveniment {
 
     /**
      * Constructorul clasei eveniment
-     * @param id 
+     *
+     * @param id
      * @param titlu denuminrea evenimentului
-     * @param descriere 
+     * @param descriere
      * @param inceput data de inceput a evenimentului
      * @param sfarsit data de sfarsit a evenimentului
      * @param alarma
      * @param recurenta
-     * @param culoare 
-     * @param alarmaPornita 
-     * @param inactive 
+     * @param culoare
+     * @param alarmaPornita
+     * @param inactive
      */
     public Eveniment(int id, String titlu, String descriere, Date inceput, Date sfarsit, Alarma alarma, Recurenta recurenta, String culoare, boolean alarmaPornita, boolean inactive) {
         this.id = id;
@@ -76,6 +83,7 @@ public class Eveniment {
 
     /**
      * Functia get pentru a accesa ID-ul evenimentului
+     *
      * @return id-ul evenimentului
      */
     public int getEvenimentId() {
@@ -84,7 +92,8 @@ public class Eveniment {
 
     /**
      * Functia get pentru a gasi Titlul evenimentului
-     * @return  titlul evenimentului
+     *
+     * @return titlul evenimentului
      */
     public String getTitlu() {
         return this.titlu;
@@ -92,6 +101,7 @@ public class Eveniment {
 
     /**
      * Functia get pentru a gasi Descrierea evenimentului
+     *
      * @return descrierea evenimentului
      */
     public String getDescriere() {
@@ -100,6 +110,7 @@ public class Eveniment {
 
     /**
      * Functia get pentru a gasi data de inceput evenimentului
+     *
      * @return data de inceput a evenimentului
      */
     public Date getInceput() {
@@ -108,6 +119,7 @@ public class Eveniment {
 
     /**
      * Functia get pentru a gasi data de sfarsit evenimentului
+     *
      * @return data de sfarsit a evenimentului
      */
     public Date getSfarsit() {
@@ -116,46 +128,52 @@ public class Eveniment {
 
     /**
      * Functia get pentru a gasi alarma evenimentului
+     *
      * @return alarma evenimentului
      */
     public Alarma getAlarma() {
         return this.alarma;
     }
-    
+
     /**
      * Functia get pentru a afla modul de recurenta al evenimentului
+     *
      * @return modul de recurenta a evenimentului
      */
-    public Recurenta getRecurenta(){
+    public Recurenta getRecurenta() {
         return this.recurenta;
     }
 
     /**
      * Functia get pentru a afla culoarea evenimentului
+     *
      * @return culoarea evenimentului
      */
     public String getCuloare() {
         return this.culoare;
     }
-    
-    /**true or false
-     * Functia get pentru a afla daca starea evenimentului este true sau false
+
+    /**
+     * true or false Functia get pentru a afla daca starea evenimentului este
+     * true sau false
+     *
      * @return starea evenimentului
      */
-    public boolean getInactiveState(){
+    public boolean getInactiveState() {
         return this.inactive;
     }
-    
+
     /**
      * @return daca alarma e pornita sau nu
      */
-    public boolean isAlarmaPornita(){
+    public boolean isAlarmaPornita() {
         return this.alarmaPornita;
     }
 
     /**
      * Seteaza titlul evenimentului
-     * @param titlu 
+     *
+     * @param titlu
      */
     public void setTitlu(String titlu) {
         this.titlu = titlu;
@@ -163,7 +181,8 @@ public class Eveniment {
 
     /**
      * Seteaza descrierea evenimentului
-     * @param descriere 
+     *
+     * @param descriere
      */
     public void setDescriere(String descriere) {
         this.descriere = descriere;
@@ -171,7 +190,8 @@ public class Eveniment {
 
     /**
      * Seteaza data de inceput a evenimentului
-     * @param inceput 
+     *
+     * @param inceput
      */
     public void setInceput(Date inceput) {
         this.inceput = inceput;
@@ -179,7 +199,8 @@ public class Eveniment {
 
     /**
      * Seteaza data de sfarsit a evenimentului
-     * @param sfarsit 
+     *
+     * @param sfarsit
      */
     public void setSfarsit(Date sfarsit) {
         this.sfarsit = sfarsit;
@@ -187,7 +208,8 @@ public class Eveniment {
 
     /**
      * Seteaza alarma evenimentului
-     * @param alarma 
+     *
+     * @param alarma
      */
     public void setAlarma(Alarma alarma) {
         this.alarma = alarma;
@@ -195,40 +217,45 @@ public class Eveniment {
 
     /**
      * Seteaza culoarea evenimentului
-     * @param culoare 
+     *
+     * @param culoare
      */
     public void setCuloare(String culoare) {
         this.culoare = culoare;
     }
-    
+
     /**
      * Seteaza alarma pornita la true sau false
-     * @param alarmaPornita 
+     *
+     * @param alarmaPornita
      */
-    public void setStareAlarma(boolean alarmaPornita){
+    public void setStareAlarma(boolean alarmaPornita) {
         this.alarmaPornita = alarmaPornita;
     }
-    
+
     /**
      * Seteaza starea evenimentului
-     * @param inactive 
+     *
+     * @param inactive
      */
-    public void setInactiveState(boolean inactive){
+    public void setInactiveState(boolean inactive) {
         this.inactive = inactive;
     }
-    
+
     /**
      * Supraincarcarea metodei equals pentru obiectul Eveniment
+     *
      * @param obj
      * @return id
      */
-    @Override  
-    public boolean equals(Object obj)   
-    {  
-        if (obj == null)
-            return false;  
-        if (obj == this)  
-            return true;  
-        return (this.id == ((Eveniment) obj).id);  
-    } 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        return (this.id == ((Eveniment) obj).id);
+    }
 }

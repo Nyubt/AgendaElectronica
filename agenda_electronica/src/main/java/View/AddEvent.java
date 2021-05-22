@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
  * @author Elena
  */
 public class AddEvent extends javax.swing.JFrame {
+
     CalendarMain parentFrame;
     Calendar cal = Calendar.getInstance();
 
@@ -27,14 +28,13 @@ public class AddEvent extends javax.swing.JFrame {
         initComponents();
     }
 
-    public AddEvent(CalendarMain parent){
+    public AddEvent(CalendarMain parent) {
         initComponents();
         jColorComboBox.setRenderer(new ComboHtmlRenderer());
         this.parentFrame = parent;
         parentFrame.setVisible(false);
     }
 
-     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -556,81 +556,81 @@ public class AddEvent extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
      /**
-     * Buton de adaugare atunci cand mouse-ul e clicked
+     * Functie de adaugare a datelor in baza de date
      */
     private void jAddButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jAddButtonMouseClicked
         String title = jTitleTextField.getText().trim();
         if (title.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Introduceti titlul");
         } else {
-            String startDate = jStartYearTextField.getText().trim() + "-" + 
-                    String.format("%2s", jStartMonthTextField.getText().trim()).replace(' ', '0') + "-" + 
-                    String.format("%2s", jStartDayTextField.getText().trim()).replace(' ', '0');
-            
-            boolean startDateValid = validateDateInput(jStartDayTextField.getText().trim(), 
+            String startDate = jStartYearTextField.getText().trim() + "-"
+                    + String.format("%2s", jStartMonthTextField.getText().trim()).replace(' ', '0') + "-"
+                    + String.format("%2s", jStartDayTextField.getText().trim()).replace(' ', '0');
+
+            boolean startDateValid = validateDateInput(jStartDayTextField.getText().trim(),
                     jStartMonthTextField.getText().trim(), jStartYearTextField.getText().trim());
-            if(!startDateValid){
+            if (!startDateValid) {
                 JOptionPane.showMessageDialog(null, "Introduceti o data valida");
             } else {
                 String startHour = jStartHourTextField.getText().trim();
                 String startMinutes = jStartMinTextField.getText().trim();
                 String startTime = String.format("%2s", startHour).replace(' ', '0') + ":" + String.format("%2s", startMinutes).replace(' ', '0') + ":00";
                 boolean startTimeValid = validateTimeInput(startTime);
-                if (startHour.isEmpty() || startMinutes.isEmpty() || !startTimeValid){
+                if (startHour.isEmpty() || startMinutes.isEmpty() || !startTimeValid) {
                     JOptionPane.showMessageDialog(null, "Introduceti o ora valida");
-                } else {                    
+                } else {
                     Boolean recOn = jRecurCheckBox.isSelected();
-                    boolean untilDateValid = validateDateInput(jUntilDayTextField.getText().trim(), 
+                    boolean untilDateValid = validateDateInput(jUntilDayTextField.getText().trim(),
                             jUntilMonthTextField.getText().trim(), jUntilYearTextField.getText().trim());
-                    if(recOn && !untilDateValid){
+                    if (recOn && !untilDateValid) {
                         JOptionPane.showMessageDialog(null, "Introduceti o data valida pentru evenimentul de recurenta");
                     } else {
-                        String endDate = jEndYearTextField.getText().trim() + "-" + 
-                                String.format("%2s", jEndMonthTextField.getText().trim()).replace(' ', '0') + "-" + 
-                                String.format("%2s", jEndDayTextField.getText().trim()).replace(' ', '0');
+                        String endDate = jEndYearTextField.getText().trim() + "-"
+                                + String.format("%2s", jEndMonthTextField.getText().trim()).replace(' ', '0') + "-"
+                                + String.format("%2s", jEndDayTextField.getText().trim()).replace(' ', '0');
 
-                        boolean endDateValid = validateDateInput(jEndDayTextField.getText().trim(), 
+                        boolean endDateValid = validateDateInput(jEndDayTextField.getText().trim(),
                                 jEndMonthTextField.getText().trim(), jEndYearTextField.getText().trim());
-                        if(!endDateValid){
+                        if (!endDateValid) {
                             endDate = startDate;
                         }
-                        
+
                         String endHour = jEndHourTextField.getText().trim();
                         String endMinutes = jEndMinTextField.getText().trim();
                         String endTime = String.format("%2s", endHour).replace(' ', '0') + ":" + String.format("%2s", endMinutes).replace(' ', '0') + ":00";
-                        
-                        boolean endTimeValid = validateTimeInput(endTime);  
-                        if(endHour.isEmpty() || endMinutes.isEmpty() || !endTimeValid){
+
+                        boolean endTimeValid = validateTimeInput(endTime);
+                        if (endHour.isEmpty() || endMinutes.isEmpty() || !endTimeValid) {
                             endTime = startTime;
                         }
-                        
-                        String recDate = jUntilYearTextField.getText().trim() + "-" + 
-                                String.format("%2s", jUntilMonthTextField.getText().trim()).replace(' ', '0') + "-" + 
-                                String.format("%2s", jUntilDayTextField.getText().trim()).replace(' ', '0');
+
+                        String recDate = jUntilYearTextField.getText().trim() + "-"
+                                + String.format("%2s", jUntilMonthTextField.getText().trim()).replace(' ', '0') + "-"
+                                + String.format("%2s", jUntilDayTextField.getText().trim()).replace(' ', '0');
 
                         int repetMode = 0;
-                        if (recOn){
+                        if (recOn) {
                             repetMode = jRecurComboBox.getSelectedIndex() + 1;
                         }
 
                         String description = jDescriptionTextArea.getText().trim();
-                        String color = String.valueOf(jColorComboBox.getSelectedItem());      
+                        String color = String.valueOf(jColorComboBox.getSelectedItem());
 
                         Boolean alrmOn = jAlarmCheckBox.isSelected();
                         int snooze = Integer.parseInt(jSnoozeComboBox.getSelectedItem().toString());
                         int notif = Integer.parseInt(jRemMinComboBox.getSelectedItem().toString());
-        
+
                         try {
                             Agenda.AdaugareEveniment(title, description, startDate, startTime, endDate, endTime, color, alrmOn, snooze, notif, recOn, repetMode, recDate);
                             JOptionPane.showMessageDialog(null, "Eveniment adaugat!");
                             jExitButtonMouseClicked(evt);
-                        } catch (Exception e){
+                        } catch (Exception e) {
                             JOptionPane.showMessageDialog(null, "Eroare. Nu am putut salva evenimentul. Contactati customer support.");
                         }
                     }
                 }
             }
-        }        
+        }
     }//GEN-LAST:event_jAddButtonMouseClicked
 
     private void jExitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jExitButtonMouseClicked
@@ -678,81 +678,78 @@ public class AddEvent extends javax.swing.JFrame {
             }
         });
     }
+
     /**
      * Fuctie pentru a valida datele introduse respectand exceptiile:
-     * 1.In caseta de an, luna, zi pot fi introduse doar cifre
-     * 2.Pentru toate zilele cu exceptia lunisi februarie pot fi introduse cifre de la 1 la 31, pentru februarie pana la 29
-     * 3.In caseta de luna pot fi introduse valori de la 1 la 12
+     *
      * @return validDate
      * @param day
      * @param month
      * @param year
      */
-    public boolean validateDateInput(String day, String month, String year){
+    public boolean validateDateInput(String day, String month, String year) {
         boolean dateValid = true;
-        try {        
-            if(Integer.parseInt(year) < 2018 || Integer.parseInt(year) > 2030) {
+        try {
+            if (Integer.parseInt(year) < 2018 || Integer.parseInt(year) > 2030) {
                 throw new LimiteAni();
             }
             int n = Integer.parseInt(year);
             int nrCifre = 0;
-            while (n != 0)
-            {
+            while (n != 0) {
                 nrCifre++;
                 n = n / 10;
             }
-            if(nrCifre != 4){
+            if (nrCifre != 4) {
                 throw new Exceptie4cifre();
             }
-        } catch(NumberFormatException e) {
-                dateValid = false;
+        } catch (NumberFormatException e) {
+            dateValid = false;
             System.out.println("Exceptie : Introduceti doar cifre in caseta pt an!");
         } catch (Exceptie4cifre ex) {
-                dateValid = false;
+            dateValid = false;
             System.out.println("Exceptie : " + ex.toString());
         } catch (LimiteAni ex) {
-                dateValid = false;
+            dateValid = false;
             System.out.println("Exceptie : " + ex.toString());
         }
-        
-        try {       
-            if(Integer.parseInt(month) < 1 || Integer.parseInt(month) > 12) {
+
+        try {
+            if (Integer.parseInt(month) < 1 || Integer.parseInt(month) > 12) {
                 throw new ExceptieLuna();
             }
         } catch (ExceptieLuna ex) {
             dateValid = false;
             System.out.println("Exceptie : " + ex.toString());
-        }
-        catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             dateValid = false;
             System.out.println("Exceptie : Introduceti doar cifre in caseta pt luna!");
-        } 
-        
-        try {        
-            if(Integer.parseInt(day) < 1 || Integer.parseInt(day) > 31){
+        }
+
+        try {
+            if (Integer.parseInt(day) < 1 || Integer.parseInt(day) > 31) {
                 throw new ExceptieZi();
-            }            
-            if(Integer.parseInt(month) == 2 && Integer.parseInt(day) > 29) {
+            }
+            if (Integer.parseInt(month) == 2 && Integer.parseInt(day) > 29) {
                 throw new ExceptieFebruarie();
             }
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             dateValid = false;
             System.out.println("Exceptie : Introduceti doar cifre in caseta pt zi!");
-        } catch(ExceptieZi ex) { 
+        } catch (ExceptieZi ex) {
             dateValid = false;
             System.out.println("Exceptie : " + ex.toString());
         } catch (ExceptieFebruarie ex) {
             dateValid = false;
             System.out.println("Exceptie : " + ex.toString());
-        } 
+        }
         System.out.println(dateValid);
         return dateValid;
     }
-    
-    public boolean validateTimeInput(String inputTimeString){
+
+    public boolean validateTimeInput(String inputTimeString) {
         try {
             LocalTime.parse(inputTimeString);
-            //System.out.println("Valid time string: " + inputTimeString);
+
         } catch (DateTimeParseException | NullPointerException e) {
             System.out.println("Invalid time string: " + inputTimeString);
             return false;

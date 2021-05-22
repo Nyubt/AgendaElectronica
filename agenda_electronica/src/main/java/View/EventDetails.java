@@ -7,10 +7,11 @@ import Model.Eveniment;
  *
  * @author Nadia
  */
-public class EventDetails extends javax.swing.JFrame  {
+public class EventDetails extends javax.swing.JFrame {
+
     CalendarMain parentFrame;
     Eveniment eveniment;
-    
+
     /**
      * Creates new form EventDetails
      */
@@ -18,7 +19,7 @@ public class EventDetails extends javax.swing.JFrame  {
         initComponents();
     }
 
-    public EventDetails(CalendarMain parent, Eveniment info){
+    public EventDetails(CalendarMain parent, Eveniment info) {
         initComponents();
         this.parentFrame = parent;
         this.eveniment = info;
@@ -32,8 +33,7 @@ public class EventDetails extends javax.swing.JFrame  {
         jIntervalTimpTextField.setText(eveniment.getAlarma().getIntervalTimp() + " min");
         parentFrame.setVisible(false);
     }
-    
- 
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -300,8 +300,7 @@ public class EventDetails extends javax.swing.JFrame  {
         }
         return null;
     }*/
-    
-    /*private static Integer getIdFromString(String info){
+ /*private static Integer getIdFromString(String info){
         String regex = "Id: ([0-9]+) ";
         Pattern pattern = Pattern.compile(regex);        
         Matcher matcher = pattern.matcher(info);
@@ -310,37 +309,36 @@ public class EventDetails extends javax.swing.JFrame  {
         }
         return null;
     }*/
-    
-    public static String getColorNameFromHex(String hexColor){
-        if(hexColor.compareTo("#A8DADC") == 0){
+    public static String getColorNameFromHex(String hexColor) {
+        if (hexColor.compareTo("#A8DADC") == 0) {
             return "Aqua Island";
         }
-        if(hexColor.compareTo("#457B9D") == 0){
+        if (hexColor.compareTo("#457B9D") == 0) {
             return "Wedgewood";
         }
-        if(hexColor.compareTo("#D0F0C0") == 0){
+        if (hexColor.compareTo("#D0F0C0") == 0) {
             return "Tea Green";
         }
-        
+
         return "No Color";
     }
-    
-    public String getModRecurenta(){        
-        if(eveniment.getRecurenta().getModRecurenta() == 1){
+
+    public String getModRecurenta() {
+        if (eveniment.getRecurenta().getModRecurenta() == 1) {
             return "Zilnic";
         }
-        if(eveniment.getRecurenta().getModRecurenta() == 2){
+        if (eveniment.getRecurenta().getModRecurenta() == 2) {
             return "Saptamanal";
         }
-        if(eveniment.getRecurenta().getModRecurenta() == 3){
+        if (eveniment.getRecurenta().getModRecurenta() == 3) {
             return "Lunar";
         }
-        if(eveniment.getRecurenta().getModRecurenta() == 4){
+        if (eveniment.getRecurenta().getModRecurenta() == 4) {
             return "Anual";
         }
         return "";
     }
-    
+
     /**
      * @param args the command line arguments
      */

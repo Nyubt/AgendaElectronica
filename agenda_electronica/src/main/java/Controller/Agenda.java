@@ -12,12 +12,13 @@ import java.util.Timer;
  *
  * @author Nadia
  */
-
 /**
- * Clasa Agenda face legatura dintre interfata agendei si metodele de manipulare a evenimentelor
- * 
+ * Clasa Agenda face legatura dintre interfata agendei si metodele de manipulare
+ * a evenimentelor
+ *
  */
 public class Agenda {
+
     /**
      * Enumerare moduri afisare
      */
@@ -26,7 +27,7 @@ public class Agenda {
     }
     /**
      * Modul de afisare a agendei
-     */    
+     */
     static EnumerareModAfisare modAfisare;
     /**
      * Data selectata
@@ -39,24 +40,26 @@ public class Agenda {
     /**
      * Lista obiectelor Timer
      */
-    List <Timer> timer;
+    List<Timer> timer;
 
     /**
      * Constructorul clasei Agenda
+     *
      * @param modAfisare
      * @param data
      * @param alarma
-     * @param timer 
+     * @param timer
      */
-    public Agenda(String modAfisare, Date data, List <Alarma> alarma, List <Timer> timer) {
+    public Agenda(String modAfisare, Date data, List<Alarma> alarma, List<Timer> timer) {
         this.modAfisare = EnumerareModAfisare.valueOf(modAfisare);
         this.data = data;
         this.alarme = alarma;
         this.timer = timer;
     }
-    
+
     /**
      * Functia get pentru modul de afisare
+     *
      * @return modul de afisare
      */
     public String getModAfisare() {
@@ -65,6 +68,7 @@ public class Agenda {
 
     /**
      * Functia get pentru data
+     *
      * @return data
      */
     public Date getData() {
@@ -72,24 +76,27 @@ public class Agenda {
     }
 
     /**
-     *  Functia get pentru alarme
+     * Functia get pentru alarme
+     *
      * @return lista de alarme
      */
-    public List <Alarma> getAlarma() {
+    public List<Alarma> getAlarma() {
         return alarme;
     }
 
     /**
      * Functia get pentru timer
+     *
      * @return lista de timere
      */
-    public List <Timer> getTimer() {
+    public List<Timer> getTimer() {
         return timer;
     }
 
     /**
      * Seteaza modul de afisare
-     * @param modAfisare 
+     *
+     * @param modAfisare
      */
     public void setModAfisare(String modAfisare) {
         this.modAfisare = EnumerareModAfisare.valueOf(modAfisare);
@@ -97,7 +104,8 @@ public class Agenda {
 
     /**
      * Seteaza data
-     * @param data 
+     *
+     * @param data
      */
     public void setData(Date data) {
         this.data = data;
@@ -105,22 +113,25 @@ public class Agenda {
 
     /**
      * Seteaza lista de alarme
-     * @param alarma 
+     *
+     * @param alarma
      */
-    public void setAlarma(List <Alarma> alarma) {
+    public void setAlarma(List<Alarma> alarma) {
         this.alarme = alarma;
     }
 
     /**
      * Seteaza lista de timere
-     * @param timer 
+     *
+     * @param timer
      */
-    public void setTimer(List <Timer> timer) {
+    public void setTimer(List<Timer> timer) {
         this.timer = timer;
     }
-    
+
     /**
      * Adaugarea unui eveniment
+     *
      * @param titlu
      * @param descriere
      * @param dataInceput
@@ -135,29 +146,30 @@ public class Agenda {
      * @param modRecurenta
      * @param dataFinala
      */
-    public static void AdaugareEveniment(String titlu, String descriere, String dataInceput, String timpInceput, String dataSfarsit, String timpSfarsit, String culoare, 
+    public static void AdaugareEveniment(String titlu, String descriere, String dataInceput, String timpInceput, String dataSfarsit, String timpSfarsit, String culoare,
             boolean alarmaPornita, int factorRecurenta, int intervalTimp, boolean esteRecurenta, int modRecurenta, String dataFinala) {
-        Container.getInstance().AdaugareEveniment(titlu, descriere, dataInceput, timpInceput, dataSfarsit, timpSfarsit, culoare, 
+        Container.getInstance().AdaugareEveniment(titlu, descriere, dataInceput, timpInceput, dataSfarsit, timpSfarsit, culoare,
                 alarmaPornita, factorRecurenta, intervalTimp, esteRecurenta, modRecurenta, dataFinala);
     }
 
     /**
-     * Selectarea unui eveniment 
+     * Selectarea unui eveniment
+     *
      * @param data
      * @param modAfisare
-     * @return 
+     * @return
      */
     public static ListEventsInterface SelectareEvente(Date data, String modAfisare) throws ParseException {
         EnumerareModAfisare mod = modAfisare != null ? EnumerareModAfisare.valueOf(modAfisare) : null;
-        if(mod == EnumerareModAfisare.DAY || Agenda.modAfisare == EnumerareModAfisare.DAY){  
+        if (mod == EnumerareModAfisare.DAY || Agenda.modAfisare == EnumerareModAfisare.DAY) {
             return Container.getInstance().FurnizareZi(data);
-        } else if(mod == EnumerareModAfisare.WEEK || Agenda.modAfisare == EnumerareModAfisare.WEEK){
+        } else if (mod == EnumerareModAfisare.WEEK || Agenda.modAfisare == EnumerareModAfisare.WEEK) {
             return Container.getInstance().FurnizareSaptamana(data);
-        } else if(mod == EnumerareModAfisare.MONTH || Agenda.modAfisare == EnumerareModAfisare.MONTH){
+        } else if (mod == EnumerareModAfisare.MONTH || Agenda.modAfisare == EnumerareModAfisare.MONTH) {
             return Container.getInstance().FurnizareLuna(data);
-        } else if(mod == EnumerareModAfisare.YEAR || Agenda.modAfisare == EnumerareModAfisare.YEAR){
+        } else if (mod == EnumerareModAfisare.YEAR || Agenda.modAfisare == EnumerareModAfisare.YEAR) {
             return Container.getInstance().FurnizareAn(data);
-        } else if(mod == EnumerareModAfisare.ALL || Agenda.modAfisare == EnumerareModAfisare.ALL){
+        } else if (mod == EnumerareModAfisare.ALL || Agenda.modAfisare == EnumerareModAfisare.ALL) {
             return Container.getInstance().FurnizareToateEvent();
         }
         return null;
@@ -165,6 +177,7 @@ public class Agenda {
 
     /**
      * Modificarea unui eveniment
+     *
      * @param eveniment
      */
     public static void ModificareEvent(Eveniment eveniment) {
@@ -174,6 +187,7 @@ public class Agenda {
 
     /**
      * Anularea unui eveniment
+     *
      * @param eveniment
      */
     public static void AnulareEvent(Eveniment eveniment) {
@@ -182,6 +196,7 @@ public class Agenda {
 
     /**
      * Amanarea alarmei
+     *
      * @param eveniment
      */
     public static void AmanareAlarma(Eveniment eveniment) {
@@ -190,6 +205,7 @@ public class Agenda {
 
     /**
      * Oprireaz alarmei
+     *
      * @param eveniment
      */
     public static void OprireAlarma(Eveniment eveniment) {
