@@ -17,12 +17,9 @@ import java.util.Calendar;
 import java.util.Locale;
 
 /**
- *
- * @author Elena
- */
-/**
  * Clasa Container manipuleaza cu evenimentele din baza de date
- *
+ * 
+ * @author Elena
  */
 public class Container {
 
