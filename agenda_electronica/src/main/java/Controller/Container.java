@@ -625,7 +625,6 @@ public class Container {
         int currentWeek = cal.get(Calendar.WEEK_OF_YEAR);
         cal.setTime(lastDate);        
         int endWeek = cal.get(Calendar.WEEK_OF_YEAR);
-        System.out.println("Week " + currentWeek + "->" + endWeek);
         if(currentWeek < endWeek){
             return -1;
         }

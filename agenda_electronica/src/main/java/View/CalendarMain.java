@@ -61,6 +61,10 @@ public class CalendarMain extends javax.swing.JFrame {
      * Obiectul AddEvent care va deschide fereastra Adaugare Eveniment
      */
     AddEvent addEventFrame;
+    /**
+     * Iconita proiectului
+     */
+    java.awt.Image img = new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\main\\resources\\iconita.png").getImage();
 
     /**
      * Constructorul CalendarMain care creaza un nou form
@@ -77,7 +81,6 @@ public class CalendarMain extends javax.swing.JFrame {
         int year = LocalDate.now().getYear();
         int month = LocalDate.now().getMonthValue();
         int date = LocalDate.now().getDayOfMonth();
-        java.awt.Image img = new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\main\\resources\\iconita.png").getImage();
         CalendarMain.getFrames()[0].setIconImage(img);
 
         CalendarFiller.year = year;
@@ -1377,6 +1380,7 @@ public class CalendarMain extends javax.swing.JFrame {
             if (event != null) {
                 try {
                     eventFrame = new EventDetails(this, event);
+                    eventFrame.setIconImage(img);
                 } catch (Exception ex) {
                     Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -1417,9 +1421,9 @@ public class CalendarMain extends javax.swing.JFrame {
     private void openEventDetailsWindow(java.awt.event.MouseEvent evt) {
         JList list = (JList) evt.getSource();
         if (evt.getClickCount() == 2) {
-            //int index = list.locationToIndex(evt.getPoint());
             try {
                 eventFrame = new EventDetails(this, (Eveniment) list.getSelectedValue());
+                eventFrame.setIconImage(img);
             } catch (Exception ex) {
                 Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1436,6 +1440,7 @@ public class CalendarMain extends javax.swing.JFrame {
     private void openAddEventWindow(java.awt.event.ActionEvent evt) {
         try {
             addEventFrame = new AddEvent(this);
+            addEventFrame.setIconImage(img);
         } catch (Exception ex) {
             Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
         }
