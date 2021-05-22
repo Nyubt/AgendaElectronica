@@ -312,27 +312,6 @@ public class EventDetails extends javax.swing.JFrame {
         super.dispose();
     }//GEN-LAST:event_jAnulareButtonMouseClicked
 
-    /*private static Eveniment getEvenimentFromInfo(Integer id) throws ParseException{        
-        List<Eveniment> evenimente = Agenda.SelectareEvente(new Date(), "ALL").getEventList();  
-        if(id == null){
-            return null;
-        }
-        for(Eveniment evt : evenimente){   
-            if (id == evt.getEvenimentId()){
-                return evt;
-            }
-        }
-        return null;
-    }*/
- /*private static Integer getIdFromString(String info){
-        String regex = "Id: ([0-9]+) ";
-        Pattern pattern = Pattern.compile(regex);        
-        Matcher matcher = pattern.matcher(info);
-        while (matcher.find()){
-            return Integer.valueOf(matcher.group(1));
-        }
-        return null;
-    }*/
     public static String getColorNameFromHex(String hexColor) {
         if (hexColor.compareTo("#A8DADC") == 0) {
             return "Aqua Island";

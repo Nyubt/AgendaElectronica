@@ -563,74 +563,78 @@ public class AddEvent extends javax.swing.JFrame {
         String title = jTitleTextField.getText().trim();
         if (title.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Introduceti titlul");
-        } else {
-            String startDate = jStartYearTextField.getText().trim() + "-"
-                    + String.format("%2s", jStartMonthTextField.getText().trim()).replace(' ', '0') + "-"
-                    + String.format("%2s", jStartDayTextField.getText().trim()).replace(' ', '0');
+            return;
+        }
+        
+        String startDate = jStartYearTextField.getText().trim() + "-"
+                + String.format("%2s", jStartMonthTextField.getText().trim()).replace(' ', '0') + "-"
+                + String.format("%2s", jStartDayTextField.getText().trim()).replace(' ', '0');
 
-            boolean startDateValid = DateTimeValidator.validateDateInput(jStartDayTextField.getText().trim(),
-                    jStartMonthTextField.getText().trim(), jStartYearTextField.getText().trim());
-            if (!startDateValid) {
-                JOptionPane.showMessageDialog(null, "Introduceti o data valida");
-            } else {
-                String startHour = jStartHourTextField.getText().trim();
-                String startMinutes = jStartMinTextField.getText().trim();
-                String startTime = String.format("%2s", startHour).replace(' ', '0') + ":" + String.format("%2s", startMinutes).replace(' ', '0') + ":00";
-                boolean startTimeValid = DateTimeValidator.validateTimeInput(startTime);
-                if (startHour.isEmpty() || startMinutes.isEmpty() || !startTimeValid) {
-                    JOptionPane.showMessageDialog(null, "Introduceti o ora valida");
-                } else {
-                    Boolean recOn = jRecurCheckBox.isSelected();
-                    boolean untilDateValid = DateTimeValidator.validateDateInput(jUntilDayTextField.getText().trim(),
-                            jUntilMonthTextField.getText().trim(), jUntilYearTextField.getText().trim());
-                    if (recOn && !untilDateValid) {
-                        JOptionPane.showMessageDialog(null, "Introduceti o data valida pentru evenimentul de recurenta");
-                    } else {
-                        String endDate = jEndYearTextField.getText().trim() + "-"
-                                + String.format("%2s", jEndMonthTextField.getText().trim()).replace(' ', '0') + "-"
-                                + String.format("%2s", jEndDayTextField.getText().trim()).replace(' ', '0');
+        boolean startDateValid = DateTimeValidator.validateDateInput(jStartDayTextField.getText().trim(),
+                jStartMonthTextField.getText().trim(), jStartYearTextField.getText().trim());
+        
+        if (!startDateValid) {
+            JOptionPane.showMessageDialog(null, "Introduceti o data valida");
+            return;
+        }
+        String startHour = jStartHourTextField.getText().trim();
+        String startMinutes = jStartMinTextField.getText().trim();
+        String startTime = String.format("%2s", startHour).replace(' ', '0') + ":" + String.format("%2s", startMinutes).replace(' ', '0') + ":00";
+        boolean startTimeValid = DateTimeValidator.validateTimeInput(startTime);
+        
+        if (startHour.isEmpty() || startMinutes.isEmpty() || !startTimeValid) {
+            JOptionPane.showMessageDialog(null, "Introduceti o ora valida");
+            return;
+        }
+        Boolean recOn = jRecurCheckBox.isSelected();
+        boolean untilDateValid = DateTimeValidator.validateDateInput(jUntilDayTextField.getText().trim(),
+                jUntilMonthTextField.getText().trim(), jUntilYearTextField.getText().trim());
+        
+        if (recOn && !untilDateValid) {
+            JOptionPane.showMessageDialog(null, "Introduceti o data valida pentru evenimentul de recurenta");
+            return;
+        }
+        String endDate = jEndYearTextField.getText().trim() + "-"
+                + String.format("%2s", jEndMonthTextField.getText().trim()).replace(' ', '0') + "-"
+                + String.format("%2s", jEndDayTextField.getText().trim()).replace(' ', '0');
 
-                        boolean endDateValid = DateTimeValidator.validateDateInput(jEndDayTextField.getText().trim(),
-                                jEndMonthTextField.getText().trim(), jEndYearTextField.getText().trim());
-                        if (!endDateValid) {
-                            endDate = startDate;
-                        }
+        boolean endDateValid = DateTimeValidator.validateDateInput(jEndDayTextField.getText().trim(),
+                jEndMonthTextField.getText().trim(), jEndYearTextField.getText().trim());
+        if (!endDateValid) {
+            endDate = startDate;
+        }
 
-                        String endHour = jEndHourTextField.getText().trim();
-                        String endMinutes = jEndMinTextField.getText().trim();
-                        String endTime = String.format("%2s", endHour).replace(' ', '0') + ":" + String.format("%2s", endMinutes).replace(' ', '0') + ":00";
+        String endHour = jEndHourTextField.getText().trim();
+        String endMinutes = jEndMinTextField.getText().trim();
+        String endTime = String.format("%2s", endHour).replace(' ', '0') + ":" + String.format("%2s", endMinutes).replace(' ', '0') + ":00";
 
-                        boolean endTimeValid = DateTimeValidator.validateTimeInput(endTime);
-                        if (endHour.isEmpty() || endMinutes.isEmpty() || !endTimeValid) {
-                            endTime = startTime;
-                        }
+        boolean endTimeValid = DateTimeValidator.validateTimeInput(endTime);
+        if (endHour.isEmpty() || endMinutes.isEmpty() || !endTimeValid) {
+            endTime = startTime;
+        }
 
-                        String recDate = jUntilYearTextField.getText().trim() + "-"
-                                + String.format("%2s", jUntilMonthTextField.getText().trim()).replace(' ', '0') + "-"
-                                + String.format("%2s", jUntilDayTextField.getText().trim()).replace(' ', '0');
+        String recDate = jUntilYearTextField.getText().trim() + "-"
+                + String.format("%2s", jUntilMonthTextField.getText().trim()).replace(' ', '0') + "-"
+                + String.format("%2s", jUntilDayTextField.getText().trim()).replace(' ', '0');
 
-                        int repetMode = 0;
-                        if (recOn) {
-                            repetMode = jRecurComboBox.getSelectedIndex() + 1;
-                        }
+        int repetMode = 0;
+        if (recOn) {
+            repetMode = jRecurComboBox.getSelectedIndex() + 1;
+        }
 
-                        String description = jDescriptionTextArea.getText().trim();
-                        String color = String.valueOf(jColorComboBox.getSelectedItem());
+        String description = jDescriptionTextArea.getText().trim();
+        String color = String.valueOf(jColorComboBox.getSelectedItem());
 
-                        Boolean alrmOn = jAlarmCheckBox.isSelected();
-                        int snooze = Integer.parseInt(jSnoozeComboBox.getSelectedItem().toString());
-                        int notif = Integer.parseInt(jRemMinComboBox.getSelectedItem().toString());
+        Boolean alrmOn = jAlarmCheckBox.isSelected();
+        int snooze = Integer.parseInt(jSnoozeComboBox.getSelectedItem().toString());
+        int notif = Integer.parseInt(jRemMinComboBox.getSelectedItem().toString());
 
-                        try {
-                            Agenda.AdaugareEveniment(title, description, startDate, startTime, endDate, endTime, color, alrmOn, snooze, notif, recOn, repetMode, recDate);
-                            JOptionPane.showMessageDialog(null, "Eveniment adaugat!");
-                            jExitButtonMouseClicked(evt);
-                        } catch (Exception e) {
-                            JOptionPane.showMessageDialog(null, "Eroare. Nu am putut salva evenimentul. Contactati customer support.");
-                        }
-                    }
-                }
-            }
+        try {
+            Agenda.AdaugareEveniment(title, description, startDate, startTime, endDate, endTime, color, alrmOn, snooze, notif, recOn, repetMode, recDate);
+            JOptionPane.showMessageDialog(null, "Eveniment adaugat!");
+            jExitButtonMouseClicked(evt);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Eroare. Nu am putut salva evenimentul. Contactati customer support.");
         }
     }//GEN-LAST:event_jAddButtonMouseClicked
 

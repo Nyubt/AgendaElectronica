@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  *
@@ -80,39 +81,14 @@ public class Container {
                 Date startDate = formatter.parse(rs.getString("StartDate") + " " + rs.getString("StartTime"));
                 Date endDate = formatter.parse(rs.getString("EndDate") + " " + rs.getString("EndTime"));
 
-                Alarma alarma = null;
-                String SELECT_SQL2 = "select * from Alarms where AlarmId=?";
-                try (PreparedStatement stmt = connection.prepareStatement(SELECT_SQL2)) {
-                    stmt.setInt(1, rs.getInt("AlarmId"));
-                    ResultSet al = stmt.executeQuery();
-                    while (al != null && al.next()) {
-                        alarma = new Alarma(al.getInt("ReminderMinutes"), al.getInt("Snooze"));
-                    }
-                } catch (SQLException ex) {
-                    System.err.println("Connection error: " + ex.getMessage());
-                }
+                Alarma alarma = getAlarmById(rs.getInt("AlarmId"));
                 Boolean alarmActive = (rs.getObject("AlarmActive") != null && rs.getString("AlarmActive").contentEquals("1"));
 
                 Boolean inactive = !(rs.getObject("Inactive") == null || rs.getString("Inactive").contentEquals("0"));
                 if (inactive == true) {
                     continue;
                 }
-                Recurenta recurenta = null;
-                String SELECT_SQL3 = "select * from Recurrence where RecurrenceId=?";
-                try (PreparedStatement stmt = connection.prepareStatement(SELECT_SQL3)) {
-                    stmt.setInt(1, rs.getInt("RecurrenceId"));
-                    ResultSet re = stmt.executeQuery();
-                    while (re != null && re.next()) {
-                        if (re.getInt("RepetMode") == 0) {
-                            recurenta = new Recurenta();
-                        } else {
-                            Date endDate2 = dateFormat.parse(re.getString("EndDate"));
-                            recurenta = new Recurenta(re.getInt("RepetMode"), endDate2);
-                        }
-                    }
-                } catch (SQLException ex) {
-                    System.err.println("Connection error: " + ex.getMessage());
-                }
+                Recurenta recurenta = getRecurrenceById(rs.getInt("RecurrenceId"));
 
                 Eveniment evt = new Eveniment(rs.getInt("EventId"), rs.getString("Title"), rs.getString("Description"), startDate, endDate, alarma, recurenta,
                         rs.getString("Color"), alarmActive, inactive);
@@ -125,12 +101,48 @@ public class Container {
             close(statement);
         }
         
-        List<Eveniment> evtRepet = AdaugareEvenimenteRepetateZi(data);
+        List<Eveniment> evtRepet = AdaugareEvenimenteRepetate(data);
         if (!evtRepet.isEmpty()) {
             evenimente.addAll(evtRepet);
         }
         
         return new Zi(evenimente);
+    }
+
+    private static Recurenta getRecurrenceById(int recurrenceId) throws ParseException {
+        Recurenta recurenta = null;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String SELECT_SQL3 = "select * from Recurrence where RecurrenceId=?";
+        try (PreparedStatement stmt = connection.prepareStatement(SELECT_SQL3)) {
+            stmt.setInt(1, recurrenceId);
+            ResultSet re = stmt.executeQuery();
+            while (re != null && re.next()) {
+                if (re.getInt("RepetMode") == 0) {
+                    recurenta = new Recurenta();
+                } else {
+                    Date endDate = dateFormat.parse(re.getString("EndDate"));
+                    recurenta = new Recurenta(re.getInt("RepetMode"), endDate);
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("Connection error: " + ex.getMessage());
+        }
+        return recurenta;
+    }
+
+    private static Alarma getAlarmById(int alarmId) {
+        Alarma alarma = null;
+        String SELECT_SQL2 = "select * from Alarms where AlarmId=?";
+        try (PreparedStatement stmt = connection.prepareStatement(SELECT_SQL2)) {
+            stmt.setInt(1, alarmId);
+            ResultSet al = stmt.executeQuery();
+            while (al != null && al.next()) {
+                alarma = new Alarma(al.getInt("ReminderMinutes"), al.getInt("Snooze"));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Connection error: " + ex.getMessage());
+        }
+        return alarma;
     }
 
     /**
@@ -205,36 +217,14 @@ public class Container {
                 SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date startDate = dateFormatter.parse(rs.getString("StartDate") + " " + rs.getString("StartTime"));
                 Date endDate = dateFormatter.parse(rs.getString("EndDate") + " " + rs.getString("EndTime"));
-                Alarma alarma = null;
-                String SELECT_SQL2 = "select * from Alarms where AlarmId=?";
-                try (PreparedStatement stmt = connection.prepareStatement(SELECT_SQL2)) {
-                    stmt.setInt(1, rs.getInt("AlarmId"));
-                    ResultSet al = stmt.executeQuery();
-                    while (al != null && al.next()) {
-                        alarma = new Alarma(al.getInt("ReminderMinutes"), al.getInt("Snooze"));
-                    }
-                } catch (SQLException ex) {
-                    System.err.println("Connection error: " + ex.getMessage());
-                }
+                Alarma alarma = getAlarmById(rs.getInt("AlarmId"));
                 Boolean alarmActive = (rs.getObject("AlarmActive") != null && rs.getString("AlarmActive").contentEquals("1"));
                 Boolean inactive = !(rs.getObject("Inactive") == null || rs.getString("Inactive").contentEquals("0"));
                 if (inactive == true) {
                     continue;
                 }
 
-                Recurenta recurenta = null;
-                String SELECT_SQL3 = "select * from Recurrence where RecurrenceId=?";
-                try (PreparedStatement stmt = connection.prepareStatement(SELECT_SQL3)) {
-                    stmt.setInt(1, rs.getInt("RecurrenceId"));
-                    ResultSet re = stmt.executeQuery();
-                    while (re != null && re.next()) {
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                        Date endDateRec = dateFormat.parse(re.getString("EndDate"));
-                        recurenta = new Recurenta(re.getInt("RepetMode"), endDateRec);
-                    }
-                } catch (SQLException ex) {
-                    System.err.println("Connection 2 error: " + ex.getMessage());
-                }
+                Recurenta recurenta = getRecurrenceById(rs.getInt("RecurrenceId"));
                 Eveniment evt = new Eveniment(rs.getInt("EventId"), rs.getString("Title"), rs.getString("Description"), startDate, endDate, alarma, recurenta,
                         rs.getString("Color"), alarmActive, inactive);
                 evenimente.add(evt);
@@ -481,14 +471,13 @@ public class Container {
     }
 
     /**
-     * Functia de adaugare a unui eveniment Adaugam id, titlul, descrierea, data
-     * de inceput, data de sfarsit, recurenta, reminderMinutes, culoarea unui
-     * eveniment din combo box si daca alarma e activa sau nu, Daca nu s-a putut
-     * conecta cu baza de date, returneaza un mesaj specific
-     *
-     * @param eveniment
+     * Adaugare a evenimentelor recurente
+     * 
+     * @param data
+     * @return
+     * @throws ParseException 
      */
-    private static List<Eveniment> AdaugareEvenimenteRepetateZi(Date data) throws ParseException {
+    private static List<Eveniment> AdaugareEvenimenteRepetate(Date data) throws ParseException {
         ArrayList<Eveniment> evte = new ArrayList<Eveniment>();
         String SELECT_SQL = "select * from Events where date(StartDate)<date(?)";
         PreparedStatement statement = null;
@@ -509,6 +498,35 @@ public class Container {
                         if (mod == 1 && endDate.compareTo(dateFormat.parse(dateFormat.format(data))) >= 0) {
                             recurenta = new Recurenta(mod, endDate);
                         }
+                        if(mod == 2){
+                            int yearCompared = compareYears(data, dateFormat.parse(rs.getString("StartDate")));           
+                            
+                            int weekCompared = compareWeeks(data, endDate);
+                            
+                            int dayOfWeekCompared = compareDayOfWeek(data, dateFormat.parse(rs.getString("StartDate")));
+                            if(dayOfWeekCompared == 0 && yearCompared <= 0 && weekCompared <= 0){
+                                //System.out.println(data.toString());
+                                recurenta = new Recurenta(mod, data);
+                            }
+                        }
+                        if(mod == 3){
+                            int monthCompared = compareMonths(data, endDate);  
+                            
+                            int yearCompared = compareYears(data, endDate);  
+                            
+                            int daysCompared = compareDays(data, dateFormat.parse(rs.getString("StartDate")));
+                            if(monthCompared <= 0 && daysCompared == 0 && yearCompared <= 0){
+                                recurenta = new Recurenta(mod, data);
+                            }
+                        }
+                        if(mod == 4){
+                            int yearCompared = compareYears(data, endDate);                              
+                            int daysCompared = compareDays(data, dateFormat.parse(rs.getString("StartDate")));                            
+                            int monthCompared = compareMonths(data, dateFormat.parse(rs.getString("StartDate")));  
+                            if(monthCompared == 0 && daysCompared == 0 && yearCompared <= 0){
+                                recurenta = new Recurenta(mod, data);
+                            }
+                        }
                     }
                 } catch (SQLException ex) {
                     System.err.println("Connection error: " + ex.getMessage());
@@ -518,17 +536,7 @@ public class Container {
                     continue;
                 }
 
-                Alarma alarma = null;
-                String SELECT_SQL3 = "select * from Alarms where AlarmId=?";
-                try (PreparedStatement stmt = connection.prepareStatement(SELECT_SQL3)) {
-                    stmt.setInt(1, rs.getInt("AlarmId"));
-                    ResultSet al = stmt.executeQuery();
-                    while (al != null && al.next()) {
-                        alarma = new Alarma(al.getInt("ReminderMinutes"), al.getInt("Snooze"));
-                    }
-                } catch (SQLException ex) {
-                    System.err.println("Connection error: " + ex.getMessage());
-                }
+                Alarma alarma = getAlarmById(rs.getInt("AlarmId"));
                 
                 Boolean alarmActive = (rs.getObject("AlarmActive") != null && rs.getString("AlarmActive").contentEquals("1"));
                 Boolean inactive = !(rs.getObject("Inactive") == null || rs.getString("Inactive").contentEquals("0"));
@@ -550,4 +558,82 @@ public class Container {
         }
         return new ArrayList(evte);
     }
+    
+    private static int compareDays(Date currentDate, Date lastDate){        
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(currentDate);
+        int currentDay = cal.get(Calendar.DATE);
+        cal.setTime(lastDate);
+        int endDay = cal.get(Calendar.DATE);
+        if(currentDay < endDay){
+            return -1;
+        }
+        if(currentDay > endDay){
+            return 1;
+        }
+        return 0;
+    }
+    
+    private static int compareDayOfWeek(Date currentDate, Date lastDate){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(currentDate);
+        int currentDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+        cal.setTime(lastDate);        
+        int endDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+        if(currentDayOfWeek < endDayOfWeek){
+            return -1;
+        }
+        if (currentDayOfWeek > endDayOfWeek){
+            return 1;
+        }
+        return 0;
+    }
+    
+    private static int compareWeeks(Date currentDate, Date lastDate){        
+        Calendar cal = Calendar.getInstance(Locale.FRANCE);
+        cal.setTime(currentDate);
+        int currentWeek = cal.get(Calendar.WEEK_OF_YEAR);
+        cal.setTime(lastDate);        
+        int endWeek = cal.get(Calendar.WEEK_OF_YEAR);
+        System.out.println("Week " + currentWeek + "->" + endWeek);
+        if(currentWeek < endWeek){
+            return -1;
+        }
+        if (currentWeek > endWeek){
+            return 1;
+        }
+        return 0;
+    }
+    
+    private static int compareMonths(Date currentDate, Date lastDate){        
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(currentDate);
+        int currentMonth = cal.get(Calendar.MONTH);
+        cal.setTime(lastDate);        
+        int endMonth = cal.get(Calendar.MONTH);
+        if(currentMonth < endMonth){
+            return -1;
+        }
+        if (currentMonth > endMonth){
+            return 1;
+        }
+        return 0;
+    }
+    
+    private static int compareYears(Date currentDate, Date lastDate){        
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(currentDate);
+        int currentYear = cal.get(Calendar.YEAR);
+        cal.setTime(lastDate);     
+        int endYear = cal.get(Calendar.YEAR);   
+        if(currentYear < endYear){
+            return -1;
+        }
+        if (currentYear > endYear){
+            return 1;
+        }
+        return 0;
+    }
+    
+    
 }

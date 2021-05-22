@@ -19,8 +19,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 /**
  * Functia care adauga un stil pentru luna
  */
-
-
 public class CellRendererForMonth extends DefaultTableCellRenderer {
 
     Map<Integer, List<String>> map;
@@ -57,18 +55,14 @@ public class CellRendererForMonth extends DefaultTableCellRenderer {
                     if (map.get(pos).size() > 1) {
                         this.setFont(this.getFont().deriveFont(Font.BOLD));
                     } else if (map.get(pos).size() == 1) {
-
                         this.setBackground(CellRendererForWeek.HexToColor(map.get(pos).get(0)));
                     } else {
-
                         this.setBackground(null);
                     }
                 } else {
-
                     this.setBackground(null);
                 }
             } else {
-
                 this.setBackground(null);
             }
         } else {

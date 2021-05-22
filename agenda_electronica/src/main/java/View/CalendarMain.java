@@ -1106,7 +1106,6 @@ public class CalendarMain extends javax.swing.JFrame {
      * Week mode will shift to the next week
      * Day mode will shift to the next day
      */
-
     private void jButtonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextActionPerformed
         if (panelSelected == 1) {
             if (CalendarFiller.month < 12) {

@@ -49,16 +49,6 @@ public class TimeChecker {
      */
     public static void checkAlarm(JList jAlarmList, JTextField jAlarmTextField) {
         map = new TreeMap<>();
-        //for testing, remove
-        /*Calendar date = Calendar.getInstance();
-        long tl = date.getTimeInMillis();
-        Date afterAddingMins=new Date(tl + (30 * ONE_MINUTE_IN_MILLIS));
-        Alarma al = new Alarma(30, 5);
-        Eveniment event = new Eveniment(1, "aaa", "di dijsd  disjd", afterAddingMins, afterAddingMins, al, "red", true, false);
-        List<Eveniment> evenimente = new ArrayList<Eveniment>();
-        evenimente.add(event);
-        Date eventDate = new Date(event.getInceput().getTime() - (event.getAlarma().getIntervalTimp() * ONE_MINUTE_IN_MILLIS));
-        map.put(eventDate, evenimente.get(0));*/
         Thread t = new Thread() {
             public void run() {
                 while (true) {
@@ -155,18 +145,7 @@ public class TimeChecker {
      */
     public static void StopAlarm() {
         Map.Entry<Date, Eveniment> entry = map.entrySet().iterator().next();
-        //Date key = entry.getKey();
         Eveniment eveniment = entry.getValue();
-
-        //map.remove(key);
-        /*map.entrySet().forEach(entry -> {
-            Date key = entry.getKey();
-            Eveniment value = entry.getValue();
-            if (value.equals(eveniment)) {
-                map.remove(key);
-            }
-        });*/
         Agenda.OprireAlarma(eveniment);
-        //clip.stop();
     }
 }
