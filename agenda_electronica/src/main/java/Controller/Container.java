@@ -68,27 +68,28 @@ public class Container {
     public static Zi FurnizareZi(Date data) throws ParseException {
         //citire din DB pt anumita zi
         evenimente = new ArrayList<Eveniment>();
+        String SELECT_SQL = "select * from Events where date(StartDate)=date(?)";
+        PreparedStatement statement = null;
         try {
-            Statement statement = connection.createStatement();
-            // set timeout to 30 sec.
-            statement.setQueryTimeout(30);
+            statement = connection.prepareStatement(SELECT_SQL);
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            ResultSet rs = statement.executeQuery("select * from Events where date(\"StartDate\")=date(\"" + dateFormat.format(data) + "\")");
+            statement.setString(1, dateFormat.format(data));
+            ResultSet rs = statement.executeQuery();
             while (rs != null && rs.next()) {
-                // read the result set
-                SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date startDate = formatter1.parse(rs.getString("StartDate") + " " + rs.getString("StartTime"));
-                Date endDate = formatter1.parse(rs.getString("EndDate") + " " + rs.getString("EndTime"));
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date startDate = formatter.parse(rs.getString("StartDate") + " " + rs.getString("StartTime"));
+                Date endDate = formatter.parse(rs.getString("EndDate") + " " + rs.getString("EndTime"));
 
                 Alarma alarma = null;
-                try (Statement stmt = connection.createStatement()) {
-                    ResultSet al = stmt.executeQuery("select * from Alarms where AlarmId=" + rs.getString("AlarmId"));
-
+                String SELECT_SQL2 = "select * from Alarms where AlarmId=?";
+                try (PreparedStatement stmt = connection.prepareStatement(SELECT_SQL2)) {
+                    stmt.setInt(1, rs.getInt("AlarmId"));
+                    ResultSet al = stmt.executeQuery();
                     while (al != null && al.next()) {
                         alarma = new Alarma(al.getInt("ReminderMinutes"), al.getInt("Snooze"));
                     }
                 } catch (SQLException ex) {
-                    System.err.println("Connection 2 error: " + ex.getMessage());
+                    System.err.println("Connection error: " + ex.getMessage());
                 }
                 Boolean alarmActive = (rs.getObject("AlarmActive") != null && rs.getString("AlarmActive").contentEquals("1"));
 
@@ -97,8 +98,10 @@ public class Container {
                     continue;
                 }
                 Recurenta recurenta = null;
-                try (Statement stmt = connection.createStatement()) {
-                    ResultSet re = stmt.executeQuery("select * from Recurrence where RecurrenceId=" + rs.getString("RecurrenceId"));
+                String SELECT_SQL3 = "select * from Recurrence where RecurrenceId=?";
+                try (PreparedStatement stmt = connection.prepareStatement(SELECT_SQL3)) {
+                    stmt.setInt(1, rs.getInt("RecurrenceId"));
+                    ResultSet re = stmt.executeQuery();
                     while (re != null && re.next()) {
                         if (re.getInt("RepetMode") == 0) {
                             recurenta = new Recurenta();
@@ -108,7 +111,7 @@ public class Container {
                         }
                     }
                 } catch (SQLException ex) {
-                    System.err.println("Connection 2 error: " + ex.getMessage());
+                    System.err.println("Connection error: " + ex.getMessage());
                 }
 
                 Eveniment evt = new Eveniment(rs.getInt("EventId"), rs.getString("Title"), rs.getString("Description"), startDate, endDate, alarma, recurenta,
@@ -118,11 +121,15 @@ public class Container {
             }
         } catch (SQLException e) {
             System.err.println("Connection error: " + e.getMessage());
+        } finally {
+            close(statement);
         }
+        
         List<Eveniment> evtRepet = AdaugareEvenimenteRepetateZi(data);
         if (!evtRepet.isEmpty()) {
             evenimente.addAll(evtRepet);
         }
+        
         return new Zi(evenimente);
     }
 
@@ -188,23 +195,26 @@ public class Container {
      */
     public static Zi FurnizareToateEvent() throws ParseException {
         evenimente = new ArrayList<Eveniment>();
+        String SELECT_SQL = "select * from Events";
+        PreparedStatement statement = null;
         try {
-            Statement statement = connection.createStatement();
-            statement.setQueryTimeout(30);
-            ResultSet rs = statement.executeQuery("select * from Events");
+            statement = connection.prepareStatement(SELECT_SQL);
+            ResultSet rs = statement.executeQuery();
             while (rs != null && rs.next()) {
                 // read the result set
-                SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date startDate = formatter1.parse(rs.getString("StartDate") + " " + rs.getString("StartTime"));
-                Date endDate = formatter1.parse(rs.getString("EndDate") + " " + rs.getString("EndTime"));
+                SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date startDate = dateFormatter.parse(rs.getString("StartDate") + " " + rs.getString("StartTime"));
+                Date endDate = dateFormatter.parse(rs.getString("EndDate") + " " + rs.getString("EndTime"));
                 Alarma alarma = null;
-                try (Statement stmt = connection.createStatement()) {
-                    ResultSet al = stmt.executeQuery("select * from Alarms where AlarmId=" + rs.getString("AlarmId"));
+                String SELECT_SQL2 = "select * from Alarms where AlarmId=?";
+                try (PreparedStatement stmt = connection.prepareStatement(SELECT_SQL2)) {
+                    stmt.setInt(1, rs.getInt("AlarmId"));
+                    ResultSet al = stmt.executeQuery();
                     while (al != null && al.next()) {
                         alarma = new Alarma(al.getInt("ReminderMinutes"), al.getInt("Snooze"));
                     }
                 } catch (SQLException ex) {
-                    System.err.println("Connection 2 error: " + ex.getMessage());
+                    System.err.println("Connection error: " + ex.getMessage());
                 }
                 Boolean alarmActive = (rs.getObject("AlarmActive") != null && rs.getString("AlarmActive").contentEquals("1"));
                 Boolean inactive = !(rs.getObject("Inactive") == null || rs.getString("Inactive").contentEquals("0"));
@@ -213,12 +223,14 @@ public class Container {
                 }
 
                 Recurenta recurenta = null;
-                try (Statement stmt = connection.createStatement()) {
-                    ResultSet re = stmt.executeQuery("select * from Recurrence where RecurrenceId=" + rs.getString("RecurrenceId"));
+                String SELECT_SQL3 = "select * from Recurrence where RecurrenceId=?";
+                try (PreparedStatement stmt = connection.prepareStatement(SELECT_SQL3)) {
+                    stmt.setInt(1, rs.getInt("RecurrenceId"));
+                    ResultSet re = stmt.executeQuery();
                     while (re != null && re.next()) {
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                        Date endDate2 = dateFormat.parse(re.getString("EndDate"));
-                        recurenta = new Recurenta(re.getInt("RepetMode"), endDate2);
+                        Date endDateRec = dateFormat.parse(re.getString("EndDate"));
+                        recurenta = new Recurenta(re.getInt("RepetMode"), endDateRec);
                     }
                 } catch (SQLException ex) {
                     System.err.println("Connection 2 error: " + ex.getMessage());
@@ -229,6 +241,8 @@ public class Container {
             }
         } catch (SQLException e) {
             System.err.println("Connection error: " + e.getMessage());
+        } finally {
+            close(statement);
         }
         return new Zi(evenimente);
     }
@@ -373,29 +387,38 @@ public class Container {
      * @param eveniment
      */
     private static void PrelucrareEvent(Eveniment eveniment, String operation) {
+        String SELECT_SQL = "SELECT * FROM Events WHERE EventId=?";
+        PreparedStatement statement = null;
         try {
-            Statement statement = connection.createStatement();
-            statement.setQueryTimeout(30);
-            ResultSet rs = statement.executeQuery("select * from Events where EventId=" + eveniment.getEvenimentId());
+            statement = connection.prepareStatement(SELECT_SQL);
+            statement.setInt(1, eveniment.getEvenimentId());
+            ResultSet rs = statement.executeQuery();
             while (rs != null && rs.next()) {
                 if (operation.compareTo("edit") == 0) {
-                    String newTitle = eveniment.getTitlu();
-                    String newDescription = eveniment.getDescriere();
-                    try (Statement stmt2 = connection.createStatement()) {
-                        stmt2.executeUpdate("update Events set Title=\"" + newTitle + "\",Description=\"" + newDescription + "\" where EventId=" + eveniment.getEvenimentId());
+                    String UPDATE_SQL = "update Events set Title=?,Description=? where EventId=?";
+                    try (PreparedStatement stmt = connection.prepareStatement(UPDATE_SQL)) {
+                        stmt.setString(1, eveniment.getTitlu());
+                        stmt.setString(2, eveniment.getDescriere());
+                        stmt.setInt(3, eveniment.getEvenimentId());
+                        stmt.executeUpdate();
                     } catch (SQLException ex2) {
                         System.err.println("Connection error, failed to update: " + ex2.getMessage());
                     }
                 } else if (operation.compareTo("delete") == 0) {
-                    try (Statement stmt2 = connection.createStatement()) {
-                        stmt2.executeUpdate("update Events set Inactive=" + true + " where EventId=" + eveniment.getEvenimentId());
+                    String DELETE_SQL = "update Events set Inactive=? where EventId=?";
+                    try (PreparedStatement stmt = connection.prepareStatement(DELETE_SQL)) {
+                        stmt.setBoolean(1, true);
+                        stmt.setInt(2, eveniment.getEvenimentId());
+                        stmt.executeUpdate();
                     } catch (SQLException ex3) {
-                        System.err.println("Connection error, failed to update: " + ex3.getMessage());
+                        System.err.println("Connection error, failed to delete: " + ex3.getMessage());
                     }
                 }
             }
         } catch (SQLException e) {
             System.err.println("Connection error: " + e.getMessage());
+        } finally {
+            close(statement);
         }
     }
 
@@ -405,14 +428,16 @@ public class Container {
      * @param eveniment
      */
     public static void OprireAlarma(Eveniment eveniment) {
-        //update db, set inactive to true 
+        String UPDATE_SQL = "update Events set AlarmActive=false where EventId=?";
+        PreparedStatement statement = null;
         try {
-            Statement statement = connection.createStatement();
-            // set timeout to 30 sec.
-            statement.setQueryTimeout(30);
-            statement.executeUpdate("update Events set AlarmActive=false where EventId=" + eveniment.getEvenimentId());
+            statement = connection.prepareStatement(UPDATE_SQL);
+            statement.setInt(1, eveniment.getEvenimentId());
+            statement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Connection error: " + e.getMessage());
+        } finally {
+            close(statement);
         }
     }
 
@@ -422,30 +447,36 @@ public class Container {
      * @param eveniment
      */
     public static void AmanareAlarma(Eveniment eveniment) {
-        //update interval in db ;
+        String SELECT_SQL = "select * from Events where EventId=?";
+        PreparedStatement statement = null;
         try {
-            Statement statement = connection.createStatement();
-            // set timeout to 30 sec.
-            statement.setQueryTimeout(30);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            ResultSet rs = statement.executeQuery("select * from Events where EventId=" + eveniment.getEvenimentId());
+            statement = connection.prepareStatement(SELECT_SQL);
+            statement.setInt(1, eveniment.getEvenimentId());
+            ResultSet rs = statement.executeQuery();
             while (rs != null && rs.next()) {
-                try (Statement stmt1 = connection.createStatement()) {
-                    ResultSet al = stmt1.executeQuery("select * from Alarms where AlarmId=" + rs.getString("AlarmId"));
+                String SELECT_SQL2 = "select * from Alarms where AlarmId=?";
+                try (PreparedStatement stmt = connection.prepareStatement(SELECT_SQL2)) {
+                    stmt.setInt(1, rs.getInt("AlarmId"));
+                    ResultSet al = stmt.executeQuery();
                     while (al != null && al.next()) {
-                        int shift = al.getInt("ReminderMinutes") - al.getInt("Snooze");
-                        try (Statement stmt2 = connection.createStatement()) {
-                            stmt2.executeUpdate("update Alarms set ReminderMinutes=" + shift + " where AlarmId=" + rs.getString("AlarmId"));
+                        String UPDATE_SQL = "update Alarms set ReminderMinutes=? where AlarmId=?";
+                        try (PreparedStatement stmt2 = connection.prepareStatement(UPDATE_SQL)) {
+                            int shift = al.getInt("ReminderMinutes") - al.getInt("Snooze");
+                            stmt2.setInt(1, shift);
+                            stmt2.setInt(2, al.getInt("AlarmId"));
+                            stmt2.executeUpdate();
                         } catch (SQLException ex2) {
-                            System.err.println("Connection error: " + ex2.getMessage());
+                            System.err.println("Connection error, failed to update: " + ex2.getMessage());
                         }
                     }
                 } catch (SQLException ex) {
-                    System.err.println("Connection 2 error: " + ex.getMessage());
+                    System.err.println("Connection error: " + ex.getMessage());
                 }
             }
         } catch (SQLException e) {
             System.err.println("Connection error: " + e.getMessage());
+        } finally {
+            close(statement);
         }
     }
 
@@ -459,54 +490,63 @@ public class Container {
      */
     private static List<Eveniment> AdaugareEvenimenteRepetateZi(Date data) throws ParseException {
         ArrayList<Eveniment> evte = new ArrayList<Eveniment>();
+        String SELECT_SQL = "select * from Events where date(StartDate)<date(?)";
+        PreparedStatement statement = null;
         try {
-            Statement statement = connection.createStatement();
-            // set timeout to 30 sec.
-            statement.setQueryTimeout(30);
+            statement = connection.prepareStatement(SELECT_SQL);            
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            ResultSet rs = statement.executeQuery("select * from Events where date(\"StartDate\") < date(\"" + dateFormat.format(data) + "\")");
+            statement.setString(1, dateFormat.format(data));
+            ResultSet rs = statement.executeQuery();
             while (rs != null && rs.next()) {
-                // read the result set
-                SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Recurenta recurenta = null;
-                try (Statement stmt = connection.createStatement()) {
-                    ResultSet re = stmt.executeQuery("select * from Recurrence where RecurrenceId=" + rs.getString("RecurrenceId"));
+                String SELECT_SQL2 = "select * from Recurrence where RecurrenceId=?";
+                try (PreparedStatement stmt = connection.prepareStatement(SELECT_SQL2)) {
+                    stmt.setInt(1, rs.getInt("RecurrenceId"));
+                    ResultSet re = stmt.executeQuery();
                     while (re != null && re.next()) {
-                        Date endDate2 = dateFormat.parse(re.getString("EndDate"));
+                        Date endDate = dateFormat.parse(re.getString("EndDate"));
                         int mod = re.getInt("RepetMode");
-                        if (mod == 1 && endDate2.compareTo(dateFormat.parse(dateFormat.format(data))) >= 0) {
-                            recurenta = new Recurenta(mod, endDate2);
+                        if (mod == 1 && endDate.compareTo(dateFormat.parse(dateFormat.format(data))) >= 0) {
+                            recurenta = new Recurenta(mod, endDate);
                         }
                     }
                 } catch (SQLException ex) {
-                    System.err.println("Connection 2 error: " + ex.getMessage());
+                    System.err.println("Connection error: " + ex.getMessage());
                 }
+                
                 if (recurenta == null) {
                     continue;
                 }
 
                 Alarma alarma = null;
-                try (Statement stmt = connection.createStatement()) {
-                    ResultSet al = stmt.executeQuery("select * from Alarms where AlarmId=" + rs.getString("AlarmId"));
+                String SELECT_SQL3 = "select * from Alarms where AlarmId=?";
+                try (PreparedStatement stmt = connection.prepareStatement(SELECT_SQL3)) {
+                    stmt.setInt(1, rs.getInt("AlarmId"));
+                    ResultSet al = stmt.executeQuery();
                     while (al != null && al.next()) {
                         alarma = new Alarma(al.getInt("ReminderMinutes"), al.getInt("Snooze"));
                     }
                 } catch (SQLException ex) {
-                    System.err.println("Connection 2 error: " + ex.getMessage());
+                    System.err.println("Connection error: " + ex.getMessage());
                 }
+                
                 Boolean alarmActive = (rs.getObject("AlarmActive") != null && rs.getString("AlarmActive").contentEquals("1"));
                 Boolean inactive = !(rs.getObject("Inactive") == null || rs.getString("Inactive").contentEquals("0"));
                 if (inactive == true) {
                     continue;
                 }
-                Date startDate = formatter1.parse(dateFormat.format(data) + " " + rs.getString("StartTime"));
-                Date endDate = formatter1.parse(dateFormat.format(data) + " " + rs.getString("EndTime"));
+                
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date startDate = formatter.parse(dateFormat.format(data) + " " + rs.getString("StartTime"));
+                Date endDate = formatter.parse(dateFormat.format(data) + " " + rs.getString("EndTime"));
                 Eveniment evt = new Eveniment(rs.getInt("EventId"), rs.getString("Title"), rs.getString("Description"), startDate, endDate, alarma, recurenta,
                         rs.getString("Color"), alarmActive, inactive);
                 evte.add(evt);
             }
         } catch (SQLException e) {
             System.err.println("Connection error: " + e.getMessage());
+        } finally {
+            close(statement);
         }
         return new ArrayList(evte);
     }
