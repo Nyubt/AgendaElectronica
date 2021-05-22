@@ -3,12 +3,9 @@ package Model;
 import java.util.List;
 
 /**
- *
- * @author Nadia
- */
-/**
  * Clasa Luna creeaza un obiect cu informatii despre evenimentele dintr-o luna
- *
+ * 
+ * @author Ale-PC, Nadia
  */
 public class Luna implements ListEventsInterface {
 
@@ -27,7 +24,7 @@ public class Luna implements ListEventsInterface {
     }
 
     /**
-     * Getter care returneaza lista cu obiectele Zi dintr-o luna
+     * Extrage informatia privind lista cu obiectele Zi dintr-o luna
      *
      * @return luna
      */

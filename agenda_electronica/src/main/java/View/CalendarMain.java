@@ -1,10 +1,5 @@
 package View;
 
-import Exceptions.ExceptieFebruarie;
-import Exceptions.ExceptieLuna;
-import Exceptions.LimiteAni;
-import Exceptions.Exceptie4cifre;
-import Exceptions.ExceptieZi;
 import Model.Eveniment;
 import Model.Zi;
 import Validators.DateTimeValidator;
@@ -28,22 +23,47 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 /**
- *
+ * Clasa CalendarMain este clasa UI principala care afiseaza si manipuleaza cu fereastra principala a agendei electronice
+ * 
  * @author Elena, Nadia
  */
 public class CalendarMain extends javax.swing.JFrame {
 
+    /**
+     * Eticheta care pastreaza textul lunii afisate
+     */
     String monthLabel = "";
+    /**
+     * Eticheta care pastreaza textul anului afisat
+     */
     String yearLabel = "";
+    /**
+     * Eticheta care pastreaza textul saptamanii afisate
+     */
     String weekLabel = "";
+    /**
+     * Eticheta care pastreaza textul zilei afisate
+     */
     String dayLabel = "";
+    /**
+     * Id-ul modului de afisare aratat
+     */
     int panelSelected = 0;
+    /**
+     * Instanta Calendar
+     */
     Calendar cal = Calendar.getInstance();
+    /**
+     * Obiectul EventDetails care va deschide fereastra Detalii Eveniment
+     */
     EventDetails eventFrame;
+    /**
+     * Obiectul AddEvent care va deschide fereastra Adaugare Eveniment
+     */
     AddEvent addEventFrame;
 
     /**
-     * Creates new CalendarMain form
+     * Constructorul CalendarMain care creaza un nou form
      */
     public CalendarMain() {
         initComponents();
@@ -1054,6 +1074,11 @@ public class CalendarMain extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Selecteaza modul de afisare "luna"
+     * 
+     * @param evt 
+     */
     private void jMenuItemMonthViewItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jMenuItemMonthViewItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             switchPanels(jMonthPanel);
@@ -1063,6 +1088,11 @@ public class CalendarMain extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItemMonthViewItemStateChanged
 
+    /**
+     * Selecteaza modul de afisare "an"
+     * 
+     * @param evt 
+     */
     private void jMenuItemYearViewItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jMenuItemYearViewItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             switchPanels(jYearPanel);
@@ -1072,6 +1102,11 @@ public class CalendarMain extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItemYearViewItemStateChanged
 
+    /**
+     * Selecteaza modul de afisare "saptamana"
+     * 
+     * @param evt 
+     */
     private void jMenuItemWeekViewItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jMenuItemWeekViewItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             switchPanels(jWeekPanel);
@@ -1081,7 +1116,7 @@ public class CalendarMain extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItemWeekViewItemStateChanged
     /**
-     * Jumps to the date specified in the "Selected Date" box
+     * Sare la data specificata in "Selected Date" box
      * 
      * @param evt 
      */
@@ -1100,11 +1135,13 @@ public class CalendarMain extends javax.swing.JFrame {
     }//GEN-LAST:event_DateJumpButtonActionPerformed
 
     /**
-     * Shifts calender data forward depending on the display mode selected
-     * Year mode will shift to the next year
-     * Month mode will shift to the next month
-     * Week mode will shift to the next week
-     * Day mode will shift to the next day
+     * Sifteaza data calendarului inainte in dependenta de modul selectat
+     * Modul "an" sifteaza la anul urmator
+     * Modul "luna" sifteaza la luna urmatoare
+     * Modul "saptamana" sifteaza la saptamana urmatoare
+     * Modul "zi" sifteaza la ziua urmatoare
+     * 
+     * @param evt 
      */
     private void jButtonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextActionPerformed
         if (panelSelected == 1) {
@@ -1155,6 +1192,7 @@ public class CalendarMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonNextActionPerformed
 
     /**
+     * Configureaza evenimentul formWindowOpened
      * 
      * @param evt 
      */
@@ -1167,11 +1205,13 @@ public class CalendarMain extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     /**
-     * Shifts calender data backwards depending on the display mode selected
-     * Year mode will shift to the previous year
-     * Month mode will shift to the previous month
-     * Week mode will shift to the previous week
-     * Day mode will shift to the previous day
+     * Sifteaza data calendarului inapoi in dependenta de modul selectat
+     * Modul "an" sifteaza la anul precedent
+     * Modul "luna" sifteaza la luna precedenta
+     * Modul "saptamana" sifteaza la saptamana precedenta
+     * Modul "zi" sifteaza la ziua precedenta
+     * 
+     * @param evt 
      */
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
         if (panelSelected == 1) {
@@ -1221,6 +1261,11 @@ public class CalendarMain extends javax.swing.JFrame {
         switchPanelName();
     }//GEN-LAST:event_jButtonBackActionPerformed
 
+    /**
+     * Selecteaza modul de afisare "zi"
+     * 
+     * @param evt 
+     */
     private void jMenuItemDayViewItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jMenuItemDayViewItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             switchPanels(jDayPanel);
@@ -1238,10 +1283,20 @@ public class CalendarMain extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jEventListMouseClicked
 
+    /**
+     * Apeleaza metoda de oprire a alarmei primului eveniment din lista
+     * 
+     * @param evt 
+     */
     private void jStopAlarmButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jStopAlarmButtonMouseClicked
         TimeChecker.StopAlarm();
     }//GEN-LAST:event_jStopAlarmButtonMouseClicked
 
+    /**
+     * Selecteaza modul de afisare "lista evenimente"
+     * 
+     * @param evt 
+     */
     private void jMenuItemEventListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jMenuItemEventListItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             switchPanels(jEventsListPanel);
@@ -1255,21 +1310,35 @@ public class CalendarMain extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItemEventListItemStateChanged
 
+    /**
+     * Deschide fereastra cu detalii ale evenimentului selectat din lista jDayEventList
+     * 
+     * @param evt 
+     */
     private void jDayEventListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDayEventListMouseClicked
         openEventDetailsWindow(evt);
     }//GEN-LAST:event_jDayEventListMouseClicked
 
+    /**
+     * Deschide fereastra cu detalii ale evenimentului selectat din lista jEventsList
+     * 
+     * @param evt 
+     */
     private void jEventsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jEventsListMouseClicked
         openEventDetailsWindow(evt);
     }//GEN-LAST:event_jEventsListMouseClicked
 
+    /**
+     * Deschide modul de afisare "zi" cu data din luna selectata
+     * 
+     * @param evt 
+     */
     private void jTableJanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableJanMousePressed
         JTable table = (JTable) evt.getSource();
         if (evt.getClickCount() == 2 && table.getSelectedRow() != -1) {
             int row = table.getSelectedRow();
             int column = table.getSelectedColumn();
             Zi event = (Zi) table.getValueAt(row, column);
-            //table.setValueAt(event, row, column);
             if (null != table.getCellEditor()) {
                 table.getCellEditor().stopCellEditing();
             }
@@ -1291,6 +1360,11 @@ public class CalendarMain extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTableJanMousePressed
 
+    /**
+     * Deschide fereastra cu detalii ale evenimentului selectat din tabelul saptamanii
+     * 
+     * @param evt 
+     */
     private void jWeekTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jWeekTableMousePressed
         JTable table = (JTable) evt.getSource();
         if (evt.getClickCount() == 2) {
@@ -1314,6 +1388,9 @@ public class CalendarMain extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jWeekTableMousePressed
 
+    /**
+     * Reincarca evenimentele in tabele si liste cu data setata in agenda
+     */
     private void refillCalenderData(){
         try {
             CalendarFiller.fillInList(panelSelected, jDayEventList);
@@ -1333,7 +1410,7 @@ public class CalendarMain extends javax.swing.JFrame {
     }
     
     /**
-     * Opens the Detalii Eveniment window
+     * Deschide fereastra Detalii Eveniment
      *
      * @param evt
      */
@@ -1352,7 +1429,7 @@ public class CalendarMain extends javax.swing.JFrame {
     }
 
     /**
-     * Opens the Adaugare Eveniment window
+     * Deschide fereastra Adaugare Eveniment
      *
      * @param evt
      */
@@ -1366,6 +1443,11 @@ public class CalendarMain extends javax.swing.JFrame {
         addEventFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
+    /**
+     * Apeleaza functia main a ferestrei
+     * 
+     * @param args argumentele din linia de commanda
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1400,9 +1482,9 @@ public class CalendarMain extends javax.swing.JFrame {
     }
 
     /**
-     * Changes the displayed mode "panel" shown
+     * Schimba modul de afisare a agendei
      *
-     * @param panel
+     * @param panel 
      */
     public void switchPanels(JPanel panel) {
         jLayeredPanel.removeAll();
@@ -1413,7 +1495,7 @@ public class CalendarMain extends javax.swing.JFrame {
     }
 
     /**
-     * Changes the name of the page header depending on the displayed mode
+     * Schimba header-ul paginii in dependenta de modul de afisare setat
      */
     private void switchPanelName() {
         cal.set(MONTH, Integer.parseInt(jMonthTextField.getText()) - 1);

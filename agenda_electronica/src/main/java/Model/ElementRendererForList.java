@@ -8,14 +8,22 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
 /**
- *
+ * Clasa ElementRendererForList specifica stilul cu elemente html pentru o lista de Evenimente
+ * 
  * @author Elena
- */
-/**
- * Functia care adauga un stil pentru saptamana
  */
 public class ElementRendererForList extends JLabel implements ListCellRenderer<Eveniment> {
 
+    /**
+     * Defineste un renderer pentru itemii unui JList
+     * 
+     * @param list JList pe care o desenam cu obiecte tip Eveniment
+     * @param value valoarea intoarsa de list.getModel().getElementAt(index)
+     * @param index indexul celulei
+     * @param isSelected true daca celula specificata a fost selectata
+     * @param cellHasFocus true daca celula specificata are focus
+     * @return componenta configurata
+     */
     @Override
     public Component getListCellRendererComponent(JList<? extends Eveniment> list, Eveniment value, int index, boolean isSelected, boolean cellHasFocus) {
         String labelText = "<html><div style=\"display: block;text-align:center;background: " + value.getCuloare() + ";\">Id: " + value.getEvenimentId() + "<br/>Date: " + value.getInceput() + "<br/>Titlu: " + value.getTitlu()
@@ -26,7 +34,12 @@ public class ElementRendererForList extends JLabel implements ListCellRenderer<E
     }
 
     /**
-     * Functia pentru a obtine diferenta intre 2 date
+     * Calculeaza diferenta intre datele unui evenimente
+     * 
+     * @param date1 data de incepere a evenimentului
+     * @param date2 date de sfarsire a evenimentului
+     * @param timeUnit obiect TimeUnit
+     * @return diferenta in minute sau ore dintre date
      */
     private String getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
         long diffInMillies = date2.getTime() - date1.getTime();

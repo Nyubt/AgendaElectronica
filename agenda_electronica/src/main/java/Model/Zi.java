@@ -4,12 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
- * @author Nadia
- */
-/**
  * Clasa Zi creeaza un obiect cu informatii despre evenimentele dintr-o zi
- *
+ * 
+ * @author Ale-PC, Nadia
  */
 public class Zi implements ListEventsInterface {
 
@@ -18,14 +15,14 @@ public class Zi implements ListEventsInterface {
      */
     private List<Eveniment> eveniment;
     /**
-     * Data zilei evenimentului
+     * Data de declansare a evenimentului
      */
     private Date data;
 
     /**
      * Constructorul clasei Zi
      *
-     * @param eveniment
+     * @param eveniment lista de Evenimente
      */
     public Zi(List<Eveniment> eveniment) {
         this.eveniment = eveniment;
@@ -35,8 +32,8 @@ public class Zi implements ListEventsInterface {
     /**
      * Constructorul clasei Zi
      *
-     * @param eveniment
-     * @param date
+     * @param eveniment lista de Evenimente
+     * @param date data declansarii evenimentului
      */
     public Zi(List<Eveniment> eveniment, Date date) {
         this.eveniment = eveniment;
@@ -44,7 +41,7 @@ public class Zi implements ListEventsInterface {
     }
 
     /**
-     * Getter pentru a afla lista de obiecte Eveniment
+     * Extrage informatia privind lista de obiecte Eveniment
      *
      * @return lista de obiecte Eveniment
      */
@@ -53,7 +50,9 @@ public class Zi implements ListEventsInterface {
     }
 
     /**
-     * @return data
+     * Extrage informatia privind data evenimentului
+     * 
+     * @return data de declansare a evenimentului
      */
     public Date getDate() {
         return this.data;

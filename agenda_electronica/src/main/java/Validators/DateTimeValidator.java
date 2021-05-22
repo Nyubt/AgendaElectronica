@@ -14,22 +14,29 @@ import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
 /**
- *
- * @author Elena
+ * Clasa DateTimeValidator pentru validarea datei si orei
+ * 
+ * @author Ale-PC, Elena
  */
 public class DateTimeValidator {
     /**
-     * Fuctie pentru a valida data introdusa
-     *
-     * @return validDate
-     * @param day
-     * @param month
-     * @param year
+     * Valideaza data unui eveniment
+     * 
+     * @param day ziua evenimentului
+     * @param month luna evenimentului
+     * @param year anul evenimentului
+     * @return valoare de adevar a testului de validare
      */
     public static boolean validateDateInput(String day, String month, String year) {        
         return validateYear(year) && validateMonth(month) && validateDate(day, month);
     }
     
+    /**
+     * Valideaza anul unui eveniment format yyyy
+     * 
+     * @param year anul evenimentului. Ales sa fie intre 2018 si 2030 pentru aplicatia curenta
+     * @return valoare de adevar a testului de validare 
+     */
     private static boolean validateYear(String year){
         boolean dateValid = true;
         try {
@@ -58,6 +65,12 @@ public class DateTimeValidator {
         return dateValid;
     }
     
+    /**
+     * Valideaza luna unui eveniment
+     * 
+     * @param month luna evenimentului
+     * @return valoare de adevar a testului de validare 
+     */
     private static boolean validateMonth(String month){
         boolean dateValid = true;
         try {
@@ -74,6 +87,13 @@ public class DateTimeValidator {
         return dateValid;
     }
     
+    /**
+     * Valideaza ziua unui eveniment
+     * 
+     * @param day ziua evenimentului
+     * @param month luna evenimentului
+     * @return valoare de adevar a testului de validare 
+     */
     private static boolean validateDate(String day, String month){
         boolean dateValid = true;
         try {
@@ -96,6 +116,12 @@ public class DateTimeValidator {
         return dateValid;
     }
 
+    /**
+     * Valideaza timpul declansarii unui eveniment
+     * 
+     * @param inputTimeString timpul declansarii evenimentului format hh:mm:ss
+     * @return valoare de adevar a testului de validare 
+     */
     public static boolean validateTimeInput(String inputTimeString) {
         try {
             LocalTime.parse(inputTimeString);

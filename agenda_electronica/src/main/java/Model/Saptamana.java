@@ -3,13 +3,9 @@ package Model;
 import java.util.List;
 
 /**
- *
- * @author Nadia
- */
-/**
- * Clasa Saptamana creeaza un obiect cu informatii despre toate evenimentele
- * dintr-o saptamana
- *
+ * Clasa Saptamana creeaza un obiect cu informatii despre toate evenimentele dintr-o saptamana
+ * 
+ * @author Ale-PC, Nadia
  */
 public class Saptamana implements ListEventsInterface {
 
@@ -21,14 +17,14 @@ public class Saptamana implements ListEventsInterface {
     /**
      * Constructorul clasei Saptamana
      *
-     * @param zile
+     * @param zile lista de obiecte Zi
      */
     public Saptamana(List<Zi> zile) {
         this.saptamana = zile;
     }
 
     /**
-     * Getter pentru a afla lista cu obiectele Zi dintr-o saptamana
+     * Extrage informatia privind lista cu obiectele Zi dintr-o saptamana
      *
      * @return lista cu obiectele Zi dintr-o saptamana
      */

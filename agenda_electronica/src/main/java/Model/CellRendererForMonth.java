@@ -13,16 +13,22 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- *
+ * Clasa CellRendererForMonth adauga un stil pentru tabelul de evenimente dintr-o luna
+ * 
  * @author Elena
- */
-/**
- * Functia care adauga un stil pentru luna
  */
 public class CellRendererForMonth extends DefaultTableCellRenderer {
 
+    /**
+     * Obiect Map cu indicile zilei ca cheie si lista de culori a evenimentelor din acea zi ca valoare
+     */
     Map<Integer, List<String>> map;
 
+    /**
+     * Constructor CellRendererForMonth
+     * 
+     * @param evenimente lista de obiecte Zi cu evenimente
+     */
     public CellRendererForMonth(List<Zi> evenimente) {
         map = new HashMap<Integer, List<String>>();
         int i = 0;
@@ -38,7 +44,15 @@ public class CellRendererForMonth extends DefaultTableCellRenderer {
     }
 
     /**
-     * Functia care adauga un stil pentru tabel
+     * Defineste un renderer pentru celulele dintr-un JTable
+     * 
+     * @param table tabelul JTable care cere rendererul; poate fi null
+     * @param value valoarea celulei asupra carei se aplica renderer
+     * @param isSelected true daca celulei i se va aplica rendererul; altfel false
+     * @param hasFocus data true, aplica rendererul in mod corespunzator
+     * @param row indexul liniei celulei
+     * @param column indexul coloanei celulei
+     * @return componenta folosita pentru a desena celula
      */
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -72,10 +86,10 @@ public class CellRendererForMonth extends DefaultTableCellRenderer {
     }
 
     /**
-     * Functia care ia un parametru de tip Date și se referă la data dată care
-     * urmează să fie setată.
-     *
-     * @return date
+     * Transforma data in zi a lunii
+     * 
+     * @param date date data de declansare a evenimentului
+     * @return ziua din luna corespunzatoare
      */
     private Integer dateToDay(Date date) {
         Calendar calendar = Calendar.getInstance();

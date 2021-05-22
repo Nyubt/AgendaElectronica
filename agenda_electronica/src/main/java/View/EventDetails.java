@@ -4,21 +4,34 @@ import Controller.Agenda;
 import Model.Eveniment;
 
 /**
- *
- * @author Nadia
+ * Clasa EventDetails afiseaza un UI cu detaliile evenimentului si permite prelucrarea acestora
+ * 
+ * @author Nadia, Elena
  */
 public class EventDetails extends javax.swing.JFrame {
 
+    /**
+     * Obiect CalendarMain care creeaza obiectul EventDetails
+     */
     CalendarMain parentFrame;
+    /**
+     * Evenimentul detaliile carora sunt afisate
+     */
     Eveniment eveniment;
 
     /**
-     * Creates new form EventDetails
+     * Constructor EventDetails
      */
     public EventDetails() {
         initComponents();
     }
-
+    
+    /**
+     * Constructor EventDetails
+     * 
+     * @param parent obiect CalendarMain care creeaza obiectul EventDetails
+     * @param info evenimentul detaliile carora sunt afisate
+     */
     public EventDetails(CalendarMain parent, Eveniment info) {
         initComponents();
         this.parentFrame = parent;
@@ -36,7 +49,7 @@ public class EventDetails extends javax.swing.JFrame {
         jInceputTextField.setText(eveniment.getInceput().toString());
         jSfarsitTextField.setText(eveniment.getSfarsit().toString());
         jColorTextField.setText(getColorNameFromHex(eveniment.getCuloare()));
-        jRecurentaTextField.setText(getModRecurenta());
+        jRecurentaTextField.setText(eveniment.getModRecurenta());
         parentFrame.setVisible(false);
     }
 
@@ -292,11 +305,21 @@ public class EventDetails extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Configureaza evenimentul formWindowClosing
+     * 
+     * @param evt
+     */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         parentFrame.setVisible(true);
         super.dispose();
     }//GEN-LAST:event_formWindowClosing
 
+    /**
+     * Apeleaza metoda de modificare a evenimentului si inchide fereastra
+     * 
+     * @param evt
+     */
     private void jModificareButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jModificareButtonMouseClicked
         eveniment.setTitlu(jTitluTextField.getText());
         eveniment.setDescriere(jDescriereTextArea.getText());
@@ -305,6 +328,11 @@ public class EventDetails extends javax.swing.JFrame {
         super.dispose();
     }//GEN-LAST:event_jModificareButtonMouseClicked
 
+    /**
+     * Apeleaza metoda de anulare a evenimentului si inchide fereastra
+     * 
+     * @param evt 
+     */
     private void jAnulareButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jAnulareButtonMouseClicked
         Agenda.AnulareEvent(eveniment);
         parentFrame.setVisible(true);
@@ -312,6 +340,12 @@ public class EventDetails extends javax.swing.JFrame {
         super.dispose();
     }//GEN-LAST:event_jAnulareButtonMouseClicked
 
+    /**
+     * Transforma valoare hex in nume a culorii
+     * 
+     * @param hexColor valoarea hex a culorii
+     * @return numele culorii
+     */
     public static String getColorNameFromHex(String hexColor) {
         if (hexColor.compareTo("#A8DADC") == 0) {
             return "Aqua Island";
@@ -326,24 +360,10 @@ public class EventDetails extends javax.swing.JFrame {
         return "No Color";
     }
 
-    public String getModRecurenta() {
-        if (eveniment.getRecurenta().getModRecurenta() == 1) {
-            return "Zilnic";
-        }
-        if (eveniment.getRecurenta().getModRecurenta() == 2) {
-            return "Saptamanal";
-        }
-        if (eveniment.getRecurenta().getModRecurenta() == 3) {
-            return "Lunar";
-        }
-        if (eveniment.getRecurenta().getModRecurenta() == 4) {
-            return "Anual";
-        }
-        return "";
-    }
-
     /**
-     * @param args the command line arguments
+     * Apeleaza functia main a ferestrei
+     * 
+     * @param args argumentele din linia de commanda
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

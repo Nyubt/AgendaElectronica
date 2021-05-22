@@ -11,7 +11,7 @@ import java.util.Timer;
 /**
  * Clasa Agenda face legatura dintre interfata agendei si metodele de manipulare a evenimentelor
  * 
- * @author Nadia, Elena
+ * @author Ale-PC, Nadia, Elena
  */
 public class Agenda {
 
@@ -24,7 +24,7 @@ public class Agenda {
     /**
      * Modul de afisare a agendei
      */
-    static EnumerareModAfisare modAfisare;
+    private static EnumerareModAfisare modAfisare;
     /**
      * Data evenimentului
      */
@@ -32,11 +32,11 @@ public class Agenda {
     /**
      * Lista de alarme din ziua curenta
      */
-    List<Alarma> alarme;
+    private List<Alarma> alarme;
     /**
      * Lista obiectelor Timer
      */
-    List<Timer> timer;
+    private List<Timer> timer;
 
     /**
      * Constructorul clasei Agenda

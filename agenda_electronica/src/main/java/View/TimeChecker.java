@@ -28,7 +28,7 @@ import javax.swing.JTextField;
 public class TimeChecker {
 
     /**
-     * Clip audio
+     * Obiectul AudioClip
      */
     private static AudioClip clip;
     /**
@@ -39,6 +39,9 @@ public class TimeChecker {
      * Map cu lista de evenimente cu alarme ordonata
      */
     private static Map<Date, Eveniment> map;
+    /**
+     * Valoarea unui minut in milisecunde
+     */
     static final long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
 
     /**
@@ -97,7 +100,7 @@ public class TimeChecker {
     }
 
     /**
-     * Amanam perioada alarmei cu valoarea factorului de recurenta
+     * Amana perioada alarmei cu valoarea factorului de recurenta
      *
      * @param eveniment
      */
@@ -108,13 +111,12 @@ public class TimeChecker {
             if (value.equals(eveniment)) {
                 map.remove(key);
                 Agenda.AmanareAlarma(eveniment);
-
             }
         }
     }
 
     /**
-     * Extragem lista de evenimente cu alarme pentru ziua curenta si o adaugam
+     * Extrage lista de evenimente cu alarme pentru ziua curenta si o adauga
      * in map
      */
     private static void ExtractAlarmEvents() throws ParseException {
@@ -141,7 +143,7 @@ public class TimeChecker {
     }
 
     /**
-     * Functie pentru oprirea alarmei si o stergerea din baza de date
+     * Opreste alarma si o anuleaza in baza de date
      */
     public static void StopAlarm() {
         Map.Entry<Date, Eveniment> entry = map.entrySet().iterator().next();

@@ -1,34 +1,39 @@
 package View;
 
 import Controller.Agenda;
-import Exceptions.Exceptie4cifre;
-import Exceptions.ExceptieFebruarie;
-import Exceptions.ExceptieLuna;
-import Exceptions.ExceptieZi;
-import Exceptions.LimiteAni;
 import Model.ComboHtmlRenderer;
 import Validators.DateTimeValidator;
-import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Elena
+ * Clasa AddEvent afiseaza un UI care permite adaugarea unui eveniment
+ * 
+ * @author Nadia, Elena
  */
 public class AddEvent extends javax.swing.JFrame {
 
+    /**
+     * Obiect CalendarMain care creeaza obiectul AddEvent
+     */
     CalendarMain parentFrame;
+    /**
+     * Instanta a obiectului Calendar
+     */
     Calendar cal = Calendar.getInstance();
 
     /**
-     * Creates new form AddEvent
+     * Constructor AddEvent
      */
     public AddEvent() {
         initComponents();
     }
 
+    /**
+     * Constructor AddEvent
+     * 
+     * @param parent obiectul CalendarMain care creeaza obiectul AddEvent
+     */
     public AddEvent(CalendarMain parent) {
         initComponents();
         jColorComboBox.setRenderer(new ComboHtmlRenderer());
@@ -557,8 +562,10 @@ public class AddEvent extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
      /**
-     * Functie de adaugare a datelor in baza de date
-     */
+      * Apeleaza metoda de adaugare a unui eveniment in baza de date si inchide fereastra
+      * 
+      * @param evt 
+      */
     private void jAddButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jAddButtonMouseClicked
         String title = jTitleTextField.getText().trim();
         if (title.isEmpty()) {
@@ -638,19 +645,31 @@ public class AddEvent extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jAddButtonMouseClicked
 
+    /**
+     * Inchide fereastra la apasarea butonului exit
+     * 
+     * @param evt 
+     */
     private void jExitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jExitButtonMouseClicked
         parentFrame.setVisible(true);
         parentFrame.revalidate();
         super.dispose();
     }//GEN-LAST:event_jExitButtonMouseClicked
 
+    /**
+     * Configureaza evenimentul formWindowClosing
+     * 
+     * @param evt 
+     */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         parentFrame.setVisible(true);
         super.dispose();
     }//GEN-LAST:event_formWindowClosing
 
     /**
-     * @param args the command line arguments
+     * Apeleaza functia main a ferestrei
+     * 
+     * @param args argumentele din linia de commanda
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

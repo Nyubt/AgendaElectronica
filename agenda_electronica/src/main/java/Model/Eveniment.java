@@ -3,12 +3,9 @@ package Model;
 import java.util.Date;
 
 /**
- *
- * @author Nadia
- */
-/**
- * Clasa eveniment creaza un obiect cu informatii despre un singur eveniment
- *
+ * Clasa Eveniment creaza un obiect cu informatii despre un singur eveniment
+ * 
+ * @author Ale-PC, Nadia, Elena
  */
 public class Eveniment {
 
@@ -37,7 +34,7 @@ public class Eveniment {
      */
     private Recurenta recurenta;
     /**
-     * Culoarea evenimentului
+     * Culoarea evenimentului in format hexa
      */
     private String culoare;
     /**
@@ -45,8 +42,7 @@ public class Eveniment {
      */
     private boolean alarmaPornita;
     /**
-     * ID-ul evenimentului folosit pentru a verifica daca doua evenimente sunt
-     * egale
+     * ID-ul evenimentului folosit pentru a verifica daca doua evenimente sunt egale
      */
     private int id;
     /**
@@ -57,16 +53,16 @@ public class Eveniment {
     /**
      * Constructorul clasei eveniment
      *
-     * @param id
+     * @param id id-ul evenimentului
      * @param titlu denuminrea evenimentului
-     * @param descriere
+     * @param descriere descrierea evenimentului
      * @param inceput data de inceput a evenimentului
      * @param sfarsit data de sfarsit a evenimentului
-     * @param alarma
-     * @param recurenta
-     * @param culoare
-     * @param alarmaPornita
-     * @param inactive
+     * @param alarma obiect Alarma atasat evenimentului
+     * @param recurenta obiect Recurenta atasat evenimentului
+     * @param culoare culoarea evenimentului
+     * @param alarmaPornita true daca alarma e pornita
+     * @param inactive true daca evenimentul e inactiv
      */
     public Eveniment(int id, String titlu, String descriere, Date inceput, Date sfarsit, Alarma alarma, Recurenta recurenta, String culoare, boolean alarmaPornita, boolean inactive) {
         this.id = id;
@@ -82,7 +78,7 @@ public class Eveniment {
     }
 
     /**
-     * Functia get pentru a accesa ID-ul evenimentului
+     * Extrage informatia privind ID-ul evenimentului
      *
      * @return id-ul evenimentului
      */
@@ -91,7 +87,7 @@ public class Eveniment {
     }
 
     /**
-     * Functia get pentru a gasi Titlul evenimentului
+     * Extrage informatia privind titlul evenimentului
      *
      * @return titlul evenimentului
      */
@@ -100,7 +96,7 @@ public class Eveniment {
     }
 
     /**
-     * Functia get pentru a gasi Descrierea evenimentului
+     * Extrage informatia privind descrierea evenimentului
      *
      * @return descrierea evenimentului
      */
@@ -109,7 +105,7 @@ public class Eveniment {
     }
 
     /**
-     * Functia get pentru a gasi data de inceput evenimentului
+     * Extrage informatia privind data de inceput evenimentului
      *
      * @return data de inceput a evenimentului
      */
@@ -118,7 +114,7 @@ public class Eveniment {
     }
 
     /**
-     * Functia get pentru a gasi data de sfarsit evenimentului
+     * Extrage informatia privind data de sfarsit evenimentului
      *
      * @return data de sfarsit a evenimentului
      */
@@ -127,7 +123,7 @@ public class Eveniment {
     }
 
     /**
-     * Functia get pentru a gasi alarma evenimentului
+     * Extrage informatia privind obiectul Alarma atasat evenimentului
      *
      * @return alarma evenimentului
      */
@@ -136,7 +132,7 @@ public class Eveniment {
     }
 
     /**
-     * Functia get pentru a afla modul de recurenta al evenimentului
+     * Extrage informatia privind obiectul Recurenta atasat evenimentului
      *
      * @return modul de recurenta a evenimentului
      */
@@ -145,7 +141,28 @@ public class Eveniment {
     }
 
     /**
-     * Functia get pentru a afla culoarea evenimentului
+     * Extragere informatie privind modul de recurenta a evenimentului
+     * 
+     * @return modul de recurenta a eveniimentului
+     */
+    public String getModRecurenta() {
+        if (this.getRecurenta().getModRecurenta() == 1) {
+            return "Zilnic";
+        }
+        if (this.getRecurenta().getModRecurenta() == 2) {
+            return "Saptamanal";
+        }
+        if (this.getRecurenta().getModRecurenta() == 3) {
+            return "Lunar";
+        }
+        if (this.getRecurenta().getModRecurenta() == 4) {
+            return "Anual";
+        }
+        return "";
+    }
+
+    /**
+     * Extrage informatia privind culoarea evenimentului
      *
      * @return culoarea evenimentului
      */
@@ -154,17 +171,18 @@ public class Eveniment {
     }
 
     /**
-     * true or false Functia get pentru a afla daca starea evenimentului este
-     * true sau false
+     * Extrage informatia privind starea evenimentului
      *
-     * @return starea evenimentului
+     * @return true daca evenimentului e inactiv
      */
     public boolean getInactiveState() {
         return this.inactive;
     }
 
     /**
-     * @return daca alarma e pornita sau nu
+     * Extrage informatia privind starea alarmei evenimentului
+     * 
+     * @return true daca alarma e pornita
      */
     public boolean isAlarmaPornita() {
         return this.alarmaPornita;
@@ -173,7 +191,7 @@ public class Eveniment {
     /**
      * Seteaza titlul evenimentului
      *
-     * @param titlu
+     * @param titlu titlul evenimentului
      */
     public void setTitlu(String titlu) {
         this.titlu = titlu;
@@ -182,7 +200,7 @@ public class Eveniment {
     /**
      * Seteaza descrierea evenimentului
      *
-     * @param descriere
+     * @param descriere descrierea evenimentului
      */
     public void setDescriere(String descriere) {
         this.descriere = descriere;
@@ -191,7 +209,7 @@ public class Eveniment {
     /**
      * Seteaza data de inceput a evenimentului
      *
-     * @param inceput
+     * @param inceput data de incepere a evenimentului
      */
     public void setInceput(Date inceput) {
         this.inceput = inceput;
@@ -200,7 +218,7 @@ public class Eveniment {
     /**
      * Seteaza data de sfarsit a evenimentului
      *
-     * @param sfarsit
+     * @param sfarsit data de sfarsire a evenimentului
      */
     public void setSfarsit(Date sfarsit) {
         this.sfarsit = sfarsit;
@@ -209,7 +227,7 @@ public class Eveniment {
     /**
      * Seteaza alarma evenimentului
      *
-     * @param alarma
+     * @param alarma obiectul Alarma corespunzator evenimentului
      */
     public void setAlarma(Alarma alarma) {
         this.alarma = alarma;
@@ -218,16 +236,16 @@ public class Eveniment {
     /**
      * Seteaza culoarea evenimentului
      *
-     * @param culoare
+     * @param culoare culoarea evenimentului
      */
     public void setCuloare(String culoare) {
         this.culoare = culoare;
     }
 
     /**
-     * Seteaza alarma pornita la true sau false
+     * Seteaza starea alarmei evenimentului
      *
-     * @param alarmaPornita
+     * @param alarmaPornita true daca alarma e pornita
      */
     public void setStareAlarma(boolean alarmaPornita) {
         this.alarmaPornita = alarmaPornita;
@@ -236,7 +254,7 @@ public class Eveniment {
     /**
      * Seteaza starea evenimentului
      *
-     * @param inactive
+     * @param inactive true daca evenimentul e inactiv
      */
     public void setInactiveState(boolean inactive) {
         this.inactive = inactive;
@@ -244,9 +262,9 @@ public class Eveniment {
 
     /**
      * Supraincarcarea metodei equals pentru obiectul Eveniment
-     *
-     * @param obj
-     * @return id
+     * 
+     * @param obj obiectul cu care se compara
+     * @return true daca obiectele comparate sunt egale
      */
     @Override
     public boolean equals(Object obj) {

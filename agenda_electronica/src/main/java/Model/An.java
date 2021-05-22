@@ -3,16 +3,11 @@ package Model;
 import java.util.List;
 
 /**
- *
- * @author Nadia
- */
-/**
- * Clasa An creeaza un obiect cu informatii despre toate evenimentele dintr-un
- * an
- *
+ * Clasa An creeaza un obiect cu informatii despre toate evenimentele dintr-un an
+ * 
+ * @author Ale-PC, Nadia
  */
 public class An implements ListEventsInterface {
-
     /**
      * Lista de obiecte Luna dintr-un an
      */
@@ -20,13 +15,15 @@ public class An implements ListEventsInterface {
 
     /**
      * Constructorul clasei An
+     * 
+     * @param luni lista cu obiecte Luna
      */
     public An(List<Luna> luni) {
         this.luni = luni;
     }
 
     /**
-     * Functia get pentru evenimentele din luna
+     * Extrage informatia privind evenimentele din an
      *
      * @return lista cu obiectele Luna dintr-un an
      */

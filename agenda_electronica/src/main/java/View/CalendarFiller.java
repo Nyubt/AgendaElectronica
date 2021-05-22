@@ -24,18 +24,30 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 
 /**
- *
+ * Clasa CalendarFiller populeaza tabelele si listele din agenda cu infomatii despre evenimente
+ * 
  * @author Elena
- */
-/**
- * Filling the calendar with the info (columns)
  */
 public class CalendarFiller {
 
+    /**
+     * Ziua selectata in agenda
+     */
     public static int date;
+    /**
+     * Luna selectata in agenda
+     */
     public static int month;
+    /**
+     * Anul selectat in agenda
+     */
     public static int year;
 
+    /**
+     * Populeaza modele de JTable cu valori default
+     * 
+     * @param table tabelul sau tabelele care urmeaza sa fie populate
+     */
     public static void addModel(JTable... table) {
         for (int i = 0; i < table.length; i++) {
             DefaultTableModel mod = new DefaultTableModel();
@@ -63,10 +75,10 @@ public class CalendarFiller {
     }
 
     /**
-     * Filling the table with the information
+     * Populeaza tabelele cu informatii despre evenimente
      *
-     * @param panelSelected
-     * @param table
+     * @param panelSelected modul de afisare selectat
+     * @param table tabelul sau tabelele care urmeaza sa fie populate cu date
      */
     public static void fillInTable(int panelSelected, JTable... table) {
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
@@ -99,20 +111,6 @@ public class CalendarFiller {
             } else {
                 mod.setRowCount(6);
                 try {
-                    /*Calendar cal = Calendar.getInstance();
-                    cal.set(year, currentMonth, day);
-                    int start = cal.get(cal.DAY_OF_WEEK);
-                    int maxdays = cal.getActualMaximum(cal.DAY_OF_MONTH);
-                    start--;
-                    int j = 0;
-                    for(a = 1; a <= maxdays; a++){
-                    mod.setValueAt(a, j, start);
-                    start++;
-                    if(start==7){
-                    start=0;
-                    j++;
-                    }
-                    }*/
                     addMonthToTable(table[i], mod, currentMonth, day);
                 } catch (ParseException ex) {
                     Logger.getLogger(CalendarFiller.class.getName()).log(Level.SEVERE, null, ex);
@@ -122,10 +120,10 @@ public class CalendarFiller {
     }
 
     /**
-     * Filling the list
+     * Populeaza lista cu informatii despre evenimente
      *
-     * @param panelSelected
-     * @param eventList
+     * @param panelSelected modul de afisare selectat
+     * @param eventList lista care urmeaza sa fie populata cu date
      * @throws java.text.ParseException
      */
     public static void fillInList(int panelSelected, JList eventList) throws ParseException {
@@ -141,16 +139,12 @@ public class CalendarFiller {
             sortListByDate(evenimente);
             for (Eveniment evt : evenimente) {
                 dList.addElement(evt);
-                /*dList.addElement(evt.getInceput() + " Name: " + evt.getTitlu() + "Id: " + evt.getEvenimentId() + " Duration: " + 
-                        getDateDiff(evt.getInceput(),evt.getSfarsit(),TimeUnit.MINUTES));*/
             }
         } else if (panelSelected == 3) {
             evenimente = Agenda.SelectareEvente(data, "DAY").getEventList();
             sortListByDate(evenimente);
             for (Eveniment evt : evenimente) {
                 dList.addElement(evt);
-                /*dList.addElement(evt.getInceput() + " Name: " + evt.getTitlu()  + " Id: " + evt.getEvenimentId() + " Duration: " + 
-                        getDateDiff(evt.getInceput(),evt.getSfarsit(),TimeUnit.MINUTES)/60 + " hours");*/
             }
         }
         eventList.setModel(dList);
@@ -159,7 +153,7 @@ public class CalendarFiller {
     /**
      * Sortează lista după dată
      *
-     * @param originalList
+     * @param originalList lista care urmeaza sa fie sortata
      */
     public static void sortListByDate(List<Eveniment> originalList) {
         Comparator<Eveniment> compareByDate = (Eveniment o1, Eveniment o2) -> o1.getInceput().compareTo(o2.getInceput());
@@ -167,12 +161,12 @@ public class CalendarFiller {
     }
 
     /**
-     * Adding the months to the table
+     * Adauga evenimentele dintr-o luna in tabel
      *
-     * @param table
-     * @param model
-     * @param currentMonth
-     * @param day
+     * @param table tabelul care urmeaza sa fie populat cu evenimente
+     * @param model obiectul DefaultTableModel cu care lucram
+     * @param currentMonth luna evenimentului
+     * @param day ziua evenimentului
      * @throws java.text.ParseException
      */
     private static void addMonthToTable(JTable table, DefaultTableModel model, int currentMonth, int day) throws ParseException {
@@ -185,7 +179,6 @@ public class CalendarFiller {
         Date data = cal.getTime();
         List<Zi> evenimente = Agenda.SelectareEvente(data, "MONTH").getEventList();
         Iterator<Zi> iter = evenimente.iterator();
-        //table.setDefaultRenderer(String.class, new CellRendererForMonth(evenimente));
         for (int i = 0; i < table.getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setCellRenderer(new CellRendererForMonth(evenimente));
         }
@@ -201,10 +194,10 @@ public class CalendarFiller {
     }
 
     /**
-     * Adding the weeks to the table
+     * Adauga evenimentele dintr-o saptamana in tabel
      *
-     * @param table
-     * @param model
+     * @param table tabelul care urmeaza sa fie populat cu evenimente
+     * @param model obiectul DefaultTableModel cu care lucram
      * @throws java.text.ParseException
      */
     private static void addWeekToTable(JTable table, DefaultTableModel model) throws ParseException {
@@ -216,18 +209,11 @@ public class CalendarFiller {
         int i = 0, counter, size = 0;
         for (Zi evtZi : evenimente) {
             counter = 0;
-            /*int n = (i - current + 1);
-            Date dateBefore = new Date(data.getTime() + n * 24 * 3600 * 1000l);
-            evenimente = Agenda.SelectareEvente(dateBefore, "DAY").getEventList(); */
             table.getColumnModel().getColumn(i).setCellRenderer(new CellRendererForWeek(evtZi));
             List<Eveniment> evts = evtZi.getEventList();
             if (!evts.isEmpty()) {
                 for (Eveniment evt : evtZi.getEventList()) {
                     if (evt.getInactiveState() == false) {
-                        //Calendar cal = Calendar.getInstance();
-                        //calendar.setTime(evt.getInceput());
-                        //String time = calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);  
-                        //model.setValueAt(time + " " + evt.getTitlu(), counter, i);
                         model.setValueAt(evt, counter, i);
                         counter++;
                         if (counter > size) {

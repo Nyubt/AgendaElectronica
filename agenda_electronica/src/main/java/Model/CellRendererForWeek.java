@@ -9,24 +9,31 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- *
+ * Clasa CellRendererForWeek specifica un stil pentru tabelul de evenimente dintr-o saptamana
+ * 
  * @author Elena
- */
-/**
- * Functia care adauga un stil pentru saptamana
  */
 public class CellRendererForWeek extends DefaultTableCellRenderer {
 
+    /**
+     * Lista de culori
+     */
     private List<String> colors;
+    /**
+     * Instanta a obiectului Calendar
+     */
     Calendar calendar = Calendar.getInstance();
 
+    /**
+     * Constructor CellRendererForWeek
+     */
     public CellRendererForWeek() {
     }
 
     /**
-     * Functia care adauga o culoare evenimentelor din saptamana
-     *
-     * @param evenimente
+     * Constructor CellRendererForWeek
+     * 
+     * @param evenimente obiect Zi cu evenimentele din ziua respectiva
      */
     public CellRendererForWeek(Zi evenimente) {
         this.colors = new ArrayList<String>();
@@ -35,23 +42,30 @@ public class CellRendererForWeek extends DefaultTableCellRenderer {
         }
     }
 
+    /**
+     * Defineste un renderer pentru celulele dintr-un JTable
+     * 
+     * @param table tabelul JTable care cere rendererul; poate fi null
+     * @param value valoarea celulei asupra carei se aplica renderer
+     * @param isSelected true daca celulei i se va aplica rendererul; altfel false
+     * @param hasFocus data true, aplica rendererul in mod corespunzator
+     * @param row indexul liniei celulei
+     * @param column indexul coloanei celulei
+     * @return componenta folosita pentru a desena celula
+     */
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
         Eveniment evt = null;
-
         if (value instanceof Eveniment) {
             evt = (Eveniment) value;
-
             if (evt != null) {
-
                 calendar.setTime(evt.getInceput());
                 String time = calendar.get(Calendar.HOUR_OF_DAY) + ":" + String.format("%02d", calendar.get(Calendar.MINUTE));
                 String labelText = "<html>" + time + "<br/>" + evt.getTitlu();
                 this.setText(labelText);
                 this.setBackground(HexToColor(evt.getCuloare()));
-
             } else {
                 this.setBackground(null);
             }
@@ -62,9 +76,10 @@ public class CellRendererForWeek extends DefaultTableCellRenderer {
     }
 
     /**
-     * Functia care converteste un string in culoarea specifica
+     * Converteste o culoare in hexa in obiect Color corespunzator
      *
-     * @param hex
+     * @param hex culoarea in hexa
+     * @return obiect corespunzator valorii hexa
      */
     public static Color HexToColor(String hex) {
         hex = hex.replace("#", "");

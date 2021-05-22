@@ -18,7 +18,7 @@ import java.util.Locale;
 
 /**
  *
- * @author Elena, Nadia
+ * @author Elena
  */
 /**
  * Clasa Container manipuleaza cu evenimentele din baza de date
