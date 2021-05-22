@@ -31,8 +31,6 @@ public class EventDetails extends javax.swing.JFrame {
         if(eveniment.getRecurenta().getModRecurenta() != 0){
             jRecurentaCheckbox.setState(true);
         }
-        System.out.println(eveniment.getRecurenta().getDataSfarsit());
-        System.out.println(eveniment.getRecurenta().getModRecurenta());
         jTitluTextField.setText(eveniment.getTitlu());
         jDescriereTextArea.setText(eveniment.getDescriere());
         jInceputTextField.setText(eveniment.getInceput().toString());

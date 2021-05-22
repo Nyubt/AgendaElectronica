@@ -7,6 +7,7 @@ import Exceptions.ExceptieLuna;
 import Exceptions.ExceptieZi;
 import Exceptions.LimiteAni;
 import Model.ComboHtmlRenderer;
+import Validators.DateTimeValidator;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.Calendar;
@@ -567,7 +568,7 @@ public class AddEvent extends javax.swing.JFrame {
                     + String.format("%2s", jStartMonthTextField.getText().trim()).replace(' ', '0') + "-"
                     + String.format("%2s", jStartDayTextField.getText().trim()).replace(' ', '0');
 
-            boolean startDateValid = validateDateInput(jStartDayTextField.getText().trim(),
+            boolean startDateValid = DateTimeValidator.validateDateInput(jStartDayTextField.getText().trim(),
                     jStartMonthTextField.getText().trim(), jStartYearTextField.getText().trim());
             if (!startDateValid) {
                 JOptionPane.showMessageDialog(null, "Introduceti o data valida");
@@ -575,12 +576,12 @@ public class AddEvent extends javax.swing.JFrame {
                 String startHour = jStartHourTextField.getText().trim();
                 String startMinutes = jStartMinTextField.getText().trim();
                 String startTime = String.format("%2s", startHour).replace(' ', '0') + ":" + String.format("%2s", startMinutes).replace(' ', '0') + ":00";
-                boolean startTimeValid = validateTimeInput(startTime);
+                boolean startTimeValid = DateTimeValidator.validateTimeInput(startTime);
                 if (startHour.isEmpty() || startMinutes.isEmpty() || !startTimeValid) {
                     JOptionPane.showMessageDialog(null, "Introduceti o ora valida");
                 } else {
                     Boolean recOn = jRecurCheckBox.isSelected();
-                    boolean untilDateValid = validateDateInput(jUntilDayTextField.getText().trim(),
+                    boolean untilDateValid = DateTimeValidator.validateDateInput(jUntilDayTextField.getText().trim(),
                             jUntilMonthTextField.getText().trim(), jUntilYearTextField.getText().trim());
                     if (recOn && !untilDateValid) {
                         JOptionPane.showMessageDialog(null, "Introduceti o data valida pentru evenimentul de recurenta");
@@ -589,7 +590,7 @@ public class AddEvent extends javax.swing.JFrame {
                                 + String.format("%2s", jEndMonthTextField.getText().trim()).replace(' ', '0') + "-"
                                 + String.format("%2s", jEndDayTextField.getText().trim()).replace(' ', '0');
 
-                        boolean endDateValid = validateDateInput(jEndDayTextField.getText().trim(),
+                        boolean endDateValid = DateTimeValidator.validateDateInput(jEndDayTextField.getText().trim(),
                                 jEndMonthTextField.getText().trim(), jEndYearTextField.getText().trim());
                         if (!endDateValid) {
                             endDate = startDate;
@@ -599,7 +600,7 @@ public class AddEvent extends javax.swing.JFrame {
                         String endMinutes = jEndMinTextField.getText().trim();
                         String endTime = String.format("%2s", endHour).replace(' ', '0') + ":" + String.format("%2s", endMinutes).replace(' ', '0') + ":00";
 
-                        boolean endTimeValid = validateTimeInput(endTime);
+                        boolean endTimeValid = DateTimeValidator.validateTimeInput(endTime);
                         if (endHour.isEmpty() || endMinutes.isEmpty() || !endTimeValid) {
                             endTime = startTime;
                         }
@@ -677,84 +678,6 @@ public class AddEvent extends javax.swing.JFrame {
                 new AddEvent().setVisible(true);
             }
         });
-    }
-
-    /**
-     * Fuctie pentru a valida datele introduse respectand exceptiile:
-     *
-     * @return validDate
-     * @param day
-     * @param month
-     * @param year
-     */
-    public boolean validateDateInput(String day, String month, String year) {
-        boolean dateValid = true;
-        try {
-            if (Integer.parseInt(year) < 2018 || Integer.parseInt(year) > 2030) {
-                throw new LimiteAni();
-            }
-            int n = Integer.parseInt(year);
-            int nrCifre = 0;
-            while (n != 0) {
-                nrCifre++;
-                n = n / 10;
-            }
-            if (nrCifre != 4) {
-                throw new Exceptie4cifre();
-            }
-        } catch (NumberFormatException e) {
-            dateValid = false;
-            System.out.println("Exceptie : Introduceti doar cifre in caseta pt an!");
-        } catch (Exceptie4cifre ex) {
-            dateValid = false;
-            System.out.println("Exceptie : " + ex.toString());
-        } catch (LimiteAni ex) {
-            dateValid = false;
-            System.out.println("Exceptie : " + ex.toString());
-        }
-
-        try {
-            if (Integer.parseInt(month) < 1 || Integer.parseInt(month) > 12) {
-                throw new ExceptieLuna();
-            }
-        } catch (ExceptieLuna ex) {
-            dateValid = false;
-            System.out.println("Exceptie : " + ex.toString());
-        } catch (NumberFormatException e) {
-            dateValid = false;
-            System.out.println("Exceptie : Introduceti doar cifre in caseta pt luna!");
-        }
-
-        try {
-            if (Integer.parseInt(day) < 1 || Integer.parseInt(day) > 31) {
-                throw new ExceptieZi();
-            }
-            if (Integer.parseInt(month) == 2 && Integer.parseInt(day) > 29) {
-                throw new ExceptieFebruarie();
-            }
-        } catch (NumberFormatException e) {
-            dateValid = false;
-            System.out.println("Exceptie : Introduceti doar cifre in caseta pt zi!");
-        } catch (ExceptieZi ex) {
-            dateValid = false;
-            System.out.println("Exceptie : " + ex.toString());
-        } catch (ExceptieFebruarie ex) {
-            dateValid = false;
-            System.out.println("Exceptie : " + ex.toString());
-        }
-        System.out.println(dateValid);
-        return dateValid;
-    }
-
-    public boolean validateTimeInput(String inputTimeString) {
-        try {
-            LocalTime.parse(inputTimeString);
-
-        } catch (DateTimeParseException | NullPointerException e) {
-            System.out.println("Invalid time string: " + inputTimeString);
-            return false;
-        }
-        return true;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
