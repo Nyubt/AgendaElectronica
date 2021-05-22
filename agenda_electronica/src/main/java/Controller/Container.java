@@ -36,7 +36,7 @@ public class Container {
     /**
      * Functia get pentru a obtine instanta
      *
-     * @return instanta
+     * @return instanta a obiectului Container
      */
     public static Container getInstance() {
         if (connection == null) {
@@ -60,14 +60,12 @@ public class Container {
     }
 
     /**
-     * Functia FurnizareZi: citeste evenimentele din baza de date pentru o
-     * anumita zi si le returneaza in formatul ("yyyy-MM-dd HH:mm:ss")
+     * Citeste evenimentele din baza de date pentru o anumita zi 
      *
-     * @param data
-     * @return evenimentele dint-o zi
+     * @param data data evenimentului
+     * @return evenimente dint-o zi
      */
     public static Zi FurnizareZi(Date data) throws ParseException {
-        //citire din DB pt anumita zi
         evenimente = new ArrayList<Eveniment>();
         String SELECT_SQL = "select * from Events where date(StartDate)=date(?)";
         PreparedStatement statement = null;
@@ -109,6 +107,13 @@ public class Container {
         return new Zi(evenimente);
     }
 
+    /**
+     * Extrage informatia privind recurenta din baza de date
+     * 
+     * @param recurrenceId id recurenta
+     * @return obiect Recurenta cautat in baza de date
+     * @throws ParseException 
+     */
     private static Recurenta getRecurrenceById(int recurrenceId) throws ParseException {
         Recurenta recurenta = null;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -130,6 +135,12 @@ public class Container {
         return recurenta;
     }
 
+    /**
+     * Extrage informatia privind alarma din baza de date
+     * 
+     * @param alarmId id alarma
+     * @return obiect Alarma cautat in baza de date
+     */
     private static Alarma getAlarmById(int alarmId) {
         Alarma alarma = null;
         String SELECT_SQL2 = "select * from Alarms where AlarmId=?";
@@ -146,11 +157,10 @@ public class Container {
     }
 
     /**
-     * Functia FurnizareLuna: citeste evenimentele din baza de date pentru o
-     * anumita luna si le returneaza
+     * Gaseste evenimentele din baza de date pentru o anumita luna
      *
-     * @param data
-     * @return evenimentele dintr-o luna
+     * @param data data evenimentelor cautate
+     * @return evenimente dintr-o luna
      */
     public static Luna FurnizareLuna(Date data) throws ParseException {
         List<Zi> luna = new ArrayList<>();
@@ -168,11 +178,10 @@ public class Container {
     }
 
     /**
-     * Functia FurnizareSaptamana: citeste evenimentele din baza de date pentru
-     * o anumita saptamana si le returneaza
-     *
-     * @param data
-     * @return evenimentele dintr-o saptamana
+     * Gaseste evenimentele din baza de date pentru o anumita saptamana
+     * 
+     * @param data data evenimentelor cautate
+     * @return evenimente dintr-o saptamana
      */
     public static Saptamana FurnizareSaptamana(Date data) throws ParseException {
         List<Zi> saptamana = new ArrayList<>();
@@ -189,19 +198,17 @@ public class Container {
     }
 
     /**
-     * Functia FurnizareAn: citeste evenimentele din baza de date pentru un
-     * anumit an si le returneaza
+     * Gaseste evenimentele din baza de date pentru un anumit an
      *
-     * @param data
-     * @return evenimentele dintr-un an
+     * @param data data evenimentelor cautate
+     * @return evenimente dintr-un an
      */
     public static An FurnizareAn(Date data) {
         return null;
     }
 
     /**
-     * Functia FurnizareToateEvent: citeste toate evenimentele din baza de date
-     * si le returneaza
+     * Gaseste toate evenimentele din baza de date
      *
      * @return toate evenimentele din baza de date
      */
@@ -238,20 +245,21 @@ public class Container {
     }
 
     /**
-     *
-     * @param titlu
-     * @param descriere
-     * @param dataInceput
-     * @param timpInceput
-     * @param dataSfarsit
-     * @param timpSfarsit
-     * @param culoare
-     * @param alarmaPornita
-     * @param factorRecurenta
-     * @param intervalTimp
-     * @param esteRecurenta
-     * @param modRecurenta
-     * @param dataFinala
+     * Adauga un eveniment in baza de date
+     * 
+     * @param titlu titlul evenimentului
+     * @param descriere descrierea evenimentului
+     * @param dataInceput data de incepere a evenimentului format yyyy-mm-dd
+     * @param timpInceput ora de incepere a evenimentului format hh:mm:ss
+     * @param dataSfarsit data de sfarsire a evenimentului format yyyy-mm-dd
+     * @param timpSfarsit ora de sfarsire a evenimentului format hh:mm:ss
+     * @param culoare culoare hex a evenimentului
+     * @param alarmaPornita valoarea de adevar sau fals a starii alarmei
+     * @param factorRecurenta factorul de recurenta dat in minute care declanseaa alarma din timp in timp pana cand este oprita de utilizator
+     * @param intervalTimp intervalul de timp setat de utilizator inaintea evenimentului dupa care se va declansa alarma sonora
+     * @param esteRecurenta valoarea de adevar sau fals al starii de recurenta a evenimentului
+     * @param modRecurenta modul de recurenta a evenimentului
+     * @param dataFinala ultima data de declansare a evenimentului recurent
      */
     public static void AdaugareEveniment(String titlu, String descriere, String dataInceput, String timpInceput, String dataSfarsit, String timpSfarsit, String culoare,
             boolean alarmaPornita, int factorRecurenta, int intervalTimp, boolean esteRecurenta, int modRecurenta, String dataFinala) {
@@ -288,10 +296,11 @@ public class Container {
     }
 
     /**
-     *
-     * @param factorRecurenta
-     * @param intervalTimp
-     * @return
+     * Adauga un eveniment alarma in baza de date
+     * 
+     * @param factorRecurenta factorul de recurenta dat in minute care declanseaa alarma din timp in timp pana cand este oprita de utilizator
+     * @param intervalTimp intervalul de timp setat de utilizator inaintea evenimentului dupa care se va declansa alarma sonora
+     * @return id-ul alarmei adaugate
      */
     private static Integer AdaudareAlarma(int factorRecurenta, int intervalTimp) {
         String INSERT_SQL = "INSERT INTO Alarms(Snooze, ReminderMinutes) VALUES(?, ?)";
@@ -315,10 +324,11 @@ public class Container {
     }
 
     /**
+     * Adauga un eveniment de recurenta in baza de date
      *
-     * @param modRecurenta
-     * @param dataFinala
-     * @return
+     * @param modRecurenta modul de recurenta a evenimentului
+     * @param dataFinala ultima data de declansare a evenimentului recurent
+     * @return id-ul evenimentului de recurenta adaugat
      */
     private static Integer AdaugareRecurenta(int modRecurenta, String dataFinala) {
         String INSERT_SQL = "INSERT INTO Recurrence(RepetMode, EndDate) VALUES(?, Date(?))";
@@ -341,6 +351,11 @@ public class Container {
         return recurrenceId;
     }
 
+    /**
+     * Incheie executia unui SQL query
+     * 
+     * @param statement obiectul executiei SQL query
+     */
     private static void close(Statement statement) {
         try {
             if (statement != null) {
@@ -354,7 +369,7 @@ public class Container {
     /**
      * Modifica un eveniment
      *
-     * @param eveniment
+     * @param eveniment evenimentul care va fi modificat
      */
     public static void ModificareEvent(Eveniment eveniment) {
         PrelucrareEvent(eveniment, "edit");
@@ -363,18 +378,17 @@ public class Container {
     /**
      * Anuleaza un eveniment
      *
-     * @param eveniment
+     * @param eveniment evenimentul care va fi anulat
      */
     public static void AnulareEvent(Eveniment eveniment) {
         PrelucrareEvent(eveniment, "delete");
     }
 
     /**
-     * Modificarea datelor unui eveniment: titlul, descrierea, ID-ului si
-     * stergerea sau stergerea unui eveniment Daca nu s-a putut conecta cu baza
-     * de date, returneaza un mesaj specific
-     *
-     * @param eveniment
+     * Prelucrarea datelor unui eveniment in baza de date in dependenta de modul ales
+     * 
+     * @param eveniment evenimentul care va fi prelucrat
+     * @param operation modul de prelucrare ales: 0=editarea evenimentul in baza de date; 1=anularea evenimentului in baza de date
      */
     private static void PrelucrareEvent(Eveniment eveniment, String operation) {
         String SELECT_SQL = "SELECT * FROM Events WHERE EventId=?";
@@ -415,7 +429,7 @@ public class Container {
     /**
      * Actualizarea statutului alarmei in baza de date
      *
-     * @param eveniment
+     * @param eveniment evenimentul carui alarma va vi oprita
      */
     public static void OprireAlarma(Eveniment eveniment) {
         String UPDATE_SQL = "update Events set AlarmActive=false where EventId=?";
@@ -432,9 +446,9 @@ public class Container {
     }
 
     /**
-     * Functia de actualizare a intervalului alarmei in baza de date
+     * Actualizarea intervalului alarmei in baza de date
      *
-     * @param eveniment
+     * @param eveniment evenimentul a carui alarma va fi actualizata
      */
     public static void AmanareAlarma(Eveniment eveniment) {
         String SELECT_SQL = "select * from Events where EventId=?";
@@ -471,10 +485,10 @@ public class Container {
     }
 
     /**
-     * Adaugare a evenimentelor recurente
+     * Adaugarea evenimentelor recurente
      * 
-     * @param data
-     * @return
+     * @param data data de cautare a evenimentelor
+     * @return lista de evenimente recurente
      * @throws ParseException 
      */
     private static List<Eveniment> AdaugareEvenimenteRepetate(Date data) throws ParseException {
@@ -499,21 +513,16 @@ public class Container {
                             recurenta = new Recurenta(mod, endDate);
                         }
                         if(mod == 2){
-                            int yearCompared = compareYears(data, dateFormat.parse(rs.getString("StartDate")));           
-                            
-                            int weekCompared = compareWeeks(data, endDate);
-                            
+                            int yearCompared = compareYears(data, dateFormat.parse(rs.getString("StartDate")));                            
+                            int weekCompared = compareWeeks(data, endDate);                            
                             int dayOfWeekCompared = compareDayOfWeek(data, dateFormat.parse(rs.getString("StartDate")));
                             if(dayOfWeekCompared == 0 && yearCompared <= 0 && weekCompared <= 0){
-                                //System.out.println(data.toString());
                                 recurenta = new Recurenta(mod, data);
                             }
                         }
                         if(mod == 3){
-                            int monthCompared = compareMonths(data, endDate);  
-                            
-                            int yearCompared = compareYears(data, endDate);  
-                            
+                            int monthCompared = compareMonths(data, endDate);                            
+                            int yearCompared = compareYears(data, endDate);                            
                             int daysCompared = compareDays(data, dateFormat.parse(rs.getString("StartDate")));
                             if(monthCompared <= 0 && daysCompared == 0 && yearCompared <= 0){
                                 recurenta = new Recurenta(mod, data);
@@ -559,6 +568,13 @@ public class Container {
         return new ArrayList(evte);
     }
     
+    /**
+     * Compara ziua intre doua evenimente
+     * 
+     * @param currentDate data primului eveniment
+     * @param lastDate data celui de-al doilea eveniment
+     * @return 0=daca ziua e aceeasi; -1=daca ziua primului eveniment e mai mica; 1=daca ziua primului eveniment e mai mare
+     */
     private static int compareDays(Date currentDate, Date lastDate){        
         Calendar cal = Calendar.getInstance();
         cal.setTime(currentDate);
@@ -574,6 +590,13 @@ public class Container {
         return 0;
     }
     
+    /**
+     * Compara ziua saptamanii intre doua evenimente
+     * 
+     * @param currentDate data primului eveniment
+     * @param lastDate data celui de-al doilea eveniment
+     * @return 0=daca ziua saptamanii e aceeasi; -1=daca ziua saptamanii primului eveniment e mai mica; 1=daca ziua saptamanii primului eveniment e mai mare
+     */
     private static int compareDayOfWeek(Date currentDate, Date lastDate){
         Calendar cal = Calendar.getInstance();
         cal.setTime(currentDate);
@@ -589,6 +612,13 @@ public class Container {
         return 0;
     }
     
+    /**
+     * Compara saptamanile intre doua evenimente
+     * 
+     * @param currentDate data primului eveniment
+     * @param lastDate data celui de-al doilea eveniment
+     * @return 0=daca saptamana e aceeasi; -1=daca saptamana primului eveniment e mai mica; 1=daca saptamana primului eveniment e mai mare
+     */
     private static int compareWeeks(Date currentDate, Date lastDate){        
         Calendar cal = Calendar.getInstance(Locale.FRANCE);
         cal.setTime(currentDate);
@@ -605,6 +635,13 @@ public class Container {
         return 0;
     }
     
+    /**
+     * Compara lunile intre doua evenimente
+     * 
+     * @param currentDate data primului eveniment
+     * @param lastDate data celui de-al doilea eveniment
+     * @return 0=daca luna e aceeasi; -1=daca luna primului eveniment e mai mica; 1=daca luna primului eveniment e mai mare
+     */
     private static int compareMonths(Date currentDate, Date lastDate){        
         Calendar cal = Calendar.getInstance();
         cal.setTime(currentDate);
@@ -620,6 +657,13 @@ public class Container {
         return 0;
     }
     
+    /**
+     * Compara anii intre doua evenimente
+     * 
+     * @param currentDate data primului eveniment
+     * @param lastDate data celui de-al doilea eveniment
+     * @return 0=daca anul e aceeasi; -1=daca anul primului eveniment e mai mic; 1=daca anul primului eveniment e mai mare
+     */
     private static int compareYears(Date currentDate, Date lastDate){        
         Calendar cal = Calendar.getInstance();
         cal.setTime(currentDate);
