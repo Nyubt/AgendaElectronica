@@ -18,7 +18,7 @@ public class Alarma {
     protected int intervalTimp;
     /**
      * Factorul de recurenta dat in minute care declanseaa alarma din timp in
-     * timp pâana cand este oprita de utilizator
+     * timp pana cand este oprita de utilizator
      */
     protected int factorRecurenta;
 

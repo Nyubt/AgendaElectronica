@@ -23,14 +23,22 @@ public class EventDetails extends javax.swing.JFrame {
         initComponents();
         this.parentFrame = parent;
         this.eveniment = info;
+        if(eveniment.getAlarma().getIntervalTimp() != 0){
+            jAlarmaActivaCheckbox.setState(true);
+            jSnoozeTextField.setText(eveniment.getAlarma().getFactorRecurenta() + " min");
+            jIntervalTimpTextField.setText(eveniment.getAlarma().getIntervalTimp() + " min");
+        }
+        if(eveniment.getRecurenta().getModRecurenta() != 0){
+            jRecurentaCheckbox.setState(true);
+        }
+        System.out.println(eveniment.getRecurenta().getDataSfarsit());
+        System.out.println(eveniment.getRecurenta().getModRecurenta());
         jTitluTextField.setText(eveniment.getTitlu());
         jDescriereTextArea.setText(eveniment.getDescriere());
         jInceputTextField.setText(eveniment.getInceput().toString());
         jSfarsitTextField.setText(eveniment.getSfarsit().toString());
         jColorTextField.setText(getColorNameFromHex(eveniment.getCuloare()));
         jRecurentaTextField.setText(getModRecurenta());
-        jRecurentaComboBox.setSelectedItem(eveniment.getAlarma().getFactorRecurenta() + " min");
-        jIntervalTimpTextField.setText(eveniment.getAlarma().getIntervalTimp() + " min");
         parentFrame.setVisible(false);
     }
 
@@ -50,7 +58,6 @@ public class EventDetails extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jColorTextField = new javax.swing.JTextField();
-        jRecurentaComboBox = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -59,6 +66,9 @@ public class EventDetails extends javax.swing.JFrame {
         jAnulareButton = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jRecurentaTextField = new javax.swing.JTextField();
+        jRecurentaCheckbox = new java.awt.Checkbox();
+        jAlarmaActivaCheckbox = new java.awt.Checkbox();
+        jSnoozeTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -118,20 +128,17 @@ public class EventDetails extends javax.swing.JFrame {
         jColorTextField.setText(" ");
         jColorTextField.setName("jTextFiledIntervalTimp"); // NOI18N
 
-        jRecurentaComboBox.setForeground(new java.awt.Color(0, 102, 102));
-        jRecurentaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "5 min", "10 min", "15 min", "30 min", "60 min" }));
-
         jLabel8.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 102, 102));
         jLabel8.setText("DETALII EVENIMENT");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel9.setText("Recurenta");
+        jLabel9.setText("Amanare alarma");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel10.setText("IntervalTimp");
+        jLabel10.setText("Notificare alarma");
 
         jIntervalTimpTextField.setEditable(false);
         jIntervalTimpTextField.setText(" ");
@@ -159,6 +166,20 @@ public class EventDetails extends javax.swing.JFrame {
         jRecurentaTextField.setText(" ");
         jRecurentaTextField.setName("jTextFiledIntervalTimp"); // NOI18N
 
+        jRecurentaCheckbox.setEnabled(false);
+        jRecurentaCheckbox.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jRecurentaCheckbox.setForeground(new java.awt.Color(0, 102, 102));
+        jRecurentaCheckbox.setLabel("Eveniment recurent");
+
+        jAlarmaActivaCheckbox.setEnabled(false);
+        jAlarmaActivaCheckbox.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jAlarmaActivaCheckbox.setForeground(new java.awt.Color(0, 102, 102));
+        jAlarmaActivaCheckbox.setLabel("Alarma activa");
+
+        jSnoozeTextField.setEditable(false);
+        jSnoozeTextField.setText(" ");
+        jSnoozeTextField.setName("jTextFiledIntervalTimp"); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -172,21 +193,24 @@ public class EventDetails extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jModificareButton)
-                                        .addGap(78, 78, 78))
+                                        .addGap(31, 31, 31))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addGap(14, 14, 14)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel10)
-                                            .addComponent(jLabel9))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                            .addComponent(jLabel9)
+                                            .addComponent(jLabel11)
+                                            .addComponent(jAlarmaActivaCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jIntervalTimpTextField)
-                                        .addComponent(jRecurentaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jAnulareButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jAnulareButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jRecurentaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jIntervalTimpTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jSnoozeTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -196,11 +220,10 @@ public class EventDetails extends javax.swing.JFrame {
                                         .addComponent(jLabel6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel11))
+                                    .addComponent(jLabel3))
                                 .addGap(68, 68, 68)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRecurentaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jRecurentaCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(jSfarsitTextField)
                                         .addComponent(jTitluTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -235,14 +258,18 @@ public class EventDetails extends javax.swing.JFrame {
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jColorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRecurentaCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jAlarmaActivaCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRecurentaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRecurentaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(jSnoozeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -259,7 +286,6 @@ public class EventDetails extends javax.swing.JFrame {
         jInceputTextField.getAccessibleContext().setAccessibleDescription("");
         jSfarsitTextField.getAccessibleContext().setAccessibleName("jSfarsitTextField");
         jColorTextField.getAccessibleContext().setAccessibleName("jColorTextField");
-        jRecurentaComboBox.getAccessibleContext().setAccessibleName("jRecurentaComboBox");
         jIntervalTimpTextField.getAccessibleContext().setAccessibleName("jIntervalTimpTextField");
         jModificareButton.getAccessibleContext().setAccessibleName("jModificareButton");
         jAnulareButton.getAccessibleContext().setAccessibleName("jAnulareButton");
@@ -375,6 +401,7 @@ public class EventDetails extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.Checkbox jAlarmaActivaCheckbox;
     private javax.swing.JButton jAnulareButton;
     private javax.swing.JTextField jColorTextField;
     private javax.swing.JTextArea jDescriereTextArea;
@@ -391,10 +418,11 @@ public class EventDetails extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JButton jModificareButton;
-    private javax.swing.JComboBox<String> jRecurentaComboBox;
+    private java.awt.Checkbox jRecurentaCheckbox;
     private javax.swing.JTextField jRecurentaTextField;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jSfarsitTextField;
+    private javax.swing.JTextField jSnoozeTextField;
     private javax.swing.JTextField jTitluTextField;
     // End of variables declaration//GEN-END:variables
 }
