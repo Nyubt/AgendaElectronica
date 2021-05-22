@@ -7,6 +7,7 @@ import Exceptions.Exceptie4cifre;
 import Exceptions.ExceptieZi;
 import Model.Eveniment;
 import Model.Zi;
+import Validators.DateTimeValidator;
 import static View.CalendarFiller.date;
 import static View.CalendarFiller.month;
 import static View.CalendarFiller.year;
@@ -23,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 /**
@@ -41,7 +43,7 @@ public class CalendarMain extends javax.swing.JFrame {
     AddEvent addEventFrame;
 
     /**
-     * Creates new form CalendarMain
+     * Creates new CalendarMain form
      */
     public CalendarMain() {
         initComponents();
@@ -1079,96 +1081,30 @@ public class CalendarMain extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItemWeekViewItemStateChanged
     /**
-     * The button to jump to a specific date you can introduce only numbers in
-     * YearField, MonthField and DayField For MonthField you can introduce
-     * numbers less than 12 For February is an exception: you can introduce
-     * numbers less than 29 For the rest - numbers less than 31
+     * Jumps to the date specified in the "Selected Date" box
+     * 
+     * @param evt 
      */
     private void DateJumpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DateJumpButtonActionPerformed
-        boolean canJump = true;
-        try {
-            if (Integer.parseInt(jYearTextField.getText()) < 2018 || Integer.parseInt(jYearTextField.getText()) > 2030) {
-                throw new LimiteAni();
-            }
-            int n = Integer.parseInt(jYearTextField.getText());
-            int nrCifre = 0;
-            while (n != 0) {
-                nrCifre++;
-                n = n / 10;
-            }
-            if (nrCifre != 4) {
-                throw new Exceptie4cifre();
-            }
-            CalendarFiller.year = Integer.parseInt(jYearTextField.getText());
-        } catch (NumberFormatException e) {
-            canJump = false;
-            System.out.println("Exceptie : Introduceti doar cifre in caseta pt an!");
-        } catch (Exceptie4cifre ex) {
-            canJump = false;
-            System.out.println("Exceptie : " + ex.toString());
-        } catch (LimiteAni ex) {
-            canJump = false;
-            System.out.println("Exceptie : " + ex.toString());
-        }
-
-        try {
-            if (Integer.parseInt(jMonthTextField.getText()) < 1 || Integer.parseInt(jMonthTextField.getText()) > 12) {
-                throw new ExceptieLuna();
-            }
-            CalendarFiller.month = Integer.valueOf(jMonthTextField.getText());
-        } catch (ExceptieLuna ex) {
-            canJump = false;
-            System.out.println("Exceptie : " + ex.toString());
-        } catch (NumberFormatException e) {
-            canJump = false;
-            System.out.println("Exceptie : Introduceti doar cifre in caseta pt luna!");
-        }
-
-        try {
-            if (Integer.valueOf(jDateText.getText()) < 1 || Integer.valueOf(jDateText.getText()) > 31) {
-                throw new ExceptieZi();
-            }
-            if (Integer.valueOf(jMonthTextField.getText()) == 2 && Integer.valueOf(jDateText.getText()) > 29) {
-                throw new ExceptieFebruarie();
-            }
-            CalendarFiller.date = Integer.valueOf(jDateText.getText());
-        } catch (NumberFormatException e) {
-            canJump = false;
-            System.out.println("Exceptie : Introduceti doar cifre in caseta pt zi!");
-        } catch (ExceptieZi ex) {
-            canJump = false;
-            System.out.println("Exceptie : " + ex.toString());
-        } catch (ExceptieFebruarie ex) {
-            canJump = false;
-            System.out.println("Exceptie : " + ex.toString());
-        }
-
+        boolean canJump = DateTimeValidator.validateDateInput(jDateText.getText(), jMonthTextField.getText(), jYearTextField.getText());
         if (canJump) {
+            CalendarFiller.year = Integer.parseInt(jYearTextField.getText());
+            CalendarFiller.month = Integer.valueOf(jMonthTextField.getText());
+            CalendarFiller.date = Integer.valueOf(jDateText.getText());            
+            refillCalenderData();
             cal.set(year, month, date);
             switchPanelName();
-
-            try {
-                CalendarFiller.fillInList(panelSelected, jDayEventList);
-            } catch (ParseException ex) {
-                Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            try {
-                CalendarFiller.fillInList(panelSelected, jEventsList);
-            } catch (ParseException ex) {
-                Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            CalendarFiller.fillInTable(panelSelected, jMonthTable);
-            CalendarFiller.fillInTable(panelSelected, jWeekTable);
-            CalendarFiller.fillInTable(panelSelected, jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
+        } else {
+            JOptionPane.showMessageDialog(null, "Data incorecta. Reintroduceti data folosind formatul DD-MM-YYYY");
         }
     }//GEN-LAST:event_DateJumpButtonActionPerformed
 
     /**
-     * If the selected panel = 1, you can move to the next year If the selected
-     * panel = 2, you can move to the next month If the selected panel = 1, you
-     * can move to the next day of month
+     * Shifts calender data forward depending on the display mode selected
+     * Year mode will shift to the next year
+     * Month mode will shift to the next month
+     * Week mode will shift to the next week
+     * Day mode will shift to the next day
      */
 
     private void jButtonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextActionPerformed
@@ -1207,7 +1143,7 @@ public class CalendarMain extends javax.swing.JFrame {
                 CalendarFiller.month = ld.getMonthValue();
                 CalendarFiller.date = ld.getDayOfMonth();
             }
-        } else {
+        } else if (panelSelected == 0) {
             CalendarFiller.year++;
         }
         cal.set(CalendarFiller.year, CalendarFiller.month - 1, CalendarFiller.date);
@@ -1215,47 +1151,28 @@ public class CalendarMain extends javax.swing.JFrame {
         jMonthTextField.setText(String.valueOf(CalendarFiller.month));
         jYearTextField.setText(String.valueOf(CalendarFiller.year));
         jDateText.setText(String.valueOf(CalendarFiller.date));
+        refillCalenderData();
         switchPanelName();
-        try {
-            CalendarFiller.fillInList(panelSelected, jDayEventList);
-        } catch (ParseException ex) {
-            Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            CalendarFiller.fillInList(panelSelected, jEventsList);
-        } catch (ParseException ex) {
-            Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        CalendarFiller.fillInTable(panelSelected, jMonthTable);
-        CalendarFiller.fillInTable(panelSelected, jWeekTable);
-        CalendarFiller.fillInTable(panelSelected, jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
     }//GEN-LAST:event_jButtonNextActionPerformed
 
-    //DefaultTableModel mod;
+    /**
+     * 
+     * @param evt 
+     */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         CalendarFiller.addModel(jMonthTable);
         CalendarFiller.addModel(jWeekTable);
         CalendarFiller.addModel(jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
-
-        try {
-            CalendarFiller.fillInList(panelSelected, jDayEventList);
-        } catch (ParseException ex) {
-            Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            CalendarFiller.fillInList(panelSelected, jEventsList);
-        } catch (ParseException ex) {
-            Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        CalendarFiller.fillInTable(panelSelected, jMonthTable);
-        CalendarFiller.fillInTable(panelSelected, jWeekTable);
-        CalendarFiller.fillInTable(panelSelected, jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
+        
+        refillCalenderData();
     }//GEN-LAST:event_formWindowOpened
 
     /**
-     * If the selected panel = 1, you can move to the previous year If the
-     * selected panel = 2, you can move to the previous month If the selected
-     * panel = 1, you can move to the previous day of month
+     * Shifts calender data backwards depending on the display mode selected
+     * Year mode will shift to the previous year
+     * Month mode will shift to the previous month
+     * Week mode will shift to the previous week
+     * Day mode will shift to the previous day
      */
     private void jButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackActionPerformed
         if (panelSelected == 1) {
@@ -1293,7 +1210,7 @@ public class CalendarMain extends javax.swing.JFrame {
                 CalendarFiller.month = ld.getMonthValue();
                 CalendarFiller.date = ld.getDayOfMonth();
             }
-        } else {
+        } else if (panelSelected == 0) {
             CalendarFiller.year--;
         }
         cal.set(CalendarFiller.year, CalendarFiller.month - 1, CalendarFiller.date);
@@ -1301,20 +1218,8 @@ public class CalendarMain extends javax.swing.JFrame {
         jMonthTextField.setText(String.valueOf(CalendarFiller.month));
         jYearTextField.setText(String.valueOf(CalendarFiller.year));
         jDateText.setText(String.valueOf(CalendarFiller.date));
+        refillCalenderData();
         switchPanelName();
-        try {
-            CalendarFiller.fillInList(panelSelected, jDayEventList);
-        } catch (ParseException ex) {
-            Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            CalendarFiller.fillInList(panelSelected, jEventsList);
-        } catch (ParseException ex) {
-            Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        CalendarFiller.fillInTable(panelSelected, jMonthTable);
-        CalendarFiller.fillInTable(panelSelected, jWeekTable);
-        CalendarFiller.fillInTable(panelSelected, jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
     }//GEN-LAST:event_jButtonBackActionPerformed
 
     private void jMenuItemDayViewItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jMenuItemDayViewItemStateChanged
@@ -1410,8 +1315,26 @@ public class CalendarMain extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jWeekTableMousePressed
 
+    private void refillCalenderData(){
+        try {
+            CalendarFiller.fillInList(panelSelected, jDayEventList);
+        } catch (ParseException ex) {
+            Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            CalendarFiller.fillInList(panelSelected, jEventsList);
+        } catch (ParseException ex) {
+            Logger.getLogger(CalendarMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        CalendarFiller.fillInTable(panelSelected, jMonthTable);
+        CalendarFiller.fillInTable(panelSelected, jWeekTable);
+        CalendarFiller.fillInTable(panelSelected, jTableJan, jTableFeb, jTableMar, jTableApr, jTableMay, jTableJun, jTableJul, jTableAug, jTableSep, jTableOct, jTableNov, jTableDec);
+    }
+    
     /**
-     * The function to open the windows with the event details
+     * Opens the Detalii Eveniment window
      *
      * @param evt
      */
@@ -1430,7 +1353,7 @@ public class CalendarMain extends javax.swing.JFrame {
     }
 
     /**
-     * The function to open the add event windows
+     * Opens the Adaugare Eveniment window
      *
      * @param evt
      */
@@ -1478,7 +1401,7 @@ public class CalendarMain extends javax.swing.JFrame {
     }
 
     /**
-     * The function to switch panels
+     * Changes the displayed mode "panel" shown
      *
      * @param panel
      */
@@ -1491,7 +1414,7 @@ public class CalendarMain extends javax.swing.JFrame {
     }
 
     /**
-     * switch between the 4 panels(year, month, week and day)
+     * Changes the name of the page header depending on the displayed mode
      */
     private void switchPanelName() {
         cal.set(MONTH, Integer.parseInt(jMonthTextField.getText()) - 1);
