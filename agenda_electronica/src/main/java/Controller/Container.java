@@ -34,7 +34,7 @@ public class Container {
     private static Connection connection;
 
     /**
-     * Functia get pentru a obtine instanta
+     * Genereaza o instanta a obiectului Container
      *
      * @return instanta a obiectului Container
      */
@@ -253,7 +253,7 @@ public class Container {
      * @param timpInceput ora de incepere a evenimentului format hh:mm:ss
      * @param dataSfarsit data de sfarsire a evenimentului format yyyy-mm-dd
      * @param timpSfarsit ora de sfarsire a evenimentului format hh:mm:ss
-     * @param culoare culoare hex a evenimentului
+     * @param culoare culoare in hexa a evenimentului
      * @param alarmaPornita valoarea de adevar sau fals a starii alarmei
      * @param factorRecurenta factorul de recurenta dat in minute care declanseaa alarma din timp in timp pana cand este oprita de utilizator
      * @param intervalTimp intervalul de timp setat de utilizator inaintea evenimentului dupa care se va declansa alarma sonora
