@@ -83,6 +83,7 @@ public class EventDetails extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -317,6 +318,7 @@ public class EventDetails extends javax.swing.JFrame {
 
     /**
      * Apeleaza metoda de modificare a evenimentului si inchide fereastra
+     * Permite modificarea titlului si descrierii evenimentului
      * 
      * @param evt
      */
