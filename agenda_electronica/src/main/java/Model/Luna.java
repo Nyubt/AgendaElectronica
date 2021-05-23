@@ -17,7 +17,7 @@ public class Luna implements ListEventsInterface {
     /**
      * Constructorul clasei Luna
      *
-     * @param zile
+     * @param zile lista de obiecte Zi
      */
     public Luna(List<Zi> zile) {
         this.luna = zile;

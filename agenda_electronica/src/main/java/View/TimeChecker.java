@@ -47,15 +47,14 @@ public class TimeChecker {
     /**
      * Verifica daca exista alarme active si le ruleaza
      *
-     * @param jAlarmList
-     * @param jAlarmTextField
+     * @param jAlarmList lista de alarme
+     * @param jAlarmTextField perioada pana la prima alarma
      */
     public static void checkAlarm(JList jAlarmList, JTextField jAlarmTextField) {
         map = new TreeMap<>();
         Thread t = new Thread() {
             public void run() {
                 while (true) {
-
                     try {
                         ExtractAlarmEvents();
                     } catch (ParseException ex) {
@@ -102,7 +101,7 @@ public class TimeChecker {
     /**
      * Amana perioada alarmei cu valoarea factorului de recurenta
      *
-     * @param eveniment
+     * @param eveniment evenimentul care va fi actualizat
      */
     private static void UpdateAlarmTime(Eveniment eveniment) {
         for (Map.Entry<Date, Eveniment> entry : map.entrySet()) {
@@ -116,8 +115,9 @@ public class TimeChecker {
     }
 
     /**
-     * Extrage lista de evenimente cu alarme pentru ziua curenta si o adauga
-     * in map
+     * Extrage lista de evenimente cu alarme pentru ziua curenta si o salveaza in map
+     * 
+     * @throws ParseException 
      */
     private static void ExtractAlarmEvents() throws ParseException {
         List<Eveniment> evenimente = Agenda.SelectareEvente(new Date(), "DAY").getEventList();
@@ -143,7 +143,7 @@ public class TimeChecker {
     }
 
     /**
-     * Opreste alarma si o anuleaza in baza de date
+     * Apeleaza metoda de oprire a alarmei
      */
     public static void StopAlarm() {
         Map.Entry<Date, Eveniment> entry = map.entrySet().iterator().next();

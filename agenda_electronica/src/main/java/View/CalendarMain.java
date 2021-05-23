@@ -1489,7 +1489,7 @@ public class CalendarMain extends javax.swing.JFrame {
     /**
      * Schimba modul de afisare a agendei
      *
-     * @param panel 
+     * @param panel JPanel care raspunde de modul de afisare
      */
     public void switchPanels(JPanel panel) {
         jLayeredPanel.removeAll();

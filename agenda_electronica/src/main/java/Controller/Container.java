@@ -61,6 +61,7 @@ public class Container {
      *
      * @param data data evenimentului
      * @return evenimente dint-o zi
+     * @throws ParseException 
      */
     public static Zi FurnizareZi(Date data) throws ParseException {
         evenimente = new ArrayList<Eveniment>();
@@ -158,6 +159,7 @@ public class Container {
      *
      * @param data data evenimentelor cautate
      * @return evenimente dintr-o luna
+     * @throws ParseException 
      */
     public static Luna FurnizareLuna(Date data) throws ParseException {
         List<Zi> luna = new ArrayList<>();
@@ -179,6 +181,7 @@ public class Container {
      * 
      * @param data data evenimentelor cautate
      * @return evenimente dintr-o saptamana
+     * @throws java.text.ParseException
      */
     public static Saptamana FurnizareSaptamana(Date data) throws ParseException {
         List<Zi> saptamana = new ArrayList<>();
@@ -208,6 +211,7 @@ public class Container {
      * Gaseste toate evenimentele din baza de date
      *
      * @return toate evenimentele din baza de date
+     * @throws ParseException 
      */
     public static Zi FurnizareToateEvent() throws ParseException {
         evenimente = new ArrayList<Eveniment>();

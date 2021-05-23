@@ -154,6 +154,7 @@ public class Agenda {
      * @param data data de declansare a evenimentelor
      * @param modAfisare modul de afisare a evenimentelor in UI
      * @return obiect Zi,Saptamana,Luna,An cu lista de evenimente in dependenta de modul de afisare transmis
+     * @throws ParseException 
      */
     public static ListEventsInterface SelectareEvente(Date data, String modAfisare) throws ParseException {
         EnumerareModAfisare mod = modAfisare != null ? EnumerareModAfisare.valueOf(modAfisare) : null;
