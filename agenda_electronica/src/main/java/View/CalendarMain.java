@@ -1395,7 +1395,7 @@ public class CalendarMain extends javax.swing.JFrame {
     /**
      * Reincarca evenimentele in tabele si liste cu data setata in agenda
      */
-    private void refillCalenderData(){
+    public void refillCalenderData(){
         try {
             CalendarFiller.fillInList(panelSelected, jDayEventList);
         } catch (ParseException ex) {

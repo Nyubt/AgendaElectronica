@@ -655,6 +655,7 @@ public class AddEvent extends javax.swing.JFrame {
      * @param evt 
      */
     private void jExitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jExitButtonMouseClicked
+        parentFrame.refillCalenderData();
         parentFrame.setVisible(true);
         parentFrame.revalidate();
         super.dispose();

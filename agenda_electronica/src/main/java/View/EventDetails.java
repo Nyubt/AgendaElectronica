@@ -2,6 +2,8 @@ package View;
 
 import Controller.Agenda;
 import Model.Eveniment;
+import java.awt.HeadlessException;
+import javax.swing.JOptionPane;
 
 /**
  * Clasa EventDetails afiseaza un UI cu detaliile evenimentului si permite prelucrarea acestora
@@ -325,7 +327,13 @@ public class EventDetails extends javax.swing.JFrame {
     private void jModificareButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jModificareButtonMouseClicked
         eveniment.setTitlu(jTitluTextField.getText());
         eveniment.setDescriere(jDescriereTextArea.getText());
-        Agenda.ModificareEvent(eveniment);
+        try{
+            Agenda.ModificareEvent(eveniment);
+            JOptionPane.showMessageDialog(null, "Eveniment modificat");
+        } catch(HeadlessException e){
+            System.out.println(e.getMessage());
+        }
+        parentFrame.refillCalenderData();
         parentFrame.setVisible(true);
         super.dispose();
     }//GEN-LAST:event_jModificareButtonMouseClicked
@@ -336,7 +344,13 @@ public class EventDetails extends javax.swing.JFrame {
      * @param evt 
      */
     private void jAnulareButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jAnulareButtonMouseClicked
-        Agenda.AnulareEvent(eveniment);
+        try{
+            Agenda.AnulareEvent(eveniment);
+            JOptionPane.showMessageDialog(null, "Eveniment anulat");
+        } catch(HeadlessException e){
+            System.out.println(e.getMessage());
+        }
+        parentFrame.refillCalenderData();
         parentFrame.setVisible(true);
         parentFrame.revalidate();
         super.dispose();
