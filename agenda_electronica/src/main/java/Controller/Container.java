@@ -29,6 +29,11 @@ public class Container {
     private static List<Eveniment> evenimente;
     private static Container instance;
     private static Connection connection;
+    
+    /**
+     * Constructor privat pentru a putea folosi Singleton pattern 
+     */
+    private Container() { }
 
     /**
      * Genereaza o instanta a obiectului Container
